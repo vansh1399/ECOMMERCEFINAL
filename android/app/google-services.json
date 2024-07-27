@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "433931523568",
+    "project_id": "vansh9867-2a778",
+    "storage_bucket": "vansh9867-2a778.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433931523568:android:96da3273bb14681eb9b935",
+        "android_client_info": {
+          "package_name": "com.demo777"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS8O0HvFOMIOw_l9xTxZnEL40y6aHKlX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433931523568:android:b032a81f8755b28fb9b935",
+        "android_client_info": {
+          "package_name": "com.ecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS8O0HvFOMIOw_l9xTxZnEL40y6aHKlX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433931523568:android:7b404de5b6969f55b9b935",
+        "android_client_info": {
+          "package_name": "com.ecommercevanshadmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS8O0HvFOMIOw_l9xTxZnEL40y6aHKlX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
