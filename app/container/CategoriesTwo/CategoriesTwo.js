@@ -1,11 +1,18 @@
 import { View, Text, StatusBar, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
+import { useDispatch } from 'react-redux';
+import { subBythunk } from '../../redux/slice/SubCategory.Slice';
 
-export default function CategoriesTwo() {
+export default function CategoriesTwo({route,navigation}) {
+    console.log("lllll",route);
+    const dispatch=useDispatch();
+    useEffect(()=>{
+        dispatch(subBythunk(route.params.cat_id))
+    },[])
     return (
         <ScrollView>
             <StatusBar

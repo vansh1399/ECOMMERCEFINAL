@@ -190,15 +190,12 @@ export default function Maainpage({ route, navigation }) {
             {i % 4 === 0 &&
               <View style={{ width: '100%', height: 200 }}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("ProductCard")}
+                  onPress={() => navigation.navigate("Categories Two",{cat_id:v.id})}
                 ><Image source={require('../../assets/image/fashion_girl1.jpg')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
                 <Text style={style.FistViewText}>{v.name}</Text>
 
               </View>
             }
-
-
-
 
             {/* <View style={i % 2 == 0 ? style.DirectView : ''}> */}
             {/* <View style={style.SecondView}> */}

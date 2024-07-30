@@ -35,7 +35,7 @@ export default function App() {
 
     <Provider store={store}>
       <NavigationContainer>
-        {/* <BottamTab /> */}
+        <BottamTab />
       </NavigationContainer>
       {/* <Forget/> */}
       {/* <Signup/> */}

@@ -164,10 +164,10 @@ export const HomeStack = () => {
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
         })} />
-        <Stack.Screen name='ProductCard' component={ProductCard} options={({ navigation }) => ({
+        {/* <Stack.Screen name='ProductCard' component={ProductCard} options={({ navigation }) => ({
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
-        })} />
+        })} /> */}
         <Stack.Screen name="MyBag" component={My_Bag} options={({ navigation }) => ({
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />,
