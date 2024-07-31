@@ -20,7 +20,7 @@ export const subBythunk = createAsyncThunk(
 
                 querySnapshot.forEach(documentSnapshot => {
                     if (documentSnapshot.data().category_id === cat_id) {
-                        sub_data.push(documentSnapshot.id, documentSnapshot.data())
+                        sub_data.push({...documentSnapshot.data(), id: documentSnapshot.id})
                     }
                     console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
                 });

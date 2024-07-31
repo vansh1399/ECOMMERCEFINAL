@@ -1,10 +1,12 @@
 import { View, Text, ScrollView, StatusBar, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Collapsible from 'react-native-collapsible';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
+import { useDispatch, useSelector } from 'react-redux';
+import { shopByThunk } from '../../redux/slice/Shopping.Slice';
 
 const data = [
     {
@@ -58,7 +60,15 @@ const Data2 = [
         price: 9
     }
 ]
-export default function Shopping({route,navigation}) {
+export default function Shopping({ route, navigation }) {
+    console.log('kkkk',route);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(shopByThunk({ cat_id: route.params.cat_id, sub_id: route.params.sub_id }))
+    }, [])
+    const shoppingA = useSelector(state => state.shopping);
+    console.log('ssssssssssssss', shoppingA.Shopping);
+
     const ProductCard = ({ v }) => (
 
         <View style={styles.CategorisView}>
@@ -67,13 +77,13 @@ export default function Shopping({route,navigation}) {
         </View>
     )
     const ProductData = ({ v }) => (
-        <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={()=>{navigation.navigate("ProductCard")}}>
+        <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => { navigation.navigate("ProductCard") }}>
             <View style={styles.productMainView}>
                 <View style={styles.productImg}>
-                    <Image source={v.img} style={{ width: '100%', height: '100%',borderTopLeftRadius:15,borderTopRightRadius:15}} />   
+                    <Image source={v.img} style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }} />
                 </View>
                 <View>
-                <TouchableOpacity><FontAwesome name="heart-o" size={20} color="black" style={styles.heart} /></TouchableOpacity>
+                    <TouchableOpacity><FontAwesome name="heart-o" size={20} color="black" style={styles.heart} /></TouchableOpacity>
                 </View>
                 <View style={styles.productText}>
                     <View style={styles.iconview}>
@@ -84,9 +94,9 @@ export default function Shopping({route,navigation}) {
                         <FontAwesome name="star" size={20} style={{ color: '#FFBA49' }} />
                         <Text style={{ color: '#9B9B9B' }}>(3)</Text>
                     </View>
-                    <Text style={styles.mangoText}>{v.title}</Text>
-                    <Text style={styles.tShirt}>{v.SubTitle}</Text>
-                    <Text style={styles.price}>{v.price}$</Text>
+                    <Text style={styles.mangoText}>{v.Product_name}</Text>
+                    <Text style={styles.tShirt}>{v.Description}</Text>
+                    <Text style={styles.price}>{v.Price}$</Text>
                 </View>
 
             </View>
@@ -113,14 +123,14 @@ export default function Shopping({route,navigation}) {
                 />
 
                 <View style={styles.FilterOptions}>
-                    <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>navigation.navigate("filter")}><MaterialIcons name="filter-list" size={30} color="black" /><Text style={styles.filterText}>Filters</Text></TouchableOpacity>
-                    <TouchableOpacity style={{flexDirection:'row'}}><FontAwesome name="arrows-v" size={26} color="black" /><Text style={styles.filterText}>Price:lowest to high</Text></TouchableOpacity>
+                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("filter")}><MaterialIcons name="filter-list" size={30} color="black" /><Text style={styles.filterText}>Filters</Text></TouchableOpacity>
+                    <TouchableOpacity style={{ flexDirection: 'row' }}><FontAwesome name="arrows-v" size={26} color="black" /><Text style={styles.filterText}>Price:lowest to high</Text></TouchableOpacity>
                     <TouchableOpacity><FontAwesome name="th-list" size={26} color="black" /></TouchableOpacity>
                 </View>
             </View>
 
             <FlatList
-                data={Data2}
+                data={shoppingA.Shopping}
                 numColumns={2}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 renderItem={({ item }) => <TouchableOpacity><ProductData v={item} /></TouchableOpacity>}
@@ -187,12 +197,12 @@ const styles = StyleSheet.create({
         color: 'black',
         paddingRight: verticalScale(60),
         marginTop: 4,
-        marginLeft:10
+        marginLeft: 10
     },
     productMainView: {
         width: 180,
         height: 350,
-        marginBottom:40
+        marginBottom: 40
     },
     productImg: {
         width: '100%',
@@ -206,15 +216,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 20,
         padding: 10,
-        
+
     },
     productText: {
         width: '100%',
         height: '32%',
-        backgroundColor:'white',
-        borderBottomLeftRadius:15,
-        borderBottomRightRadius:15,
-        elevation:2
+        backgroundColor: 'white',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        elevation: 2
     },
     iconview: {
         flexDirection: 'row',
@@ -234,14 +244,14 @@ const styles = StyleSheet.create({
         fontFamily: 'Metropolis-SemiBold',
         fontSize: 18,
         paddingHorizontal: 6,
-        marginTop:3
+        marginTop: 3
     },
     price: {
         color: 'black',
         fontSize: 16,
         fontFamily: 'Metropolis-Medium',
         paddingHorizontal: 7,
-        marginTop:4
+        marginTop: 4
     },
 
 

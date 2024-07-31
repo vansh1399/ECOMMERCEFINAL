@@ -11,7 +11,7 @@ export default function CategoriesTwo({ route, navigation }) {
     console.log("lllll", route);
     const dispatch = useDispatch();
     const subCat = useSelector(state => state.subcategories)
-    console.log('jjjjkkkkkkkjjjjjj', subCat.subCategories);
+    console.log('jjjjjjjjjj', subCat.subCategories);
     useEffect(() => {
         dispatch(subBythunk(route.params.cat_id))
     }, [])
@@ -36,19 +36,27 @@ export default function CategoriesTwo({ route, navigation }) {
 
             <View style={{ marginTop: 10 }}>
                 {
-                    subCat.subCategories.map((v) => {
-                        <TouchableOpacity><Text style={Styles.product}>{v.name}</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Shirts & Blouses</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Cardigans & Sweaters</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Knitwear</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Blazers</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Outerwear</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Pants</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Jeans</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Shorts</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Skirts</Text></TouchableOpacity>
-                        // <TouchableOpacity><Text style={Styles.product}>Dresses</Text></TouchableOpacity>
-                    })
+                    subCat.subCategories
+                        .map((v) => (
+                            // console.log(v.name);
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate("shop",{
+                                    cat_id:route.params.cat_id,
+                                    sub_id:v.id,
+                                })}
+                            ><Text style={Styles.product}>{v.name}</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Shirts & Blouses</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Cardigans & Sweaters</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Knitwear</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Blazers</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Outerwear</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Pants</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Jeans</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Shorts</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Skirts</Text></TouchableOpacity>
+                            // <TouchableOpacity><Text style={Styles.product}>Dresses</Text></TouchableOpacity>
+                        ))
+
                 }
 
             </View>
