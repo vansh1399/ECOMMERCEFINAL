@@ -5,6 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React, { useState } from 'react'
 import Collapsible from 'react-native-collapsible';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
+import { useSelector } from 'react-redux';
 
 const Data = [
     {
@@ -40,7 +41,21 @@ const Data = [
         discount: 12
     }
 ]
+
 export default function ProductCard({route,navigation}) {
+    const ProductA = useSelector(state => state.shopping);
+    console.log('ProductA',ProductA);
+
+    console.log('kkkkkkkkkkk',route?.params?.product);
+    
+
+  const Product= ProductA.Shopping.filter((v)=>
+        v.id===route?.params?.product
+    )
+    console.log('Productttttttttttt',Product);
+
+
+    console.log('ProductA',ProductA);
     const [images, setImages] = useState(
         [
             require('../../assets/image/fashion_girl_img8.png'),
@@ -109,9 +124,9 @@ export default function ProductCard({route,navigation}) {
 
 
                     <ScrollView horizontal>
-                        {
-                            images.map((v) => (
-                                <Image source={v} style={{ width: 320, height: 480, resizeMode: 'cover', marginRight: 20 }} />
+                        {   
+                            images.map((v,i) => (
+                                <Image key={i} source={v} style={{ width: 320, height: 480, resizeMode: 'cover', marginRight: 20 }} />
                             ))
                         }
                     </ScrollView>
@@ -130,24 +145,28 @@ export default function ProductCard({route,navigation}) {
                         </View>
                     </View>
 
-                    <View style={styles.HandMView}>
-                        <View>
-                            <Text style={styles.HAndM}>H&M</Text>
-                            <Text style={styles.ShortDress}>Short black dress</Text>
-                            <View style={styles.iconview}>
-                                <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
-                                <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
-                                <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
-                                <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
-                                <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 3, marginTop: 2 }} />
-                                <Text style={{ color: '#9B9B9B', fontSize: 13 }}>(10)</Text>
+                        {
+                            Product.map((v)=>(
+                                <View style={styles.HandMView} key={v.id}>
+                                <View>
+                                    <Text style={styles.HAndM}>{v.Product_name}</Text>
+                                    <Text style={styles.ShortDress}>{v.Description}</Text>
+                                    <View style={styles.iconview}>
+                                        <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
+                                        <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
+                                        <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
+                                        <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
+                                        <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 3, marginTop: 2 }} />
+                                        <Text style={{ color: '#9B9B9B', fontSize: 13 }}>(10)</Text>
+                                    </View>
+                                </View>
+                                <View>
+                                    <Text style={styles.HANdMPrice}>{v.Price}</Text>
+                                </View>
                             </View>
-                        </View>
-                        <View>
-                            <Text style={styles.HANdMPrice}>$19.99</Text>
-                        </View>
-                    </View>
-
+                            ))
+                        }
+              
                     <View style={styles.TextsView}>
                         <Text style={styles.Texts}>Short dress in soft cotton jersey with decorative buttons down the
                             front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated

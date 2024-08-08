@@ -40,9 +40,10 @@ export default function CategoriesTwo({ route, navigation }) {
                         .map((v) => (
                             // console.log(v.name);
                             <TouchableOpacity
-                                onPress={() => navigation.navigate("shop",{
-                                    cat_id:route.params.cat_id,
-                                    sub_id:v.id,
+                                key={v.id}
+                                onPress={() => navigation.navigate("shop", {
+                                    cat_id: route.params.cat_id,
+                                    sub_id: v.id,
                                 })}
                             ><Text style={Styles.product}>{v.name}</Text></TouchableOpacity>
                             // <TouchableOpacity><Text style={Styles.product}>Shirts & Blouses</Text></TouchableOpacity>

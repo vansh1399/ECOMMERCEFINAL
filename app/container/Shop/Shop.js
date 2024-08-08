@@ -7,29 +7,34 @@ import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 import { useDispatch, useSelector } from 'react-redux';
 import { shopByThunk } from '../../redux/slice/Shopping.Slice';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { getProduct } from '../../redux/slice/Product.Slice';
+import { fetchCategories } from '../../redux/slice/category.slice';
 
-const data = [
-    {
-        id: 1,
-        title: 'T-shirts',
+// const data = [
+//     {
+//         id: 1,
+//         title: 'T-shirts',
 
-    },
-    {
-        id: 2,
-        title: 'Crop tops',
+//     },
+//     {
+//         id: 2,
+//         title: 'Crop tops',
 
-    },
-    {
-        id: 3,
-        title: 'Blouses',
+//     },
+//     {
+//         id: 3,
+//         title: 'Blouses',
 
-    },
-    {
-        id: 4,
-        title: 'Shirt',
+//     },
+//     {
+//         id: 4,
+//         title: 'Shirt',
 
-    }
-]
+//     }
+// ]
+
+
+
 
 const Data2 = [
     {
@@ -70,10 +75,16 @@ const YourOwnComponent = () => (
     </View>
 );
 
-export default function Shopping({ route, navigation }) {
+export default function Shop({ route, navigation }) {
     const refRBSheet = useRef([]);
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('')
+    const [selectCat, setselectCat] = useState('');
+    const [selectCathover, setselectCathover] = useState(false)
+
+    const selecthover = () => {
+        setselectCathover(!selectCathover)
+    }
 
     const renderItem = ({ item, index, refRBSheet }) => {
         console.log('kkkkkkggggkk', item);
@@ -103,12 +114,17 @@ export default function Shopping({ route, navigation }) {
         );
     };
 
-    console.log('kkkk', route);
+    const category = useSelector(state => state.categories)
+    console.log('okk', category.categories);
+
+    // console.log('kkkk', route);
     const dispatch = useDispatch();
+
     useEffect(() => {
-        dispatch(shopByThunk({ cat_id: route.params.cat_id, sub_id: route.params.sub_id }))
+        dispatch(getProduct())
+        dispatch(fetchCategories())
     }, [])
-    const shoppingA = useSelector(state => state.shopping);
+    const shoppingA = useSelector(state => state.product);
 
     console.log('ssssssssssssss', shoppingA.Shopping);
 
@@ -130,20 +146,27 @@ export default function Shopping({ route, navigation }) {
                 return b.Price - a.Price
             }
         })
+
+        if (selectCat != '') {
+            const selCAT = fData.filter((v) => v.category_id === selectCat)
+            console.log('okayyyy', selCAT);
+            return selCAT
+        }
         return SData
     }
 
 
     const FinalData = searchSort();
 
-
-
     const ProductCard = ({ v }) => (
 
-        <View style={styles.CategorisView} >
-            <View style={styles.Options}><Text style={styles.OptionsText}>{v.title}</Text></View>
+        <TouchableOpacity
+            key={v.id}
+            style={styles.CategorisView}
+            onPress={() => { setselectCat(v.id), selecthover() }}>
+            <View style={selectCat === v.id ? styles.Optionhover : styles.Options}><Text style={styles.OptionsText}>{v.name}</Text></View>
 
-        </View>
+        </TouchableOpacity>
     )
     const ProductData = ({ v }) => (
         <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => { navigation.navigate("ProductCard", { product: v.id }) }}>
@@ -170,7 +193,7 @@ export default function Shopping({ route, navigation }) {
                     </View>
                     <Text style={styles.mangoText}>{v.Product_name}</Text>
                     <Text style={styles.tShirt}>{v.Description}</Text>
-                    <Text style={styles.price}>{v.id}$</Text>
+                    <Text style={styles.price}>{v.Price} ₹</Text>
                 </View>
 
             </View>
@@ -189,10 +212,16 @@ export default function Shopping({ route, navigation }) {
                 <Text style={styles.ArrowText}>Women's tops</Text>
                 <TouchableOpacity><MaterialIcons name="search" size={30} color="black" style={{ marginTop: 25 }} /></TouchableOpacity> */}
             </View>
+            <TouchableOpacity
+                style={styles.CategorisView}
+                onPress={() => { setselectCat(''), selecthover() }}>
+                <View style={selectCat === '' ? styles.Optionhover : styles.Options}><Text style={styles.OptionsText}>All</Text></View>
+
+            </TouchableOpacity>
             <View style={{ backgroundColor: 'white', marginBottom: 10 }}>
                 <FlatList
-                    data={data}
-                    renderItem={({ item }) => <TouchableOpacity><ProductCard v={item} /></TouchableOpacity>}
+                    data={category.categories}
+                    renderItem={({ item }) => <ProductCard v={item} />}
                     keyExtractor={item => item.id}
                     horizontal={true}
                 />
@@ -252,7 +281,7 @@ export default function Shopping({ route, navigation }) {
                 numColumns={2}
                 columnWrapperStyle={{ justifyContent: 'space-between', columnGap: 10, marginTop: 10 }}
                 renderItem={({ item }) => <TouchableOpacity><ProductData v={item} /></TouchableOpacity>}
-                keyExtractor={(item,index)=>index.toString()}
+                keyExtractor={item => item.id}
             // horizontal={true}
             />
 
@@ -260,6 +289,7 @@ export default function Shopping({ route, navigation }) {
         </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -293,6 +323,7 @@ const styles = StyleSheet.create({
         borderRadius: horizontalScale(100),
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 10
 
     },
     OptionsText: {
@@ -335,7 +366,7 @@ const styles = StyleSheet.create({
     },
     productText: {
         width: '100%',
-        height: '32%',
+        // height: '32%',
         backgroundColor: 'white',
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
@@ -608,6 +639,14 @@ const styles = StyleSheet.create({
     },
     bottomSheetContainer: {
         margin: 20
+    },
+    Optionhover: {
+        width: horizontalScale(90),
+        height: verticalScale(35),
+        backgroundColor: '#008CBA',
+        borderRadius: horizontalScale(100),
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 
 })

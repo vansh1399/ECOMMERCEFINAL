@@ -48,7 +48,7 @@ export default function ShippingAddresses({ route, navigation }) {
     );
 
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <StatusBar animated={true} backgroundColor={'transparent'} />
             {/* 
             <View style={styles.Ordertext}>
@@ -79,7 +79,7 @@ export default function ShippingAddresses({ route, navigation }) {
 
             </View>
 
-        </ScrollView>
+        </View>
     );
 }
 

@@ -16,6 +16,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Rating from '../container/Rating/Rating';
 import Filter from '../container/Filter/Filter';
 import CategoriesTwo from '../container/CategoriesTwo/CategoriesTwo';
+import Shop from '../container/Shop/Shop';
 
 const Stack = createNativeStackNavigator();
 
@@ -164,14 +165,14 @@ export const HomeStack = () => {
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
         })} />
-           <Stack.Screen name='shop' component={Shopping} options={({ navigation }) => ({
+        <Stack.Screen name='shop' component={Shopping} options={({ navigation }) => ({
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
         })} />
-        {/* <Stack.Screen name='ProductCard' component={ProductCard} options={({ navigation }) => ({
+        <Stack.Screen name='ProductCard' component={ProductCard} options={({ navigation }) => ({
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
-        })} /> */}
+        })} />
         <Stack.Screen name="MyBag" component={My_Bag} options={({ navigation }) => ({
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />,
@@ -197,16 +198,21 @@ export const HomeStack = () => {
 }
 
 export const ShopStack = () => {
-    return (<Stack.Navigator>
+    return (<Stack.Navigator screenOptions={{
+        headerTitleAlign: 'center'
+    }}>
         <Stack.Screen name='Shop'
-            component={Shopping}
+            component={Shop}
             options={({ navigation }) => ({
                 headerLeft: () =>
                     <HeaderBarLeft navigation={navigation} />
             })} />
 
         <Stack.Screen name='ProductCard' component={ProductCard} />
-        <Stack.Screen name='filter' component={Filter} />
+        <Stack.Screen name='filter' component={Filter} options={({ navigation }) => ({
+            headerLeft: () =>
+                <HeaderBarLeft navigation={navigation} />
+        })} />
     </Stack.Navigator>)
 }
 
@@ -263,6 +269,8 @@ export const AddShiipingStack = () => {
         })} />
     </Stack.Navigator>)
 }
+
+
 
 
 

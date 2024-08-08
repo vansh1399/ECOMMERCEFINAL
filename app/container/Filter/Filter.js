@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StatusBar, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import CheckBox from 'react-native-check-box';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 import Slider from '@react-native-community/slider';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilter } from '../../redux/slice/Filter.Slice';
+import { getFilterBrand } from '../../redux/slice/Brand.Slice';
 
 
 export default function Filter() {
     const [price, setPrice] = useState(78);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedCategory, setselectedCategory] = useState(null);
+
     const [selctbrand, setselctbrand] = useState(null)
 
     const size = ['XS', 'S', 'M', 'L', 'XL'];
@@ -18,7 +22,15 @@ export default function Filter() {
         setSelectedSize(size);
     };
 
-
+    const dispatch = useDispatch();
+    const FilterA = useSelector(state => state.Filters);
+    const brandA = useSelector(state => state.BrandF);
+    useEffect(() => {
+        dispatch(getFilter());
+        dispatch(getFilterBrand());
+    }, [])
+    console.log('filterrrrr', FilterA.filter);
+    console.log('bkkkkkkkkkkkkkk', brandA.filterbrand);
 
     const categories = ['All', 'Women', 'Men', 'Boys', 'Girls'];
 
@@ -35,10 +47,10 @@ export default function Filter() {
                         translucent backgroundColor='white'
                     />
 
-                    <View style={style.titlebar}>
+                    {/* <View style={style.titlebar}>
                         <MaterialIcons name='chevron-left' size={30} color='black'></MaterialIcons>
                         <Text style={style.filtertext}>Filters</Text>
-                    </View>
+                    </View> */}
 
                     <Text style={style.text}>Price range</Text>
                     <View style={style.viewstyle}>
@@ -60,15 +72,14 @@ export default function Filter() {
                         </View>
                     </View>
 
-                    <Text style={style.text}>Colors</Text>
-                    <View style={style.circleview}>
-                        <TouchableOpacity style={style.circle1}></TouchableOpacity>
-                        <TouchableOpacity style={style.circle2}></TouchableOpacity>
-                        <TouchableOpacity style={style.circle3}></TouchableOpacity>
-                        <TouchableOpacity style={style.circle4}></TouchableOpacity>
-                        <TouchableOpacity style={style.circle5}></TouchableOpacity>
-                        <TouchableOpacity style={style.circle6}></TouchableOpacity>
-                    </View>
+                    <View><Text style={style.text}>Colors</Text></View>
+                    {
+                        FilterA.filter.map((v) => (
+                            <View style={style.circleview} key={v.id}>
+                                <TouchableOpacity style={style.circle1}><Text>{v.name}</Text></TouchableOpacity>
+                            </View>
+                        ))
+                    }
 
                     <Text style={style.text}>Sizes</Text>
                     <View style={style.sizeview}>
@@ -125,49 +136,27 @@ export default function Filter() {
                             </View>
                             <MaterialIcons name='keyboard-arrow-right' size={30} style={style.righticon}></MaterialIcons>
                         </View>
+                        {
+                            brandA.filterbrand.map((v) => (
+                                <View>
+                                    <View style={style.brandfilter} key={v.id}>
+                                        <Text style={style.brandname}>{v.name}</Text>
+                                        <BouncyCheckbox
+                                            size={25}
+                                            fillColor="black"
+                                            unFillColor="#FFFFFF"
+                                            text="Custom Checkbox"
+                                            iconStyle={{ borderColor: "red" }}
+                                            innerIconStyle={{ borderWidth: 2 }}
+                                            textStyle={{ fontFamily: "JosefinSans-Regular" }}
+                                        //   onPress={(isChecked: boolean) => {console.log(isChecked)}}
+                                        />
 
-                        <View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>addidas</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>addidas Original</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>Blend</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>Boutique Moschino</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>Champion</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>Diesel</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>Jack & Jones</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>Naf Naf</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>Red Valentino</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                            <View style={style.brandfilter}>
-                                <Text style={style.brandname}>s.Oliver</Text>
-                                <CheckBox style={style.CheckBox}></CheckBox>
-                            </View>
-                        </View>
+                                    </View>
+                                </View>
+                            ))
+                        }
+
                     </View>
                 </ScrollView>
             </View>
@@ -204,7 +193,7 @@ const style = StyleSheet.create({
         fontSize: moderateScale(16),
         fontFamily: 'Metropolis-Black',
         color: 'black',
-        marginTop: verticalScale(10),
+        marginTop: verticalScale(13),
         paddingLeft: horizontalScale(16),
     },
     viewstyle: {
@@ -225,14 +214,15 @@ const style = StyleSheet.create({
         paddingVertical: verticalScale(30),
         paddingLeft: horizontalScale(16),
         paddingRight: horizontalScale(16),
-        flexDirection: 'row',
+        // flexDirection: 'row',
         justifyContent: 'space-around'
     },
     circle1: {
         height: verticalScale(36),
         width: horizontalScale(36),
         borderRadius: 30,
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        flexDirection: 'row'
     },
     circle2: {
         height: verticalScale(36),
@@ -402,5 +392,8 @@ const style = StyleSheet.create({
     colorYellow: {
         color: 'black',
         fontSize: 20,
-    }
+    },
+    checkbox: {
+        alignSelf: 'center',
+    },
 });

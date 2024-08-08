@@ -25,6 +25,8 @@ import My_Profile from './app/container/My_Profile/My_Profile'
 import My_Orders from './app/container/My_Orders/My_Orders'
 import Shopping from './app/container/Shopping/Shopping'
 import ShippingAddresses from './app/container/ShippingAddress/ShippingAddress'
+import BottomSheet from './app/container/BottomSheet/BottomSheet'
+import Shop from './app/container/Shop/Shop'
 // import My_Profilee from './app/container/My_Profile/My_Profile'
 // import My_Profile from './app/container/My_Profile/My_Profile'
 
@@ -38,6 +40,7 @@ export default function App() {
         <BottamTab />
       </NavigationContainer>
       {/* <Forget/> */}
+      {/* <BottomSheet/> */}
       {/* <Signup/> */}
       {/* <AddShipingAddress/> */}
       {/* <Maainpage/> */}
@@ -53,6 +56,7 @@ export default function App() {
       {/* <Success/> */}
       {/* <Drawer /> */}
       {/* <My_Profile/> */}
+      {/* <Shop/> */}
     </Provider>
 
   )

@@ -91,7 +91,7 @@ export default function Maainpage({ route, navigation }) {
 
   console.log("sjdjdjdjjdjjd", category);
   const ProductCard = ({ v }) => (
-    <TouchableOpacity style={{ marginHorizontal: 10 }} onPress={()=>{navigation.navigate("ProductCard")}}>
+    <TouchableOpacity style={{ marginHorizontal: 10 }} onPress={() => { navigation.navigate("ProductCard") }}>
 
       <Image source={v.img} style={{ width: 170, height: 250, borderRadius: 10 }}></Image>
 
@@ -135,7 +135,7 @@ export default function Maainpage({ route, navigation }) {
         <View style={{ width: horizontalScale(200) }}>
           <Text style={style.Fashionsale}>Fashion Sale</Text>
 
-          <TouchableOpacity style={style.checkbutton} onPress={()=>navigation.navigate("Categories Two")}>
+          <TouchableOpacity style={style.checkbutton}>
             <Text style={style.CheckText}>Check</Text>
 
           </TouchableOpacity>
@@ -187,46 +187,45 @@ export default function Maainpage({ route, navigation }) {
         return (
           <View key={i}>
 
-            {i % 4 === 0 &&
-              <View style={{ width: '100%', height: 200 }}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Categories Two",{cat_id:v.id})}
-                ><Image source={require('../../assets/image/fashion_girl1.jpg')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                <Text style={style.FistViewText}>{v.name}</Text>
 
-              </View>
-            }
 
-            {/* <View style={i % 2 == 0 ? style.DirectView : ''}> */}
-            {/* <View style={style.SecondView}> */}
-            {i % 4 === 1 &&
-              <View style={{ width: '100%', height: 200 }}>
-                <View>
-                  <TouchableOpacity><Text style={style.SummText1}>{v.name}</Text></TouchableOpacity>
+            <View>
+            <TouchableOpacity onPress={() => navigation.navigate("Categories Two", { cat_id: v.id })}>
+              <Image style={style.img} source={require('../../assets/image/fashion_girl1.jpg')} />
+              <Text style={style.BlackTextt}>Women</Text>
+            </TouchableOpacity>
+            </View>
+           
+            {/* <View style={style.textsale}>
+            <Text style={style.newcoll}>{v.name}</Text>
+            </View> */}
+{/* 
+            <View style={style.BlackVieww}>
+                  <Image source={require('../../assets/image/fashion_girl2.jpg')} style={{ width: '100%', height:'50%' }} />
+                  <Text style={style.BlackTextt}>Black</Text>
+                </View> */}
+
+            <View style={style.DirectView}>
+              <View style={style.SecondView}>
+                <View style={style.SummSale}>
+                  <View style={style.SumTextView}>
+                    <Text style={style.SummText1}>{v.name}</Text>
+                  </View>
                 </View>
-
-
-
-              </View>
-            }
-            {i % 4 === 2 &&
-              <View style={{ width: '50%', height: 200 }}>
-                <TouchableOpacity><Image source={require('../../assets/image/fashion_girl2.jpg')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                <Text>Black</Text>
-              </View>
-            }
-            {/* </View> */}
-
-            {i % 4 === 3 &&
-              <View >
-                <TouchableOpacity><Image source={require('../../assets/image/fashion_boy3.jpg')} style={{ width: '100%', height: '100%' }} /></TouchableOpacity>
-                <View>
-                  <Text>Men's hoodies</Text>
+                <View style={style.BlackView}>
+                  <Image source={require('../../assets/image/fashion_girl2.jpg')} style={{ width: '100%', height: '100%' }} />
+                  <Text style={style.BlackText}>Black</Text>
                 </View>
-
               </View>
-            }
+              <View style={style.BodieView}>
+                <Image source={require('../../assets/image/fashion_girl_img9.png')} style={{ width: '100%', height: '100%' }} />
+                <View style={style.hoodieTextView}>
+                  <Text style={style.hoodieText}>{v.name}</Text>
+                </View>
+              </View>
+            </View>
           </View>
+
           // </View>
         )
 
@@ -367,6 +366,11 @@ const style = StyleSheet.create({
     width: '100%',
     height: '50%',
   },
+  BlackVieww: {
+    position: 'relative',
+    width: '100%',
+    height: '50%',
+  },
   BlackText: {
     color: 'white',
     fontSize: moderateScale(35),
@@ -374,6 +378,14 @@ const style = StyleSheet.create({
     position: 'absolute',
     bottom: verticalScale(10),
     left: horizontalScale(18)
+  },
+  BlackTextt: {
+    color: '#FFFFFF',
+    fontSize: moderateScale(35),
+    fontFamily: 'Metropolis-Bold',
+    position: 'absolute',
+    bottom: verticalScale(10),
+    left: horizontalScale(200)
   },
   SecondView: {
     width: '50%',
@@ -398,6 +410,81 @@ const style = StyleSheet.create({
     color: 'white',
     fontSize: moderateScale(35),
     fontFamily: 'Metropolis-Bold',
-  }
+  },
+  DirectView: {
+    width: '100%',
+    height: verticalScale(400),
+    flexDirection: 'row'
+  },
+
+  SecondView: {
+    width: '50%',
+    height: verticalScale(400)
+  },
+  SummSale: {
+    backgroundColor: 'white',
+    width: '100%',
+    height: '50%',
+    position: 'relative'
+  },
+  SumTextView: {
+    width: horizontalScale(150),
+    height: verticalScale(100),
+    position: 'absolute',
+    bottom: horizontalScale(30),
+    left: horizontalScale(18)
+  },
+  SummText1: {
+    color: '#DB3022',
+    fontSize: moderateScale(35),
+    fontFamily: 'Metropolis-Bold',
+  },
+  BlackView: {
+    backgroundColor: 'red',
+    width: '100%',
+    height: '50%',
+    position: 'relative'
+  },
+  BlackText: {
+    color: 'white',
+    fontSize: moderateScale(35),
+    fontFamily: 'Metropolis-Bold',
+    position: 'absolute',
+    bottom: horizontalScale(20),
+    left: horizontalScale(20)
+  },
+  BodieView: {
+    backgroundColor: 'red',
+    borderWidth: 1,
+    width: '50%',
+    height: '100%',
+    position: 'relative',
+    // paddingRight:210,
+    // display:'flex'
+
+  },
+  hoodieTextView: {
+    // position: 'absolute',
+    bottom: horizontalScale(90),
+    left: horizontalScale(40),
+
+  },
+  hoodieText: {
+    color: 'white',
+    fontSize: moderateScale(35),
+    fontFamily: 'Metropolis-Bold',
+  },
+  img: {
+    width: '100%',
+    height: verticalScale(390),
+  },
+  newcoll: {
+    // position: 'absolute',
+    color: 'black',
+    fontSize: moderateScale(40),
+    fontFamily: 'Metropolis-Bold',
+    marginLeft: horizontalScale(70),
+    // top: horizontalScale(20)
+  },
 
 })

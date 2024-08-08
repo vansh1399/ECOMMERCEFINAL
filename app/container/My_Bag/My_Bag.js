@@ -35,7 +35,7 @@ const data = [
     price: 30,
   },
   {
-    id: 1,
+    id: 2,
     title: 'Sport Dress',
     color: 'Black',
     image: require('../../assets/image/fashion_girl_img6.png'),
@@ -46,7 +46,7 @@ const data = [
 
 export default function My_Bag({route,navigation}) {
   const DataCity = ({v}) => (
-    <TouchableOpacity>
+    <TouchableOpacity key={v.id}>
       <View style={{paddingHorizontal: 26, marginVertical: 15}}>
         <View style={Styles.img_main_view}>
           <View>
@@ -125,7 +125,7 @@ export default function My_Bag({route,navigation}) {
   );
 
   return (
-    <ScrollView>
+    <View>
       <View>
         <StatusBar backgroundColor="transparent" barStyle="dark-content" />
 
@@ -141,7 +141,7 @@ export default function My_Bag({route,navigation}) {
         <FlatList
           data={data}
           renderItem={({item}) => <DataCity v={item} />}
-          keyExtractor={item => item.id}
+          keyExtractor={(item,index)=>String(index) }
         />
 
         <View style={{marginLeft:22,  flexDirection:'row',marginTop:0}}>
@@ -166,7 +166,7 @@ export default function My_Bag({route,navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
