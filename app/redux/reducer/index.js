@@ -16,5 +16,5 @@ export const rootReducer = combineReducers({
     shopping:ShoppingSlice,
     product:ProductSlice,
     Filters:FilterSlice,
-    BrandF:BrandSlice
+    BrandF:BrandSlice,
 });

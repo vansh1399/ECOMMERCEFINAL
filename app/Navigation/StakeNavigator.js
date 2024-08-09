@@ -213,6 +213,7 @@ export const ShopStack = () => {
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
         })} />
+        <Stack.Screen name='shop' component={Shop} />
     </Stack.Navigator>)
 }
 

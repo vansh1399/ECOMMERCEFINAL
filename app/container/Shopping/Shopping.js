@@ -252,7 +252,7 @@ export default function Shopping({ route, navigation }) {
                 numColumns={2}
                 columnWrapperStyle={{ justifyContent: 'space-between', columnGap: 10, marginTop: 10 }}
                 renderItem={({ item }) => <TouchableOpacity><ProductData v={item} /></TouchableOpacity>}
-                keyExtractor={(item,index)=>index.toString()}
+                keyExtractor={(item, index) => index.toString()}
             // horizontal={true}
             />
 

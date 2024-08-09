@@ -9,10 +9,12 @@ import { getFilter } from '../../redux/slice/Filter.Slice';
 import { getFilterBrand } from '../../redux/slice/Brand.Slice';
 
 
-export default function Filter() {
+export default function Filter({ route, navigation }) {
     const [price, setPrice] = useState(78);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedCategory, setselectedCategory] = useState(null);
+    const [brand, setBrand] = useState('');
+    const [color, setColor] = useState('');
 
     const [selctbrand, setselctbrand] = useState(null)
 
@@ -25,18 +27,21 @@ export default function Filter() {
     const dispatch = useDispatch();
     const FilterA = useSelector(state => state.Filters);
     const brandA = useSelector(state => state.BrandF);
+   
     useEffect(() => {
         dispatch(getFilter());
         dispatch(getFilterBrand());
     }, [])
-    console.log('filterrrrr', FilterA.filter);
-    console.log('bkkkkkkkkkkkkkk', brandA.filterbrand);
+    // console.log('filterrrrr', FilterA.filter);
+    // console.log('bkkkkkkkkkkkkkk', brandA.filterbrand);
 
     const categories = ['All', 'Women', 'Men', 'Boys', 'Girls'];
 
     const selectCategory = (category) => {
         setselectedCategory(category);
     };
+
+    console.log("color,brand,price", color);
 
     return (
         <View style={style.mainContainer}>
@@ -58,7 +63,7 @@ export default function Filter() {
                             style={style.Slider}
                             step={1}
                             minimumValue={0}
-                            maximumValue={200}
+                            maximumValue={50000}
                             minimumTrackTintColor="#DB3022"
                             maximumTrackTintColor="#d3d3d3"
                             thumbTintColor="#DB3022"
@@ -67,19 +72,25 @@ export default function Filter() {
                         />
                         <View style={style.textCon}>
                             <Text style={style.colorYellow}>
-                                {price + '$'}
+                                {price + ' ₹'}
                             </Text>
                         </View>
                     </View>
 
                     <View><Text style={style.text}>Colors</Text></View>
-                    {
-                        FilterA.filter.map((v) => (
-                            <View style={style.circleview} key={v.id}>
-                                <TouchableOpacity style={style.circle1}><Text>{v.name}</Text></TouchableOpacity>
-                            </View>
-                        ))
-                    }
+
+                    <View style={style.circleview}>
+                        {
+                            FilterA.filter.map((v) => (
+                                <TouchableOpacity
+                                    style={[style.circle1, { backgroundColor: v.name.toLowerCase(),borderWidth:v.id===color?4:0 }]}
+                                    onPress={() => setColor(v.id)}
+                                >
+                                    {/* <Text>{v.name}</Text> */}
+                                </TouchableOpacity>
+                            ))
+                        }
+                    </View>
 
                     <Text style={style.text}>Sizes</Text>
                     <View style={style.sizeview}>
@@ -145,13 +156,13 @@ export default function Filter() {
                                             size={25}
                                             fillColor="black"
                                             unFillColor="#FFFFFF"
-                                            text="Custom Checkbox"
+                                            text={v.name}
                                             iconStyle={{ borderColor: "red" }}
                                             innerIconStyle={{ borderWidth: 2 }}
+                                            onPress={() => setBrand((prev) => [...prev, v.name])}
                                             textStyle={{ fontFamily: "JosefinSans-Regular" }}
                                         //   onPress={(isChecked: boolean) => {console.log(isChecked)}}
                                         />
-
                                     </View>
                                 </View>
                             ))
@@ -164,7 +175,16 @@ export default function Filter() {
             <View style={style.applayview}>
                 <View style={style.buttonview}>
                     <TouchableOpacity style={style.discardbutton}><Text style={style.buttontext1}>Discard</Text></TouchableOpacity>
-                    <TouchableOpacity style={style.applybutton} ><Text style={style.buttontext2}>Apply</Text></TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate("shop",
+                                {
+                                    price,
+                                    brand,
+                                    color
+                                }
+                            )
+                        }} style={style.applybutton} ><Text style={style.buttontext2}>Apply</Text></TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -214,15 +234,15 @@ const style = StyleSheet.create({
         paddingVertical: verticalScale(30),
         paddingLeft: horizontalScale(16),
         paddingRight: horizontalScale(16),
-        // flexDirection: 'row',
-        justifyContent: 'space-around'
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     circle1: {
         height: verticalScale(36),
         width: horizontalScale(36),
         borderRadius: 30,
         backgroundColor: 'black',
-        flexDirection: 'row'
+        // flexDirection: 'row'
     },
     circle2: {
         height: verticalScale(36),

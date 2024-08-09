@@ -9,6 +9,9 @@ import { shopByThunk } from '../../redux/slice/Shopping.Slice';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { getProduct } from '../../redux/slice/Product.Slice';
 import { fetchCategories } from '../../redux/slice/category.slice';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { getFilter } from '../../redux/slice/Filter.Slice';
+import { getFilterBrand } from '../../redux/slice/Brand.Slice';
 
 // const data = [
 //     {
@@ -81,6 +84,10 @@ export default function Shop({ route, navigation }) {
     const [sort, setSort] = useState('')
     const [selectCat, setselectCat] = useState('');
     const [selectCathover, setselectCathover] = useState(false)
+    const [color, setColor] = useState('');
+
+    console.log('colorssss', route?.params?.price);
+
 
     const selecthover = () => {
         setselectCathover(!selectCathover)
@@ -115,27 +122,48 @@ export default function Shop({ route, navigation }) {
     };
 
     const category = useSelector(state => state.categories)
+    const FilterA = useSelector(state => state.Filters);
+    const brandA = useSelector(state => state.BrandF);
     console.log('okk', category.categories);
 
     // console.log('kkkk', route);
     const dispatch = useDispatch();
-
+    const shoppingA = useSelector(state => state.product);
     useEffect(() => {
         dispatch(getProduct())
         dispatch(fetchCategories())
+        dispatch(getFilter());
+        dispatch(getFilterBrand());
     }, [])
-    const shoppingA = useSelector(state => state.product);
 
     console.log('ssssssssssssss', shoppingA.Shopping);
+    console.log("rrrrrrrr", route?.params?.color);
+    console.log("rrrrrrrr", route?.params?.brand);
 
     const searchSort = () => {
+        let filterData = [...shoppingA.Shopping];
+        console.log('filterDataaaa', filterData);
+
+        if (route?.params?.price !== undefined) {
+            filterData = filterData.filter((v) => parseInt(v.Price) <= parseInt(route?.params?.price))
+        }
+
+        if (route?.params?.color !== undefined) {
+            filterData = filterData.filter((v) => v.Colour_id === route?.params?.color)
+        }
+
+        // if (route?.params?.brand !== undefined) {
+        //     filterData = filterData.filter((v) => v.Brand_id=== route?.params?.brand)
+        // }
+
         console.log('gggggg', search);
-        const fData = shoppingA.Shopping.filter((v) => (
+        filterData = filterData.filter((v) => (
             v.Product_name.toLowerCase().includes(search.toLowerCase()) ||
+
             v.Description.toLowerCase().includes(search.toLowerCase()) ||
             v.Price.toString().includes(search)
         ))
-        const SData = fData.sort((a, b) => {
+        filterData = filterData.sort((a, b) => {
             if (sort === 'az') {
                 return a.Product_name.localeCompare(b.Product_name)
             } else if (sort === 'za') {
@@ -148,13 +176,12 @@ export default function Shop({ route, navigation }) {
         })
 
         if (selectCat != '') {
-            const selCAT = fData.filter((v) => v.category_id === selectCat)
+            const selCAT = filterData.filter((v) => v.category_id === selectCat)
             console.log('okayyyy', selCAT);
             return selCAT
         }
-        return SData
+        return filterData
     }
-
 
     const FinalData = searchSort();
 
@@ -176,7 +203,6 @@ export default function Shop({ route, navigation }) {
                     <Image source={require('../../assets/image/see_you.img.jpg')} style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }} />
                 </View>
 
-
                 <View>
                     <TouchableOpacity><FontAwesome name="heart-o" size={20} color="black" style={styles.heart} /></TouchableOpacity>
                 </View>
@@ -194,7 +220,10 @@ export default function Shop({ route, navigation }) {
                     <Text style={styles.mangoText}>{v.Product_name}</Text>
                     <Text style={styles.tShirt}>{v.Description}</Text>
                     <Text style={styles.price}>{v.Price} ₹</Text>
+                    <Text style={styles.price}>Color:{FilterA.filter.find((v1) => v.Colour_id === v1.id)?.name}</Text>
+                    <Text style={styles.price}>Brand:{brandA.filterbrand.find((v2) => v.Brand_id === v2.id)?.name}</Text>
                 </View>
+
 
             </View>
         </TouchableOpacity>
@@ -264,7 +293,6 @@ export default function Shop({ route, navigation }) {
                     </RBSheet> */}
                 </View>
 
-
             </View>
 
             <View>
@@ -289,7 +317,6 @@ export default function Shop({ route, navigation }) {
         </View>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {
