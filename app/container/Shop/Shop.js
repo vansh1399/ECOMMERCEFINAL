@@ -142,44 +142,48 @@ export default function Shop({ route, navigation }) {
 
     const searchSort = () => {
         let filterData = [...shoppingA.Shopping];
-        console.log('filterDataaaa', filterData);
+        console.log('filterDataaaa', route?.params?.brand);
 
-        if (route?.params?.price !== undefined) {
-            filterData = filterData.filter((v) => parseInt(v.Price) <= parseInt(route?.params?.price))
-        }
-
-        if (route?.params?.color !== undefined) {
-            filterData = filterData.filter((v) => v.Colour_id === route?.params?.color)
-        }
-
-        // if (route?.params?.brand !== undefined) {
-        //     filterData = filterData.filter((v) => v.Brand_id=== route?.params?.brand)
+        // if (parseInt(route?.params?.price) > 0) {
+        //     filterData = filterData.filter((v) => parseInt(v.Price) <= parseInt(route?.params?.price))
         // }
 
-        console.log('gggggg', search);
-        filterData = filterData.filter((v) => (
-            v.Product_name.toLowerCase().includes(search.toLowerCase()) ||
+        // if (route?.params?.color !== '') {
+        //     filterData = filterData.filter((v) => v.Colour_id === route?.params?.color)
+        // }
 
-            v.Description.toLowerCase().includes(search.toLowerCase()) ||
-            v.Price.toString().includes(search)
-        ))
-        filterData = filterData.sort((a, b) => {
-            if (sort === 'az') {
-                return a.Product_name.localeCompare(b.Product_name)
-            } else if (sort === 'za') {
-                return b.Product_name.localeCompare(a.Product_name)
-            } else if (sort === 'lh') {
-                return a.Price - b.Price
-            } else if (sort === 'hl') {
-                return b.Price - a.Price
-            }
-        })
-
-        if (selectCat != '') {
-            const selCAT = filterData.filter((v) => v.category_id === selectCat)
-            console.log('okayyyy', selCAT);
-            return selCAT
+        if (route?.params?.brand.length > 0) {
+            console.log("hhhhhhhhhhhhhhhhhhhhh",filterData);
+            
+            filterData = filterData.filter((v) =>
+                route?.params?.brand.some((v1) => v1 === v.Brand_id)
+            );
         }
+
+        // console.log('gggggg', search);
+        // filterData = filterData.filter((v) => (
+        //     v.Product_name.toLowerCase().includes(search.toLowerCase()) ||
+
+        //     v.Description.toLowerCase().includes(search.toLowerCase()) ||
+        //     v.Price.toString().includes(search)
+        // ))
+        // filterData = filterData.sort((a, b) => {
+        //     if (sort === 'az') {
+        //         return a.Product_name.localeCompare(b.Product_name)
+        //     } else if (sort === 'za') {
+        //         return b.Product_name.localeCompare(a.Product_name)
+        //     } else if (sort === 'lh') {
+        //         return a.Price - b.Price
+        //     } else if (sort === 'hl') {
+        //         return b.Price - a.Price
+        //     }
+        // })
+
+        // if (selectCat != '') {
+        //     const selCAT = filterData.filter((v) => v.category_id === selectCat)
+        //     console.log('okayyyy', selCAT);
+        //     return selCAT
+        // }
         return filterData
     }
 
@@ -206,7 +210,6 @@ export default function Shop({ route, navigation }) {
                 <View>
                     <TouchableOpacity><FontAwesome name="heart-o" size={20} color="black" style={styles.heart} /></TouchableOpacity>
                 </View>
-
 
                 <View style={styles.productText}>
                     <View style={styles.iconview}>

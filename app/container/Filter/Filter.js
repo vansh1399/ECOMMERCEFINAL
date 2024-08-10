@@ -10,7 +10,7 @@ import { getFilterBrand } from '../../redux/slice/Brand.Slice';
 
 
 export default function Filter({ route, navigation }) {
-    const [price, setPrice] = useState(78);
+    const [price, setPrice] = useState(0);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedCategory, setselectedCategory] = useState(null);
     const [brand, setBrand] = useState('');
@@ -27,7 +27,7 @@ export default function Filter({ route, navigation }) {
     const dispatch = useDispatch();
     const FilterA = useSelector(state => state.Filters);
     const brandA = useSelector(state => state.BrandF);
-   
+
     useEffect(() => {
         dispatch(getFilter());
         dispatch(getFilterBrand());
@@ -83,7 +83,7 @@ export default function Filter({ route, navigation }) {
                         {
                             FilterA.filter.map((v) => (
                                 <TouchableOpacity
-                                    style={[style.circle1, { backgroundColor: v.name.toLowerCase(),borderWidth:v.id===color?4:0 }]}
+                                    style={[style.circle1, { backgroundColor: v.name.toLowerCase(), borderWidth: v.id === color ? 4 : 0 }]}
                                     onPress={() => setColor(v.id)}
                                 >
                                     {/* <Text>{v.name}</Text> */}
@@ -159,7 +159,7 @@ export default function Filter({ route, navigation }) {
                                             text={v.name}
                                             iconStyle={{ borderColor: "red" }}
                                             innerIconStyle={{ borderWidth: 2 }}
-                                            onPress={() => setBrand((prev) => [...prev, v.name])}
+                                            onPress={() => setBrand((prev) => [...prev, v.id])}
                                             textStyle={{ fontFamily: "JosefinSans-Regular" }}
                                         //   onPress={(isChecked: boolean) => {console.log(isChecked)}}
                                         />
