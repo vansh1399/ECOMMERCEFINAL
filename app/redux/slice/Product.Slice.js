@@ -22,7 +22,7 @@ export const getProduct = createAsyncThunk(
                     shop_data.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     // console.log('hhhhh',shop_data.push(documentSnapshot.data()));
                     
-                    console.log("lllllllll", shop_data);
+                    // console.log("lllllllll", shop_data);
                 });
                 
             });

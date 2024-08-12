@@ -10,11 +10,12 @@ import { getFilterBrand } from '../../redux/slice/Brand.Slice';
 
 
 export default function Filter({ route, navigation }) {
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState(route?.params?.price ? route?.params?.price : 0);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedCategory, setselectedCategory] = useState(null);
-    const [brand, setBrand] = useState('');
-    const [color, setColor] = useState('');
+    const [brand, setBrand] = useState(route?.params?.brand ? route?.params?.brand : []);
+    const [color, setColor] = useState(route?.params?.color ? route?.params?.color : '');
+
 
     const [selctbrand, setselctbrand] = useState(null)
 
@@ -23,7 +24,6 @@ export default function Filter({ route, navigation }) {
     const selectSize = (size) => {
         setSelectedSize(size);
     };
-
     const dispatch = useDispatch();
     const FilterA = useSelector(state => state.Filters);
     const brandA = useSelector(state => state.BrandF);
@@ -32,10 +32,46 @@ export default function Filter({ route, navigation }) {
         dispatch(getFilter());
         dispatch(getFilterBrand());
     }, [])
+
+    const [checkBoxes, setCheckBoxes] = useState(brandA.filterbrand);
+    console.log("dddd", brandA.filterbrand);
+
+
+    const handleCheckboxPress = (checked, id) => {
+        // if (id === 0) {
+        //   setCheckBoxes(
+        //     checkBoxes.map(item => ({
+        //       ...item,
+        //       isChecked: checked,
+        //     })),
+        //   );
+        //   return;
+        // }
+
+        setCheckBoxes(
+            checkBoxes.map(item =>
+                item.id === id ? { ...item, isChecked: checked } : item,
+            ),
+        );
+    };
+
+
+
+    const fbrand = checkBoxes.map((v) => {
+        if (v?.isChecked || route.params?.brand?.includes(v.id)) {
+            return v.id
+        } else {
+            return ""
+        }
+    })
+
+
+
     // console.log('filterrrrr', FilterA.filter);
     // console.log('bkkkkkkkkkkkkkk', brandA.filterbrand);
 
     const categories = ['All', 'Women', 'Men', 'Boys', 'Girls'];
+
 
     const selectCategory = (category) => {
         setselectedCategory(category);
@@ -159,8 +195,10 @@ export default function Filter({ route, navigation }) {
                                             text={v.name}
                                             iconStyle={{ borderColor: "red" }}
                                             innerIconStyle={{ borderWidth: 2 }}
-                                            onPress={() => setBrand((prev) => [...prev, v.id])}
+                                            // onPress={() => setBrand((prev) => [...prev, v.id])}
+                                            onPress={(isChecked) => handleCheckboxPress(isChecked, v.id)}
                                             textStyle={{ fontFamily: "JosefinSans-Regular" }}
+                                            isChecked={route.params?.brand?.includes(v.id) ? true : false}
                                         //   onPress={(isChecked: boolean) => {console.log(isChecked)}}
                                         />
                                     </View>
@@ -180,7 +218,7 @@ export default function Filter({ route, navigation }) {
                             navigation.navigate("shop",
                                 {
                                     price,
-                                    brand,
+                                    brand: fbrand,
                                     color
                                 }
                             )

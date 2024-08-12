@@ -86,7 +86,22 @@ export default function Shop({ route, navigation }) {
     const [selectCathover, setselectCathover] = useState(false)
     const [color, setColor] = useState('');
 
+
     console.log('colorssss', route?.params?.price);
+
+    const dispatch = useDispatch();
+    const shoppingA = useSelector(state => state.product);
+    useEffect(() => {
+        dispatch(getProduct())
+        dispatch(fetchCategories())
+        dispatch(getFilter());
+        dispatch(getFilterBrand());
+    }, [])
+    
+    const category = useSelector(state => state.categories)
+    const FilterA = useSelector(state => state.Filters);
+    const brandA = useSelector(state => state.BrandF);
+    // console.log('okk', category.categories);
 
 
     const selecthover = () => {
@@ -94,7 +109,7 @@ export default function Shop({ route, navigation }) {
     }
 
     const renderItem = ({ item, index, refRBSheet }) => {
-        console.log('kkkkkkggggkk', item);
+        // console.log('kkkkkkggggkk', item);
 
         return (
             <View>
@@ -121,69 +136,58 @@ export default function Shop({ route, navigation }) {
         );
     };
 
-    const category = useSelector(state => state.categories)
-    const FilterA = useSelector(state => state.Filters);
-    const brandA = useSelector(state => state.BrandF);
-    console.log('okk', category.categories);
 
     // console.log('kkkk', route);
-    const dispatch = useDispatch();
-    const shoppingA = useSelector(state => state.product);
-    useEffect(() => {
-        dispatch(getProduct())
-        dispatch(fetchCategories())
-        dispatch(getFilter());
-        dispatch(getFilterBrand());
-    }, [])
+
 
     console.log('ssssssssssssss', shoppingA.Shopping);
-    console.log("rrrrrrrr", route?.params?.color);
-    console.log("rrrrrrrr", route?.params?.brand);
+    // console.log("rrrrrrrr", route?.params?.color);
+    // console.log("rrrrrrrr", route?.params?.brand);
 
     const searchSort = () => {
         let filterData = [...shoppingA.Shopping];
-        console.log('filterDataaaa', route?.params?.brand);
+        // console.log('filterDkkkkkkk', route?.params?.brand);
 
-        // if (parseInt(route?.params?.price) > 0) {
-        //     filterData = filterData.filter((v) => parseInt(v.Price) <= parseInt(route?.params?.price))
-        // }
+        if (parseInt(route?.params?.price) > 0) {
+            filterData = filterData.filter((v) => parseInt(v.Price) <= parseInt(route?.params?.price))
+        }
 
-        // if (route?.params?.color !== '') {
+        // if (route?.params?.color != '' && route?.params?.color != undefined) {
         //     filterData = filterData.filter((v) => v.Colour_id === route?.params?.color)
         // }
 
-        if (route?.params?.brand.length > 0) {
-            console.log("hhhhhhhhhhhhhhhhhhhhh",filterData);
-            
+        if (route?.params?.brand?.length > 0) {
+            // console.log("hhhhhhhhhhhhhhhhhhhhh", route?.params?.brand);
+
             filterData = filterData.filter((v) =>
-                route?.params?.brand.some((v1) => v1 === v.Brand_id)
+                route?.params?.brand?.some((v1) => v1 === v.Brand_id)
             );
         }
 
         // console.log('gggggg', search);
-        // filterData = filterData.filter((v) => (
-        //     v.Product_name.toLowerCase().includes(search.toLowerCase()) ||
+        filterData = filterData.filter((v) => (
+            v.Product_name.toLowerCase().includes(search.toLowerCase()) ||
 
-        //     v.Description.toLowerCase().includes(search.toLowerCase()) ||
-        //     v.Price.toString().includes(search)
-        // ))
-        // filterData = filterData.sort((a, b) => {
-        //     if (sort === 'az') {
-        //         return a.Product_name.localeCompare(b.Product_name)
-        //     } else if (sort === 'za') {
-        //         return b.Product_name.localeCompare(a.Product_name)
-        //     } else if (sort === 'lh') {
-        //         return a.Price - b.Price
-        //     } else if (sort === 'hl') {
-        //         return b.Price - a.Price
-        //     }
-        // })
+            v.Description.toLowerCase().includes(search.toLowerCase()) ||
+            v.Price.toString().includes(search)
+        ))
+        filterData = filterData.sort((a, b) => {
+            if (sort === 'az') {
+                return a.Product_name.localeCompare(b.Product_name)
+            } else if (sort === 'za') {
+                return b.Product_name.localeCompare(a.Product_name)
+            } else if (sort === 'lh') {
+                return a.Price - b.Price
+            } else if (sort === 'hl') {
+                return b.Price - a.Price
+            }
+        })
 
-        // if (selectCat != '') {
-        //     const selCAT = filterData.filter((v) => v.category_id === selectCat)
-        //     console.log('okayyyy', selCAT);
-        //     return selCAT
-        // }
+        if (selectCat != '') {
+            const selCAT = filterData.filter((v) => v.category_id === selectCat)
+            // console.log('okayyyy', selCAT);
+            return selCAT
+        }
         return filterData
     }
 
@@ -200,6 +204,7 @@ export default function Shop({ route, navigation }) {
         </TouchableOpacity>
     )
     const ProductData = ({ v }) => (
+ 
         <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => { navigation.navigate("ProductCard", { product: v.id }) }}>
             <View style={styles.productMainView}>
 
@@ -259,7 +264,11 @@ export default function Shop({ route, navigation }) {
                 />
 
                 <View style={styles.FilterOptions}>
-                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("filter")}><MaterialIcons name="filter-list" size={30} color="black" /><Text style={styles.filterText}>Filters</Text></TouchableOpacity>
+                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("filter", {
+                        price: route?.params?.price,
+                        color: route?.params?.color,
+                        brand: route?.params?.brand,
+                    })}><MaterialIcons name="filter-list" size={30} color="black" /><Text style={styles.filterText}>Filters</Text></TouchableOpacity>
                     <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => refRBSheet.current[0].open()} ><FontAwesome name="arrows-v" size={26} color="black" /><Text style={styles.filterText}>Price:lowest to high</Text></TouchableOpacity>
                     <TouchableOpacity><FontAwesome name="th-list" size={26} color="black" /></TouchableOpacity>
                 </View>
