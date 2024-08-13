@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from '../../redux/slice/Filter.Slice';
 import { getFilterBrand } from '../../redux/slice/Brand.Slice';
 
-
 export default function Filter({ route, navigation }) {
     const [price, setPrice] = useState(route?.params?.price ? route?.params?.price : 0);
     const [selectedSize, setSelectedSize] = useState(null);
@@ -33,8 +32,10 @@ export default function Filter({ route, navigation }) {
         dispatch(getFilterBrand());
     }, [])
 
+    console.log("brandA.filterbrandbrandA.filterbrandbrandA.filterbrandbrandA.filterbrand", brandA.filterbrand);
+    
     const [checkBoxes, setCheckBoxes] = useState(brandA.filterbrand);
-    console.log("dddd", brandA.filterbrand);
+    console.log("FilterrrrrrrrrrrrrrrBranddddddd", route?.params?.brand);
 
 
     const handleCheckboxPress = (checked, id) => {
@@ -58,7 +59,7 @@ export default function Filter({ route, navigation }) {
 
 
     const fbrand = checkBoxes.map((v) => {
-        if (v?.isChecked || route.params?.brand?.includes(v.id)) {
+        if (v?.isChecked) {
             return v.id
         } else {
             return ""
@@ -67,8 +68,12 @@ export default function Filter({ route, navigation }) {
 
 
 
-    // console.log('filterrrrr', FilterA.filter);
-    // console.log('bkkkkkkkkkkkkkk', brandA.filterbrand);
+
+    
+    console.log('checkBoxescheckBoxescheckBoxes', checkBoxes);
+    console.log('fbrandfbrandfbrandfbrandfbrand', fbrand);
+    console.log('route?.params?.brand', route?.params?.brand);
+    
 
     const categories = ['All', 'Women', 'Men', 'Boys', 'Girls'];
 

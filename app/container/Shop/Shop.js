@@ -87,7 +87,7 @@ export default function Shop({ route, navigation }) {
     const [color, setColor] = useState('');
 
 
-    console.log('colorssss', route?.params?.price);
+    console.log('Shopbrandbrandbrandbrandbrand', route?.params?.brand);
 
     const dispatch = useDispatch();
     const shoppingA = useSelector(state => state.product);
@@ -97,7 +97,7 @@ export default function Shop({ route, navigation }) {
         dispatch(getFilter());
         dispatch(getFilterBrand());
     }, [])
-    
+
     const category = useSelector(state => state.categories)
     const FilterA = useSelector(state => state.Filters);
     const brandA = useSelector(state => state.BrandF);
@@ -168,6 +168,8 @@ export default function Shop({ route, navigation }) {
         filterData = filterData.filter((v) => (
             v.Product_name.toLowerCase().includes(search.toLowerCase()) ||
 
+
+
             v.Description.toLowerCase().includes(search.toLowerCase()) ||
             v.Price.toString().includes(search)
         ))
@@ -204,7 +206,7 @@ export default function Shop({ route, navigation }) {
         </TouchableOpacity>
     )
     const ProductData = ({ v }) => (
- 
+
         <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => { navigation.navigate("ProductCard", { product: v.id }) }}>
             <View style={styles.productMainView}>
 
