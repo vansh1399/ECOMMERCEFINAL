@@ -33,10 +33,9 @@ export default function Filter({ route, navigation }) {
     }, [])
 
     console.log("brandA.filterbrandbrandA.filterbrandbrandA.filterbrandbrandA.filterbrand", brandA.filterbrand);
-    
+
     const [checkBoxes, setCheckBoxes] = useState(brandA.filterbrand);
     console.log("FilterrrrrrrrrrrrrrrBranddddddd", route?.params?.brand);
-
 
     const handleCheckboxPress = (checked, id) => {
         // if (id === 0) {
@@ -56,8 +55,6 @@ export default function Filter({ route, navigation }) {
         );
     };
 
-
-
     const fbrand = checkBoxes.map((v) => {
         if (v?.isChecked) {
             return v.id
@@ -67,13 +64,10 @@ export default function Filter({ route, navigation }) {
     })
 
 
-
-
-    
     console.log('checkBoxescheckBoxescheckBoxes', checkBoxes);
     console.log('fbrandfbrandfbrandfbrandfbrand', fbrand);
     console.log('route?.params?.brand', route?.params?.brand);
-    
+
 
     const categories = ['All', 'Women', 'Men', 'Boys', 'Girls'];
 

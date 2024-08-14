@@ -12,6 +12,7 @@ import { fetchCategories } from '../../redux/slice/category.slice';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { getFilter } from '../../redux/slice/Filter.Slice';
 import { getFilterBrand } from '../../redux/slice/Brand.Slice';
+import { googleFavourite } from '../../redux/slice/Favourite.Sice';
 
 // const data = [
 //     {
@@ -35,9 +36,6 @@ import { getFilterBrand } from '../../redux/slice/Brand.Slice';
 
 //     }
 // ]
-
-
-
 
 const Data2 = [
     {
@@ -84,6 +82,7 @@ export default function Shop({ route, navigation }) {
     const [sort, setSort] = useState('')
     const [selectCat, setselectCat] = useState('');
     const [selectCathover, setselectCathover] = useState(false)
+    const [favourite, setFavourite] = useState([])
     const [color, setColor] = useState('');
 
 
@@ -96,11 +95,18 @@ export default function Shop({ route, navigation }) {
         dispatch(fetchCategories())
         dispatch(getFilter());
         dispatch(getFilterBrand());
+        dispatch(googleFavourite());
     }, [])
 
     const category = useSelector(state => state.categories)
     const FilterA = useSelector(state => state.Filters);
     const brandA = useSelector(state => state.BrandF);
+    // const favouriteA = useSelector(state => state.favourites)
+
+    // console.log("idddddddddd", favouriteA.favourite);
+
+
+
     // console.log('okk', category.categories);
 
 
@@ -131,14 +137,13 @@ export default function Shop({ route, navigation }) {
                         </View>
                     </View>
                 </RBSheet>
+
             </View>
             //  {item + 1}
         );
     };
 
-
     // console.log('kkkk', route);
-
 
     console.log('ssssssssssssss', shoppingA.Shopping);
     // console.log("rrrrrrrr", route?.params?.color);
@@ -167,8 +172,6 @@ export default function Shop({ route, navigation }) {
         // console.log('gggggg', search);
         filterData = filterData.filter((v) => (
             v.Product_name.toLowerCase().includes(search.toLowerCase()) ||
-
-
 
             v.Description.toLowerCase().includes(search.toLowerCase()) ||
             v.Price.toString().includes(search)
@@ -205,6 +208,11 @@ export default function Shop({ route, navigation }) {
 
         </TouchableOpacity>
     )
+
+    const handleFav = (id) => {
+        dispatch(googleFavourite(id));
+    }
+
     const ProductData = ({ v }) => (
 
         <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => { navigation.navigate("ProductCard", { product: v.id }) }}>
@@ -214,8 +222,13 @@ export default function Shop({ route, navigation }) {
                     <Image source={require('../../assets/image/see_you.img.jpg')} style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }} />
                 </View>
 
+
                 <View>
-                    <TouchableOpacity><FontAwesome name="heart-o" size={20} color="black" style={styles.heart} /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { handleFav(v.id), setFavourite(v.id) }}><FontAwesome
+                        name={favourite === v.id ? "heart" : "heart-o"}
+                        size={20}
+                        color={favourite === v.id ? "#EB443F" : "black"}
+                        style={styles.heart} /></TouchableOpacity>
                 </View>
 
                 <View style={styles.productText}>
@@ -306,7 +319,6 @@ export default function Shop({ route, navigation }) {
                         <YourOwnComponent />
                     </RBSheet> */}
                 </View>
-
             </View>
 
             <View>
