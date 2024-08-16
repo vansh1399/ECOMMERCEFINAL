@@ -15,7 +15,6 @@ export default function Filter({ route, navigation }) {
     const [brand, setBrand] = useState(route?.params?.brand ? route?.params?.brand : []);
     const [color, setColor] = useState(route?.params?.color ? route?.params?.color : '');
 
-
     const [selctbrand, setselctbrand] = useState(null)
 
     const size = ['XS', 'S', 'M', 'L', 'XL'];

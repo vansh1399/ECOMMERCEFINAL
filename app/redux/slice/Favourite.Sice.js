@@ -10,9 +10,52 @@ const initialState = {
 export const googleFavourite = createAsyncThunk(
     'favourite/fetch',
     async (id) => {
-        console.log('idokkkkkkkk',id);       
+        const favData = []
+        console.log('idokkkkkkkk', id);
+        await firestore()
+            .collection('fav')
+            .get()
+            .then(querySnapshot => {
+                console.log('Total users: ', querySnapshot.size);
+
+                querySnapshot.forEach(documentSnapshot => {
+                    favData.push({ id: documentSnapshot.id, ...documentSnapshot.data() });
+                    // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                });
+            });
+
+        const avlfav = favData.find((v) => v.pid === id)
+
+        if (avlfav) {
+            firestore()
+            .collection('fav')
+            .doc(avlfav.id)
+            .delete()
+            // .then(() => {
+            //   console.log('User deleted!');
+            // });
+            const fData=favData.filter((v)=>v.pid!==id);
+            return fData;
+        } else {
+            let favId = ''
+            await firestore()
+                .collection('fav')
+                .add({
+                    pid: id,
+                    uid: 1,
+                })
+                .then((doc) => {
+                    favId =doc.id
+                    console.log('User added!');
+                });
+
+                return favData.concat({pid: id,
+                    uid: 1, id : favId})
+        }
     }
 )
+
+
 
 const FavouriteSice = createSlice({
     name: 'favourite',

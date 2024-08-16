@@ -95,12 +95,15 @@ export default function Shop({ route, navigation }) {
         dispatch(fetchCategories())
         dispatch(getFilter());
         dispatch(getFilterBrand());
-        dispatch(googleFavourite());
+        // dispatch(googleFavourite());
     }, [])
 
     const category = useSelector(state => state.categories)
     const FilterA = useSelector(state => state.Filters);
     const brandA = useSelector(state => state.BrandF);
+    const fav = useSelector(state => state.favourites);
+    console.log("favvvvvvvv", fav.favourite);
+
     // const favouriteA = useSelector(state => state.favourites)
 
     // console.log("idddddddddd", favouriteA.favourite);
@@ -222,13 +225,15 @@ export default function Shop({ route, navigation }) {
                     <Image source={require('../../assets/image/see_you.img.jpg')} style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }} />
                 </View>
 
-
                 <View>
-                    <TouchableOpacity onPress={() => { handleFav(v.id), setFavourite(v.id) }}><FontAwesome
-                        name={favourite === v.id ? "heart" : "heart-o"}
+                    <TouchableOpacity onPress={() => handleFav(v.id)}><FontAwesome
+                        name={fav.favourite.some((v1) => v1.pid===v.id) ? "heart" : "heart-o"}
+                        // name ="heart-o"
                         size={20}
-                        color={favourite === v.id ? "#EB443F" : "black"}
-                        style={styles.heart} /></TouchableOpacity>
+                        color="red"
+                        // fav.favourite === v.id ? "#EB443F" :
+                        style={styles.heart} />
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.productText}>
@@ -246,7 +251,6 @@ export default function Shop({ route, navigation }) {
                     <Text style={styles.price}>Color:{FilterA.filter.find((v1) => v.Colour_id === v1.id)?.name}</Text>
                     <Text style={styles.price}>Brand:{brandA.filterbrand.find((v2) => v.Brand_id === v2.id)?.name}</Text>
                 </View>
-
 
             </View>
         </TouchableOpacity>
@@ -338,8 +342,6 @@ export default function Shop({ route, navigation }) {
                 keyExtractor={item => item.id}
             // horizontal={true}
             />
-
-
         </View>
     )
 }
@@ -415,7 +417,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 20,
         padding: 10,
-
     },
     productText: {
         width: '100%',
