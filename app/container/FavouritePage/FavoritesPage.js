@@ -1,9 +1,16 @@
 import { View, Text, ScrollView, StatusBar, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
+import { useDispatch, useSelector } from 'react-redux';
+import { getfav, googleFavourite } from '../../redux/slice/Favourite.Sice';
+import { getProduct } from '../../redux/slice/Product.Slice';
+import { fetchCategories } from '../../redux/slice/category.slice';
+import { getFilter } from '../../redux/slice/Filter.Slice';
+import { getFilterBrand } from '../../redux/slice/Brand.Slice';
+import { shopByThunk } from '../../redux/slice/Shopping.Slice';
 
 const data = [
     {
@@ -27,37 +34,58 @@ const data = [
 
     }
 ]
-const Data2 = [
-    {
-        id: 1,
-        img: require('../../assets/image/see_you.img.jpg'),
-        title: 'Mango',
-        SubTitle: 'T-Shirt SPANISH',
-        price: 9
-    },
-    {
-        id: 2,
-        img: require('../../assets/image/see_you.img.jpg'),
-        title: 'Mango',
-        SubTitle: 'T-Shirt SPANISH',
-        price: 9
-    },
-    {
-        id: 3,
-        img: require('../../assets/image/see_you.img.jpg'),
-        title: 'Mango',
-        SubTitle: 'T-Shirt SPANISH',
-        price: 9
-    },
-    {
-        id: 4,
-        img: require('../../assets/image/see_you.img.jpg'),
-        title: 'Mango',
-        SubTitle: 'T-Shirt SPANISH',
-        price: 9
-    }
-]
-export default function FavouritePage({route,navigation}) {
+// const Data2 = [
+//     {
+//         id: 1,
+//         img: require('../../assets/image/see_you.img.jpg'),
+//         title: 'Mango',
+//         SubTitle: 'T-Shirt SPANISH',
+//         price: 9
+//     },
+//     {
+//         id: 2,
+//         img: require('../../assets/image/see_you.img.jpg'),
+//         title: 'Mango',
+//         SubTitle: 'T-Shirt SPANISH',
+//         price: 9
+//     },
+//     {
+//         id: 3,
+//         img: require('../../assets/image/see_you.img.jpg'),
+//         title: 'Mango',
+//         SubTitle: 'T-Shirt SPANISH',
+//         price: 9
+//     },
+//     {
+//         id: 4,
+//         img: require('../../assets/image/see_you.img.jpg'),
+//         title: 'Mango',
+//         SubTitle: 'T-Shirt SPANISH',
+//         price: 9
+//     }
+// ]
+
+
+export default function FavouritePage({ route, navigation }) {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getProduct())
+        dispatch(getfav());
+    }, [])
+
+    const shoppingA = useSelector(state => state.product);
+    console.log('shoppppppppp', shoppingA.Shopping);
+
+    const favouriteA = useSelector(state => state.fav)
+    console.log('fffffffffav', favouriteA.favourite);
+
+    const favouritesData = shoppingA.Shopping.filter((v) => {
+        if (favouriteA.favourite.some((v1) => v1.pid === v.id)) {
+            return v;
+        }
+    })
+    console.log('fdddddddd', favouritesData);
+
     const ProductCard = ({ v }) => (
 
         <View style={styles.CategorisView}>
@@ -67,15 +95,14 @@ export default function FavouritePage({route,navigation}) {
     )
     const ProductData = ({ v }) => (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TouchableOpacity style={styles.productMainView} onPress={()=>{navigation.navigate("ProductCard")}}>
+            <TouchableOpacity style={styles.productMainView} onPress={() => { navigation.navigate("ProductCard") }}>
                 <View style={styles.productImg}>
-                    <Image source={v.img} style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }} />
+                    <Image source={ require('../../assets/image/see_you.img.jpg')} style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }} />
 
                 </View>
                 <View>
                     <Fontisto name="shopping-bag" size={18} color="#F9F9F9" style={styles.shoppingcard} />
                 </View>
-
 
                 <View style={styles.productText}>
                     <View style={styles.iconview}>
@@ -86,9 +113,9 @@ export default function FavouritePage({route,navigation}) {
                         <FontAwesome name="star" size={20} style={{ color: '#FFBA49' }} />
                         <Text style={{ color: '#9B9B9B' }}>(3)</Text>
                     </View>
-                    <Text style={styles.mangoText}>{v.title}</Text>
-                    <Text style={styles.tShirt}>{v.SubTitle}</Text>
-                    <Text style={styles.price}>{v.price}$</Text>
+                    <Text style={styles.mangoText}>{v.Product_name}</Text>
+                    <Text style={styles.tShirt}>{v.Description}</Text>
+                    <Text style={styles.price}>{v.Price}$</Text>
                 </View>
 
             </TouchableOpacity>
@@ -102,7 +129,7 @@ export default function FavouritePage({route,navigation}) {
                 barStyle="dark-content"
             />
             <View style={styles.ArrowView}>
-{/* 
+                {/* 
                 <Text style={styles.ArrowText}>Favorites</Text>
                 <TouchableOpacity><MaterialIcons name="search" size={30} color="black" style={{ marginTop: 25 }} /></TouchableOpacity> */}
             </View>
@@ -122,16 +149,13 @@ export default function FavouritePage({route,navigation}) {
             </View>
 
             <FlatList
-                data={Data2}
+                data={favouritesData}
                 numColumns={2}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 renderItem={({ item }) => <TouchableOpacity><ProductData v={item} /></TouchableOpacity>}
                 keyExtractor={item => item.id}
             // horizontal={true}
             />
-
-
-
 
         </ScrollView>
     )

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from '../../redux/slice/Filter.Slice';
 import { getFilterBrand } from '../../redux/slice/Brand.Slice';
 
+
 export default function Filter({ route, navigation }) {
     const [price, setPrice] = useState(route?.params?.price ? route?.params?.price : 0);
     const [selectedSize, setSelectedSize] = useState(null);
@@ -22,6 +23,7 @@ export default function Filter({ route, navigation }) {
     const selectSize = (size) => {
         setSelectedSize(size);
     };
+
     const dispatch = useDispatch();
     const FilterA = useSelector(state => state.Filters);
     const brandA = useSelector(state => state.BrandF);
@@ -62,14 +64,11 @@ export default function Filter({ route, navigation }) {
         }
     })
 
-
     console.log('checkBoxescheckBoxescheckBoxes', checkBoxes);
     console.log('fbrandfbrandfbrandfbrandfbrand', fbrand);
     console.log('route?.params?.brand', route?.params?.brand);
 
-
     const categories = ['All', 'Women', 'Men', 'Boys', 'Girls'];
-
 
     const selectCategory = (category) => {
         setselectedCategory(category);
@@ -147,7 +146,6 @@ export default function Filter({ route, navigation }) {
                                 </Text>
                             </TouchableOpacity>
                         ))}
-
                     </View>
 
                     <Text style={style.text}>Category</Text>
@@ -203,7 +201,6 @@ export default function Filter({ route, navigation }) {
                                 </View>
                             ))
                         }
-
                     </View>
                 </ScrollView>
             </View>

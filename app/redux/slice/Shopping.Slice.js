@@ -19,17 +19,17 @@ export const shopByThunk = createAsyncThunk(
                 // console.log('Total users: ', querySnapshot.size);
 
                 querySnapshot.forEach(documentSnapshot => {
-            if ((documentSnapshot.data().category_id === data.cat_id)&& (documentSnapshot.data().subCategory_id === data.sub_id)) {
+                    if ((documentSnapshot.data().category_id === data.cat_id) && (documentSnapshot.data().subCategory_id === data.sub_id)) {
                         shop_data.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     }
                     // console.log('hhhhh',     shop_data.push({...documentSnapshot.data(), id: }));
                     // console.log('User IDD: ', documentSnapshot.id, documentSnapshot.data());
-                    
+
                     console.log("lllllllll", shop_data);
                 });
-                
+
             });
-        
+
         return shop_data
     }
 )
@@ -38,8 +38,8 @@ const shoppingSlice = createSlice({
     name: 'shopping',
     initialState: initialState,
     extraReducers: (builder) => {
-        builder.addCase(shopByThunk.fulfilled,(state,action)=>{
-            state.Shopping=action.payload
+        builder.addCase(shopByThunk.fulfilled, (state, action) => {
+            state.Shopping = action.payload
         })
     }
 })

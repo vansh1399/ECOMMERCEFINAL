@@ -20,7 +20,7 @@ export const googleFavourite = createAsyncThunk(
 
                 querySnapshot.forEach(documentSnapshot => {
                     favData.push({ id: documentSnapshot.id, ...documentSnapshot.data() });
-                    // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                    // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data();
                 });
             });
 
@@ -28,13 +28,13 @@ export const googleFavourite = createAsyncThunk(
 
         if (avlfav) {
             firestore()
-            .collection('fav')
-            .doc(avlfav.id)
-            .delete()
+                .collection('fav')
+                .doc(avlfav.id)
+                .delete()
             // .then(() => {
             //   console.log('User deleted!');
             // });
-            const fData=favData.filter((v)=>v.pid!==id);
+            const fData = favData.filter((v) => v.pid !== id);
             return fData;
         } else {
             let favId = ''
@@ -45,23 +45,45 @@ export const googleFavourite = createAsyncThunk(
                     uid: 1,
                 })
                 .then((doc) => {
-                    favId =doc.id
+                    favId = doc.id
                     console.log('User added!');
                 });
 
-                return favData.concat({pid: id,
-                    uid: 1, id : favId})
+            return favData.concat({
+                pid: id,
+                uid: 1, id: favId
+            })
         }
     }
 )
 
+export const getfav = createAsyncThunk(
+    'favourites/fetch',
+    async () => {
+        const favouriteData = []
+        await firestore()
+            .collection('fav')
+            .get()
+            .then(querySnapshot => {
+                console.log('Total users: ', querySnapshot.size);
 
+                querySnapshot.forEach(documentSnapshot => {
+                    favouriteData.push({ id: documentSnapshot.id, ...documentSnapshot.data() });
+                    // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data();
+                });
+            });
+        return favouriteData;
+    }
+)
 
 const FavouriteSice = createSlice({
-    name: 'favourite',
+    name: 'favourites',
     initialState: initialState,
     extraReducers: (builder) => {
         builder.addCase(googleFavourite.fulfilled, (state, action) => {
+            state.favourite = action.payload
+        })
+        builder.addCase(getfav.fulfilled, (state, action) => {
             state.favourite = action.payload
         })
     }

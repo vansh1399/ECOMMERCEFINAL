@@ -5,7 +5,6 @@ import CheckBox from 'react-native-check-box';
 import Foundation from 'react-native-vector-icons/Foundation';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 
-
 export default function Rating() {
     return (
 
@@ -20,7 +19,7 @@ export default function Rating() {
                             translucent backgroundColor='transparent'
                         />
                         {/* <MaterialIcons name='chevron-left' size={30} color='black'></MaterialIcons> */}
-                        <Text style={style.headingtext}>Rating&Reviews</Text>
+                        <Text style={style.headingtext}>Rating & Reviews</Text>
                     </View>
 
                     <View style={style.ratingview}>
@@ -28,76 +27,63 @@ export default function Rating() {
                             <Text style={style.ratingtext}>4.3</Text>
                             <Text style={{ fontSize: 14, fontFamily: 'Metropolis-Regular', }}>23 ratings</Text>
                         </View>
-                    
-                    
-                        <View style = {{flexDirection : 'row'}}>
+
+
+                        <View style={{ flexDirection: 'row' }}>
+                            <View>
+                                <View style={style.ratingicons}>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                </View>
+
+
+                                <View style={style.ratingicons}>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                </View>
+
+
+                                <View style={style.ratingicons}>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                </View>
+
+
+                                <View style={style.ratingicons}>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                </View>
+
+
+                                <View style={style.ratingicons}>
+                                    <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
+                                </View>
+
+                            </View>
 
                             <View>
-                            <View style={style.ratingicons}>
-                        
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                
+                                <Text style={{ width: 114, height: 8, backgroundColor: '#DB3022', marginTop: horizontalScale(7), borderRadius: 10, marginTop: 6, textAlign: 'center' }}></Text>
+                                <Text style={{ width: 40, height: 8, backgroundColor: '#DB3022', marginTop: horizontalScale(7), borderRadius: 10, marginTop: 14, textAlign: 'center' }}></Text>
+                                <Text style={{ width: 29, height: 8, backgroundColor: '#DB3022', marginTop: horizontalScale(7), borderRadius: 10, marginTop: 14, textAlign: 'center' }}></Text>
+                                <Text style={{ width: 15, height: 8, backgroundColor: '#DB3022', marginTop: horizontalScale(7), borderRadius: 10, marginTop: 14, textAlign: 'center' }}></Text>
+                                <Text style={{ width: 8, height: 8, backgroundColor: '#DB3022', marginTop: horizontalScale(7), borderRadius: 10, marginTop: 14, textAlign: 'center' }}></Text>
                             </View>
 
-                            
-                            <View style={style.ratingicons}>
-                                
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-
+                            <View>
+                                <Text>12</Text>
+                                <Text style={{ textAlign: 'center', marginTop: 6 }}>5</Text>
+                                <Text style={{ textAlign: 'center', marginTop: 4 }}>4</Text>
+                                <Text style={{ textAlign: 'center', marginTop: 4 }}>2</Text>
+                                <Text style={{ textAlign: 'center', marginTop: 6 }}>0</Text>
                             </View>
 
 
-                            <View style={style.ratingicons}>
-                               
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                               
-
-                            </View>
-
-
-                            <View style={style.ratingicons}>
-                               
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-                               
-
-                            </View>
-
-
-                            <View style={style.ratingicons}>
-                               
-                                <MaterialIcons name="star-rate" size={20} color='#FFBA49'></MaterialIcons>
-    
-                            </View>
-
-                            </View>
-
-                        <View>
-                            <Text style = {{width : 114, height : 8 , backgroundColor : '#DB3022' , marginTop : horizontalScale(7) , borderRadius : 10 , marginTop : 6 , textAlign : 'center'}}></Text>
-                            <Text style = {{width : 40, height : 8 , backgroundColor : '#DB3022' , marginTop : horizontalScale(7) , borderRadius : 10 , marginTop : 14 , textAlign : 'center'}}></Text>
-                            <Text style = {{width : 29 , height : 8 , backgroundColor : '#DB3022' , marginTop : horizontalScale(7) , borderRadius : 10 , marginTop : 14 , textAlign : 'center'}}></Text>
-                            <Text style = {{width : 15, height : 8 , backgroundColor : '#DB3022' , marginTop : horizontalScale(7) , borderRadius : 10 , marginTop : 14 , textAlign : 'center'}}></Text>
-                            <Text style = {{width : 8, height : 8 , backgroundColor : '#DB3022' , marginTop : horizontalScale(7) , borderRadius : 10, marginTop : 14 , textAlign : 'center'}}></Text>
-                        </View>
-
-                        <View>
-                            <Text>12</Text>
-                            <Text style = {{textAlign : 'center' , marginTop : 6 }}>5</Text>
-                            <Text style = {{textAlign : 'center' , marginTop : 4}}>4</Text>
-                            <Text style = {{textAlign : 'center', marginTop : 4}}>2</Text>
-                            <Text style = {{textAlign : 'center', marginTop : 6}}>0</Text>
-                        </View>
-
-                           
                         </View>
 
                         {/* <View >
@@ -108,8 +94,6 @@ export default function Rating() {
                               <Text style = {{width : 114, height : 8 , backgroundColor : '#DB3022', marginBottom : 10}}></Text>   
 
                         </View> */}
-
-
                     </View>
 
                     <View style={style.reviewtextView}>
@@ -118,9 +102,7 @@ export default function Rating() {
                             {/* <CheckBox style={{ color: 'gray', marginRight: horizontalScale(5) }}></CheckBox> */}
                             <Text style={style.ratingText2}>With photo</Text>
                         </View>
-
                     </View>
-
 
                     <View style={style.reviewview}>
                         {/* <Image source={require('../../assets/image/reviewimage.png')} style={style.reviewerimage}></Image> */}
@@ -149,7 +131,6 @@ export default function Rating() {
                                 <Text style={style.helpfulText}>Helpful</Text>
                                 <MaterialIcons name='thumb-up' size={18}></MaterialIcons>
                             </View>
-
                         </View>
                     </View>
 
@@ -185,14 +166,14 @@ export default function Rating() {
                     </View>
 
 
-                    
 
-                    <View style={{ position: 'relative' , flex : 1.5}}>
-                            <TouchableOpacity style={style.reviewbutton}><Text style={{ textAlign: 'center', color: 'white' }}>
-                                <Foundation name='pencil' size={20} color='white'></Foundation></Text>
-                                <Text style={{ marginRight: 10, color: 'white', fontFamily: 'Metropolis-Regular' }}>Write a Review</Text>
-                            </TouchableOpacity>
-                       
+
+                    <View style={{ position: 'relative', flex: 1.5 }}>
+                        <TouchableOpacity style={style.reviewbutton}><Text style={{ textAlign: 'center', color: 'white' }}>
+                            <Foundation name='pencil' size={20} color='white'></Foundation></Text>
+                            <Text style={{ marginRight: 10, color: 'white', fontFamily: 'Metropolis-Regular' }}>Write a Review</Text>
+                        </TouchableOpacity>
+
                     </View>
 
 
@@ -232,9 +213,9 @@ const style = StyleSheet.create({
     ratingview: {
         marginTop: verticalScale(30),
         flexDirection: 'row',
-        justifyContent : 'space-around'
+        justifyContent: 'space-around'
     },
-    
+
 
     ratingtext: {
         fontSize: 44,
@@ -245,7 +226,7 @@ const style = StyleSheet.create({
     ratingicons: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-     
+
     },
 
 

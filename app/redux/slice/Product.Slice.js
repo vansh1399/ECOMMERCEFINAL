@@ -21,12 +21,12 @@ export const getProduct = createAsyncThunk(
                 querySnapshot.forEach(documentSnapshot => {
                     shop_data.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     // console.log('hhhhh',shop_data.push(documentSnapshot.data()));
-                    
+
                     // console.log("lllllllll", shop_data);
                 });
-                
+
             });
-        
+
         return shop_data
     }
 )
@@ -35,8 +35,8 @@ const productSlice = createSlice({
     name: 'product',
     initialState: initialState,
     extraReducers: (builder) => {
-        builder.addCase(getProduct.fulfilled,(state,action)=>{
-            state.Shopping=action.payload
+        builder.addCase(getProduct.fulfilled, (state, action) => {
+            state.Shopping = action.payload
         })
     }
 })

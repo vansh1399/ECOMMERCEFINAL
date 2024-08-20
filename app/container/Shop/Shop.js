@@ -12,7 +12,8 @@ import { fetchCategories } from '../../redux/slice/category.slice';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { getFilter } from '../../redux/slice/Filter.Slice';
 import { getFilterBrand } from '../../redux/slice/Brand.Slice';
-import { googleFavourite } from '../../redux/slice/Favourite.Sice';
+
+import { getfav, googleFavourite } from '../../redux/slice/Favourite.Sice';
 
 // const data = [
 //     {
@@ -86,7 +87,7 @@ export default function Shop({ route, navigation }) {
     const [color, setColor] = useState('');
 
 
-    console.log('Shopbrandbrandbrandbrandbrand', route?.params?.brand);
+    // console.log('Shopbrandbrandbrandbrandbrand', route?.params?.brand);
 
     const dispatch = useDispatch();
     const shoppingA = useSelector(state => state.product);
@@ -95,6 +96,7 @@ export default function Shop({ route, navigation }) {
         dispatch(fetchCategories())
         dispatch(getFilter());
         dispatch(getFilterBrand());
+        dispatch(getfav());
         // dispatch(googleFavourite());
     }, [])
 
@@ -102,13 +104,13 @@ export default function Shop({ route, navigation }) {
     const FilterA = useSelector(state => state.Filters);
     const brandA = useSelector(state => state.BrandF);
     const fav = useSelector(state => state.favourites);
-    console.log("favvvvvvvv", fav.favourite);
+
+    
+    // console.log("favvvvvvvv", fav.favourite);
 
     // const favouriteA = useSelector(state => state.favourites)
 
     // console.log("idddddddddd", favouriteA.favourite);
-
-
 
     // console.log('okk', category.categories);
 
@@ -140,7 +142,6 @@ export default function Shop({ route, navigation }) {
                         </View>
                     </View>
                 </RBSheet>
-
             </View>
             //  {item + 1}
         );
@@ -148,7 +149,7 @@ export default function Shop({ route, navigation }) {
 
     // console.log('kkkk', route);
 
-    console.log('ssssssssssssss', shoppingA.Shopping);
+    // console.log('ssssssssssssss', shoppingA.Shopping);
     // console.log("rrrrrrrr", route?.params?.color);
     // console.log("rrrrrrrr", route?.params?.brand);
 
@@ -227,10 +228,10 @@ export default function Shop({ route, navigation }) {
 
                 <View>
                     <TouchableOpacity onPress={() => handleFav(v.id)}><FontAwesome
-                        name={fav.favourite.some((v1) => v1.pid===v.id) ? "heart" : "heart-o"}
+                        name={fav.favourite.some((v1) => v1.pid === v.id) ? "heart" : "heart-o"}
                         // name ="heart-o"
                         size={20}
-                        color="red"
+                        color={fav.favourite.some((v1) => v1.pid === v.id) ? "red" : "black"}
                         // fav.favourite === v.id ? "#EB443F" :
                         style={styles.heart} />
                     </TouchableOpacity>
