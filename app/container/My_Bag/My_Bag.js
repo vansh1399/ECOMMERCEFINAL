@@ -15,6 +15,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React from 'react';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
+import { useSelector } from 'react-redux';
 
 
 const data = [
@@ -44,10 +45,13 @@ const data = [
   },
 ];
 
-export default function My_Bag({route,navigation}) {
-  const DataCity = ({v}) => (
+export default function My_Bag({ route, navigation }) {
+
+  const mybag = useSelector(state => state.carts)
+  console.log('mybagggggggggggg', mybag.cart);
+  const DataCity = ({ v }) => (
     <TouchableOpacity key={v.id}>
-      <View style={{paddingHorizontal: 26, marginVertical: 15}}>
+      <View style={{ paddingHorizontal: 26, marginVertical: 15 }}>
         <View style={Styles.img_main_view}>
           <View>
             <Image
@@ -55,7 +59,7 @@ export default function My_Bag({route,navigation}) {
               source={v.image}
             />
           </View>
-          <View style={{padding: 4, marginHorizontal: 10}}>
+          <View style={{ padding: 4, marginHorizontal: 10 }}>
             <View style={Styles.dotshead}>
               <Text
                 style={{
@@ -76,26 +80,26 @@ export default function My_Bag({route,navigation}) {
               </View>
             </View>
             <View style={Styles.img_data_view}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <Text style={Styles.color}>Color:</Text>
                 <Text style={Styles.black}>{v.color}</Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <Text style={Styles.size}>Size:</Text>
                 <Text style={Styles.L}>{v.size}</Text>
               </View>
             </View>
 
-            <View style={{flexDirection: 'row', columnGap: 6, marginTop: 20}}>
+            <View style={{ flexDirection: 'row', columnGap: 6, marginTop: 20 }}>
               <TouchableOpacity>
                 <Text style={Styles.textTouchableminus}>
-                  <View style={{alignContent: 'center'}}>
+                  <View style={{ alignContent: 'center' }}>
                     <Feather name="minus" size={25} color="#9B9B9B" />
                   </View>
                 </Text>
               </TouchableOpacity>
 
-              <Text style={{marginTop: 15, color: '#222222'}}>1</Text>
+              <Text style={{ marginTop: 15, color: '#222222' }}>1</Text>
 
               <TouchableOpacity>
                 <Text style={Styles.textTouchablePlus}>
@@ -140,19 +144,19 @@ export default function My_Bag({route,navigation}) {
 
         <FlatList
           data={data}
-          renderItem={({item}) => <DataCity v={item} />}
-          keyExtractor={(item,index)=>String(index) }
+          renderItem={({ item }) => <DataCity v={item} />}
+          keyExtractor={(item, index) => String(index)}
         />
 
-        <View style={{marginLeft:22,  flexDirection:'row',marginTop:0}}>
+        <View style={{ marginLeft: 22, flexDirection: 'row', marginTop: 0 }}>
           <TextInput placeholder='Enter your promo code' style={Styles.inputdesign}>
-       
+
           </TextInput>
 
-          <TouchableOpacity><MaterialIcons name="arrow-circle-right" size={45} color="black"/></TouchableOpacity>
-          
+          <TouchableOpacity><MaterialIcons name="arrow-circle-right" size={45} color="black" /></TouchableOpacity>
+
         </View>
-       
+
 
         <View style={Styles.totalamount}>
           <Text style={Styles.totalamountText}>Total Amount:</Text>
@@ -160,8 +164,8 @@ export default function My_Bag({route,navigation}) {
         </View>
 
         <View style={Styles.checkoutBtn}>
-          <TouchableOpacity onPress={()=>navigation.navigate("Addshipping Adress")}>
-            
+          <TouchableOpacity onPress={() => navigation.navigate("Addshipping Adress")}>
+
             <Text style={Styles.checkoutText}>Check out</Text>
           </TouchableOpacity>
         </View>
@@ -214,7 +218,7 @@ const Styles = StyleSheet.create({
   },
   L: {
     color: '#222222',
-    fontSize:  moderateScale(15),
+    fontSize: moderateScale(15),
   },
   textTouchablePlus: {
     padding: horizontalScale(10),
@@ -240,11 +244,11 @@ const Styles = StyleSheet.create({
   },
   dotshead: {
     flexDirection: 'row',
-    justifyContent:'space-between',
-    alignItems:'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   dotsminihead: {
-    marginRight:horizontalScale(10),
+    marginRight: horizontalScale(10),
     marginTop: verticalScale(8),
   },
   dotsminihead3: {
@@ -279,7 +283,7 @@ const Styles = StyleSheet.create({
     right: -98,
   },
   totalamount: {
-    marginTop:8,
+    marginTop: 8,
     flexDirection: 'row',
     columnGap: 184,
     marginHorizontal: horizontalScale(22),
@@ -299,22 +303,22 @@ const Styles = StyleSheet.create({
     borderRadius: moderateScale(50),
     marginHorizontal: horizontalScale(20),
     marginTop: verticalScale(9),
-    
+
   },
   checkoutText: {
     textAlign: 'center',
     marginTop: verticalScale(10),
     color: '#FFFFFF',
     fontFamily: 'Metropolis-Regular',
-    justifyContent:'center'
+    justifyContent: 'center'
   },
-  inputdesign:{
-    width:'80%',
-    height:40,
-    borderWidth:0,
-    borderRadius:8,
-    paddingLeft:10,
-    backgroundColor:'#FFFFFF',
-    color:'#9B9B9B'
+  inputdesign: {
+    width: '80%',
+    height: 40,
+    borderWidth: 0,
+    borderRadius: 8,
+    paddingLeft: 10,
+    backgroundColor: '#FFFFFF',
+    color: '#9B9B9B'
   }
 });

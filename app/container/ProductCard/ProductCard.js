@@ -2,10 +2,12 @@ import { View, Text, ScrollView, StyleSheet, StatusBar, TouchableOpacity, Image,
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SliderBox } from "react-native-image-slider-box";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Collapsible from 'react-native-collapsible';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProduct } from '../../redux/slice/Product.Slice';
+import { addtocart } from '../../redux/slice/Cart.Slice';
 
 const Data = [
     {
@@ -43,19 +45,28 @@ const Data = [
 ]
 
 export default function ProductCard({route,navigation}) {
-    const ProductA = useSelector(state => state.shopping);
-    console.log('ProductA',ProductA);
+    const dispatch=useDispatch();
+    useEffect(()=>{
+        dispatch(getProduct())
+    },[])
 
-    console.log('kkkkkkkkkkk',route?.params?.product);
+    const ProductA = useSelector(state => state.product);
+
+    
+    // console.log('ProductAAAAAA',ProductA.Shopping);
+
+    // console.log('kkkkkkkkkkk',route?.params?.product);
     
 
-  const Product= ProductA.Shopping.filter((v)=>
+  const Product= ProductA.Shopping.find((v)=>
         v.id===route?.params?.product
     )
-    console.log('Productttttttttttt',Product);
+    // console.log('Productttttttttttt',Product);
+
+    
 
 
-    console.log('ProductA',ProductA);
+    // console.log('ProductA',ProductA);
     const [images, setImages] = useState(
         [
             require('../../assets/image/fashion_girl_img8.png'),
@@ -107,6 +118,11 @@ export default function ProductCard({route,navigation}) {
 
 
     )
+
+    const handleCart=(id)=>{
+        dispatch(addtocart(id))
+        navigation.navigate("MyBag")
+    }
     return (
         <View style = { styles.mainContainer } >
               <View style={styles.bodyContainer}>
@@ -146,11 +162,11 @@ export default function ProductCard({route,navigation}) {
                     </View>
 
                         {
-                            Product.map((v)=>(
-                                <View style={styles.HandMView} key={v.id}>
+                            // Product.map((v)=>(
+                                <View style={styles.HandMView} key={Product.id}>
                                 <View>
-                                    <Text style={styles.HAndM}>{v.Product_name}</Text>
-                                    <Text style={styles.ShortDress}>{v.Description}</Text>
+                                    <Text style={styles.HAndM}>{Product.Product_name}</Text>
+                                    <Text style={styles.ShortDress}>{Product.Description}</Text>
                                     <View style={styles.iconview}>
                                         <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
                                         <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
@@ -161,10 +177,10 @@ export default function ProductCard({route,navigation}) {
                                     </View>
                                 </View>
                                 <View>
-                                    <Text style={styles.HANdMPrice}>{v.Price}</Text>
+                                    <Text style={styles.HANdMPrice}>{Product.Price}</Text>
                                 </View>
                             </View>
-                            ))
+                            // ))
                         }
               
                     <View style={styles.TextsView}>
@@ -250,7 +266,7 @@ export default function ProductCard({route,navigation}) {
                     
                 </ScrollView>
             </View>
-            <TouchableOpacity style={styles.ButtonView} onPress={()=>{navigation.navigate("MyBag")}}>
+            <TouchableOpacity style={styles.ButtonView} onPress={()=>handleCart(Product.id) }>
                 <View style={styles.ButtonUnderView}>
                     <Text style={styles.AddCart}>ADD TO CART</Text>
                 </View>

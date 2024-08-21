@@ -95,11 +95,15 @@ export default function FavouritePage({ route, navigation }) {
     )
     const ProductData = ({ v }) => (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
             <TouchableOpacity style={styles.productMainView} onPress={() => { navigation.navigate("ProductCard") }}>
                 <View style={styles.productImg}>
-                    <Image source={ require('../../assets/image/see_you.img.jpg')} style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }} />
-
+                    <Image source={require('../../assets/image/see_you.img.jpg')} style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }} />
+                    <View style={{ position: 'absolute', right: 6, top: 5 }}>
+                        <TouchableOpacity><Fontisto name="close" size={22} style={{ color: '#333333' }} /></TouchableOpacity>
+                    </View>
                 </View>
+
                 <View>
                     <Fontisto name="shopping-bag" size={18} color="#F9F9F9" style={styles.shoppingcard} />
                 </View>
@@ -161,7 +165,6 @@ export default function FavouritePage({ route, navigation }) {
     )
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -196,13 +199,11 @@ const styles = StyleSheet.create({
         borderRadius: horizontalScale(100),
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     OptionsText: {
         fontSize: moderateScale(14),
         fontFamily: 'Metropolis-Bold',
         color: 'white',
-
     },
     FilterOptions: {
         marginTop: verticalScale(20),
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
     productImg: {
         width: '100%',
         height: '68%',
-
+        position: 'relative'
     },
 
     productText: {
@@ -244,14 +245,14 @@ const styles = StyleSheet.create({
 
     },
     mangoText: {
-        color: '#9B9B9B',
+        color: '#866528',
         fontSize: moderateScale(15),
         paddingHorizontal: horizontalScale(6),
         marginTop: verticalScale(6),
         fontFamily: 'Metropolis-SemiBold'
     },
     tShirt: {
-        color: 'black',
+        color: '#333',
         fontFamily: 'Metropolis-SemiBold',
         fontSize: moderateScale(18),
         paddingHorizontal: horizontalScale(6),
@@ -274,8 +275,5 @@ const styles = StyleSheet.create({
         bottom: verticalScale(-15),
         right: horizontalScale(0),
         zIndex: 999
-
     },
-
-
 })

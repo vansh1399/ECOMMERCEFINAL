@@ -8,6 +8,9 @@ import ProductSlice from "../slice/Product.Slice";
 import FilterSlice from "../slice/Filter.Slice";
 import BrandSlice from "../slice/Brand.Slice";
 import FavouriteSice, { getfav } from "../slice/Favourite.Sice";
+import CartSlice from "../slice/Cart.Slice";
+
+
 
 export const rootReducer = combineReducers({
     count: counterSlice,
@@ -18,5 +21,6 @@ export const rootReducer = combineReducers({
     Filters:FilterSlice,
     BrandF:BrandSlice,
     favourites:FavouriteSice,
-    fav:FavouriteSice
+    fav:FavouriteSice,
+    carts:CartSlice
 });

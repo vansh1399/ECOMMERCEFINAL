@@ -105,7 +105,7 @@ export default function Shop({ route, navigation }) {
     const brandA = useSelector(state => state.BrandF);
     const fav = useSelector(state => state.favourites);
 
-    
+
     // console.log("favvvvvvvv", fav.favourite);
 
     // const favouriteA = useSelector(state => state.favourites)
@@ -434,7 +434,7 @@ const styles = StyleSheet.create({
 
     },
     mangoText: {
-        color: 'black',
+        color: '#866528',
         fontSize: 15,
         paddingHorizontal: 6,
         marginTop: 6,
