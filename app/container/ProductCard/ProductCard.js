@@ -7,7 +7,7 @@ import Collapsible from 'react-native-collapsible';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../../redux/slice/Product.Slice';
-import { addtocart } from '../../redux/slice/Cart.Slice';
+import { addToCart, addtocart } from '../../redux/slice/Cart.Slice';
 
 const Data = [
     {
@@ -120,7 +120,7 @@ export default function ProductCard({route,navigation}) {
     )
 
     const handleCart=(id)=>{
-        dispatch(addtocart(id))
+        dispatch(addToCart({id,uid:'ankit'}))
         navigation.navigate("MyBag")
     }
     return (
