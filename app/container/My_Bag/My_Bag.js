@@ -17,7 +17,7 @@ import React, { useEffect } from 'react';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../../redux/slice/Product.Slice';
-import { addtocart, decrementQty, incrementQty } from '../../redux/slice/Cart.Slice';
+import { addToCart, addtocart, decrementQty, getCart, incrementQty } from '../../redux/slice/Cart.Slice';
 
 
 const data = [
@@ -52,32 +52,36 @@ const data = [
 export default function My_Bag({ route, navigation }) {
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getProduct())
-  //   dispatch(addtocart())
-  // }, [])
+  useEffect(() => {
+    dispatch(getProduct())
+    // dispatch(addToCart())
+    dispatch(getCart())
+  }, [])
   const ProductA = useSelector(state => state.product);
-  console.log('productttttttttttttttttt',ProductA.Shopping);
-  
+  console.log('productttttttttttttttttt', ProductA.Shopping);
+
+  // const cartA=useSelector(state=>state.carts);
+  // console.log('cartttttttttssssss',cartA.cart);
 
   const mybag = useSelector(state => state.carts)
-  console.log('mybagggggggggggg', mybag.cart);
+  console.log('mybagggggggggggg', mybag.cart[0]);
 
-  const bagdata=mybag.cart.map((v)=>{
-    const c=ProductA.Shopping.find((v1)=>v1.pid===v.id)
+  const bagdata = mybag.cart.map((v) => {
+    const c = ProductA.Shopping.find((v1) => v1.pid === v.id)
     if (c !== undefined) {
-      return {...c,...v}
+      return { ...c, ...v }
     }
   })
-  console.log('bagdataaaaaaaaaa',bagdata);
 
-  const handleincrementQty=(id)=>{
+  console.log('bagdataaaaaaaaaa', bagdata);
+
+  const handleincrementQty = (id) => {
     dispatch(incrementQty(id))
-}
+  }
 
-const handleDecrement=(id)=>{
-  dispatch(decrementQty(id))
-}
+  const handleDecrement = (id) => {
+    dispatch(decrementQty(id))
+  }
 
   const DataCity = ({ v }) => (
     <TouchableOpacity key={v.id}>
@@ -86,9 +90,10 @@ const handleDecrement=(id)=>{
           <View>
             <Image
               style={Styles.img}
-              source={ require('../../assets/image/fashion_girl_img6.png')}
+              source={require('../../assets/image/fashion_girl_img6.png')}
             />
           </View>
+
           <View style={{ padding: 4, marginHorizontal: 10 }}>
             <View style={Styles.dotshead}>
               <Text
@@ -112,16 +117,18 @@ const handleDecrement=(id)=>{
             <View style={Styles.img_data_view}>
               <View style={{ flexDirection: 'row' }}>
                 <Text style={Styles.color}>Color:</Text>
-                <Text style={Styles.black}>{v.color}</Text>
+                <Text style={Styles.black}>{v.Colour_id}</Text>
+
               </View>
               <View style={{ flexDirection: 'row' }}>
                 <Text style={Styles.size}>Size:</Text>
-                <Text style={Styles.L}>{v.size}</Text>
+                <Text style={Styles.L}>{v.qty}</Text>
+
               </View>
             </View>
 
             <View style={{ flexDirection: 'row', columnGap: 6, marginTop: 20 }}>
-              <TouchableOpacity onPress={()=>handleDecrement(v.id)}>
+              <TouchableOpacity onPress={() => handleDecrement(v.id)}>
                 <Text style={Styles.textTouchableminus}>
                   <View style={{ alignContent: 'center' }}>
                     <Feather name="minus" size={25} color="#9B9B9B" />
@@ -131,7 +138,7 @@ const handleDecrement=(id)=>{
 
               <Text style={{ marginTop: 15, color: '#222222' }}>{v.qty}</Text>
 
-              <TouchableOpacity onPress={()=>handleincrementQty(v.id)}>
+              <TouchableOpacity onPress={() => handleincrementQty(v.id)}>
                 <Text style={Styles.textTouchablePlus}>
                   <View>
                     <Feather name="plus" size={25} color="#9B9B9B" />
@@ -148,11 +155,14 @@ const handleDecrement=(id)=>{
                     fontFamily: 'Metropolis-Bold',
                     fontSize: 19,
                   }}>
-                  {v.price}$
+                  {v.Price}₹
                 </Text>
               </View>
             </View>
           </View>
+
+
+
         </View>
       </View>
     </TouchableOpacity>
@@ -173,7 +183,7 @@ const handleDecrement=(id)=>{
         </View>
 
         <FlatList
-          data={bagdata}
+          data={mybag.cart}
           renderItem={({ item }) => <DataCity v={item} />}
           keyExtractor={(item, index) => String(index)}
         />

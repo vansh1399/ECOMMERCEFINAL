@@ -108,8 +108,8 @@ export default function ProductCard({route,navigation}) {
             <Text style={styles.title}>{v.title}</Text>
             <Text style={styles.subtitle}>{v.subtitle}</Text>
             <View style={styles.PriceView}>
-                <Text style={styles.discount}>{v.discount}$</Text>
-                <Text style={styles.price}>{v.price}$</Text>
+                <Text style={styles.discount}>{v.discount}₹</Text>
+                <Text style={styles.price}>{v.price}₹</Text>
 
             </View>
 
