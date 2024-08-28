@@ -220,13 +220,13 @@ export const ShopStack = () => {
 export const ProductStack = () => {
     return (<Stack.Navigator>
         <Stack.Screen name='Product'
-            component={ProductCard}
+            component={My_Bag}
             options={({ navigation }) => ({
                 headerLeft: () =>
                     <HeaderBarLeft navigation={navigation} />
             })} />
 
-        <Stack.Screen name='MyBag' component={My_Bag} />
+        {/* <Stack.Screen name='MyBag' component={My_Bag} /> */}
         <Stack.Screen name='shoop' component={FavouritePage} />
     </Stack.Navigator>)
 }

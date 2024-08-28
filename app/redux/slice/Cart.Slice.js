@@ -81,21 +81,79 @@ export const addToCart = createAsyncThunk(
 
 export const getCart = createAsyncThunk(
     'cart/getCart',
-    async () => {
-        const getCartData = [];
-        await firestore()
-            .collection('Cart')
-            .get()
-            .then(querySnapshot => {
-                
-                // console.log('Total users: ', querySnapshot.size);
+    async (id) => {
+        console.log('iddddddddd', id);
 
-                querySnapshot.forEach(documentSnapshot => {
-                    getCartData.push({id:documentSnapshot.id,...documentSnapshot.data()})
-                    // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+        const getCartData = [];
+
+        try {
+            await firestore()
+                .collection('Cart')
+                .doc(id)
+                .get()
+                .then(documentSnapshot => {
+
+                    // console.log("dddddd5252", documentSnapshot.data());
+
+                    if (documentSnapshot.exists) {
+                        getCartData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
+                    }
+                    // console.log('getcartttttt', getCartData);
+
+                    // console.log('Total users: ', querySnapshot.size);
+
+                    // querySnapshot.forEach(documentSnapshot => {
+                    //     getCartData.push({id:documentSnapshot.id,...documentSnapshot.data()})
+                    //     // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                    // });
                 });
-            });
-            return getCartData
+        } catch (error) {
+            console.log("rrrrreeeeeeeeeeeee", error);
+
+        }
+
+        return getCartData
+    }
+)
+
+export const incrementbyCart = createAsyncThunk(
+    'cart/incrementbyCart',
+    async (data, { getState }) => {
+        const { cart } = getState();
+        const useDoc = await firestore().collection('Cart').doc(data.uid);
+        const index = cart[0].cart.findIndex((v) => v.pid === uid.id)
+
+        try {
+            await useDoc.update(
+                {
+                    cart: firebase.firestore.FieldValue.arrayRemove({
+                        pid: data.id,
+                        qty: cart?.cart[0].cart[index].qty
+                    })
+                }
+            );
+            await useDoc.update(
+                {
+
+                    cart: firebase.firestore.FieldValue.arrayUnion({
+                        pid: data.id,
+                        qty: cart?.cart[0].cart[index].qty + 1
+                    })
+                }
+            )
+
+            const cardData = [];
+
+            await useDoc.get()
+                .then(documentSnapshot => {
+                    if (documentSnapshot.exists) {
+                        cardData.push(documentSnapshot.data())
+                    }
+                });
+        } catch (error) {
+
+        }
+
     }
 )
 
@@ -136,6 +194,10 @@ const cartSlice = createSlice({
             state.cart = action.payload
         })
         builder.addCase(getCart.fulfilled, (state, action) => {
+            state.cart = action.payload
+        })
+        builder.addCase(incrementbyCart.fulfilled, (state, action) => {
+            console.log('actionnnnnnnnnn', action.payload);
             state.cart = action.payload
         })
     }

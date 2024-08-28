@@ -163,10 +163,10 @@ export default function ProductCard({route,navigation}) {
 
                         {
                             // Product.map((v)=>(
-                                <View style={styles.HandMView} key={Product.id}>
+                                <View style={styles.HandMView} key={Product?.id}>
                                 <View>
-                                    <Text style={styles.HAndM}>{Product.Product_name}</Text>
-                                    <Text style={styles.ShortDress}>{Product.Description}</Text>
+                                    <Text style={styles.HAndM}>{Product?.Product_name}</Text>
+                                    <Text style={styles.ShortDress}>{Product?.Description}</Text>
                                     <View style={styles.iconview}>
                                         <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
                                         <FontAwesome name="star" size={13} style={{ color: '#FFBA49', marginRight: 2, marginTop: 2 }} />
@@ -177,7 +177,7 @@ export default function ProductCard({route,navigation}) {
                                     </View>
                                 </View>
                                 <View>
-                                    <Text style={styles.HANdMPrice}>{Product.Price}</Text>
+                                    <Text style={styles.HANdMPrice}>{Product?.Price}</Text>
                                 </View>
                             </View>
                             // ))
