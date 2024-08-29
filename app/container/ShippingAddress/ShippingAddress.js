@@ -71,7 +71,7 @@ export default function ShippingAddresses({ route, navigation }) {
                 <TouchableOpacity style={styles.btnplaceorder} onPress={() => navigation.navigate("success")}>
                     <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontFamily: 'Metropolis-Medium', marginTop: 7 }}>Place Order</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.addButton} onPress={() => { navigation.navigate("shipping") }}>
+                <TouchableOpacity style={styles.addButton} onPress={() => { navigation.navigate("Shipping Address") }}>
                     <MaterialCommunityIcons name="plus-circle" size={35} color="black" />
                 </TouchableOpacity>
             </View>

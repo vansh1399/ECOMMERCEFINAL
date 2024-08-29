@@ -11,13 +11,14 @@ import {
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React, { useEffect } from 'react';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../../redux/slice/Product.Slice';
-import { addToCart, addtocart, decrementQty, getCart, incrementbyCart, incrementQty } from '../../redux/slice/Cart.Slice';
+import { addToCart, addtocart, decrementbyCart, decrementQty, getCart, incrementbyCart, incrementQty } from '../../redux/slice/Cart.Slice';
 
 
 // const data = [
@@ -57,31 +58,31 @@ export default function My_Bag({ route, navigation }) {
     dispatch(getProduct())
 
     dispatch(getCart('ankit'))
-    
+
   }, [])
   const ProductA = useSelector(state => state.product);
   const mybag = useSelector(state => state.carts)
-  console.log('productttttttttttttttttt', ProductA.Shopping);
-  console.log('mybagggggggggggghhh', mybag.cart);
-
-  const bagdata = mybag?.cart[0].map((v) => {
-    const c = ProductA.Shopping.find((v1) => v1.pid === v.id)
+  // console.log('productttttttttttttttttt', ProductA.Shopping);
+  console.log('mybagggggggggggghhhkk', JSON.stringify(mybag?.cart[0]?.cart));
+  const cartD=mybag?.cart[0]?.cart ||[]
+  const bagdata = cartD.map((v) => {
+    const c = ProductA?.Shopping.find((v1) => v1.pid === v.id)
     if (c) {
-      let dataF={...v,...c}
+      let dataF = { ...v, ...c }
       return dataF
     }
   })
 
-  console.log('bagdataaaaaaaaaa', bagdata);
+  // console.log('bagdataaaaaaaaaa', bagdata);
 
   const handleincrementQty = (id) => {
     // dispatch(incrementQty(id))
-    dispatch(incrementbyCart({id,uid:'ankit'}))
+    dispatch(incrementbyCart({ id, uid: 'ankit' }))
   }
 
-  // const handleDecrement = (id) => {
-  //   dispatch(decrementQty(id))
-  // }
+  const handleDecrementQty = (id) => {
+    dispatch(decrementbyCart({id, uid: 'ankit'}))
+  }
 
   const DataCity = ({ v }) => (
     <TouchableOpacity key={v?.id}>
@@ -106,10 +107,10 @@ export default function My_Bag({ route, navigation }) {
               </Text>
               <View style={Styles.dotsminihead}>
                 <TouchableOpacity>
-                  <Entypo
-                    name="dots-three-vertical"
+                  <Fontisto
+                    name="close"
                     size={23}
-                    color="#9B9B9B"
+                    color="#00000"
                   />
                 </TouchableOpacity>
               </View>
@@ -128,7 +129,7 @@ export default function My_Bag({ route, navigation }) {
             </View>
 
             <View style={{ flexDirection: 'row', columnGap: 6, marginTop: 20 }}>
-              <TouchableOpacity onPress={() => handleDecrement(v.id)}>
+              <TouchableOpacity onPress={() => handleDecrementQty(v.id)}>
                 <Text style={Styles.textTouchableminus}>
                   <View style={{ alignContent: 'center' }}>
                     <Feather name="minus" size={25} color="#9B9B9B" />

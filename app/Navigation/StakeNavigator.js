@@ -227,6 +227,8 @@ export const ProductStack = () => {
             })} />
 
         {/* <Stack.Screen name='MyBag' component={My_Bag} /> */}
+        <Stack.Screen name='Addshipping Adress' component={ShippingAddresses} />
+        <Stack.Screen name='Shipping Address' component={CategoriesTwo} />
         <Stack.Screen name='shoop' component={FavouritePage} />
     </Stack.Navigator>)
 }
