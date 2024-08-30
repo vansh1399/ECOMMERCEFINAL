@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity, ScrollView, StatusBar, StyleSheet, FlatList } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { horizontalScale, moderateScale } from '../../Metrics';
+import { useDispatch, useSelector } from 'react-redux';
+import { shippingAddByget } from '../../redux/slice/ShippingAddress.Slice';
 
 
 const useaddresses = [
@@ -30,7 +32,9 @@ const useaddresses = [
     },
 ];
 
+
 export default function ShippingAddresses({ route, navigation }) {
+
     const ShippingAddresses = ({ v }) => (
         <View style={styles.olldeta}>
             <Text style={styles.addtext1}>{v.name}</Text>

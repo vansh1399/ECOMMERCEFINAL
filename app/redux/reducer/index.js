@@ -9,6 +9,7 @@ import FilterSlice from "../slice/Filter.Slice";
 import BrandSlice from "../slice/Brand.Slice";
 import FavouriteSice, { getfav } from "../slice/Favourite.Sice";
 import CartSlice from "../slice/Cart.Slice";
+import ShippingAddressSlice from "../slice/ShippingAddress.Slice";
 
 
 
@@ -22,5 +23,6 @@ export const rootReducer = combineReducers({
     BrandF:BrandSlice,
     favourites:FavouriteSice,
     fav:FavouriteSice,
-    carts:CartSlice
+    carts:CartSlice,
+    Shippingaddress:ShippingAddressSlice
 });
