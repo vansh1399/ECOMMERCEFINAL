@@ -71,7 +71,7 @@ export default function ShippingAddresses({ route, navigation }) {
                 <TouchableOpacity style={styles.btnplaceorder} onPress={() => navigation.navigate("success")}>
                     <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontFamily: 'Metropolis-Medium', marginTop: 7 }}>Place Order</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.addButton} onPress={() => { navigation.navigate("Shipping Address") }}>
+                <TouchableOpacity style={styles.addButton} onPress={() => { navigation.navigate("Addshipping Adress") }}>
                     <MaterialCommunityIcons name="plus-circle" size={35} color="black" />
                 </TouchableOpacity>
             </View>
@@ -143,11 +143,14 @@ const styles = StyleSheet.create({
         paddingTop: 4,
     },
     addButton: {
-        paddingTop: 16
+            
+        // paddingTop: 16
+
     },
     btnView: {
         flexDirection: 'row',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        marginBottom:10
     },
     btnplaceorder: {
         width: "45%",
@@ -155,7 +158,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         backgroundColor: 'black',
         borderRadius: 5,
-        marginTop: 15,
+        // marginTop: 0,
         marginRight: 140
     },
     flyingContainer: { color: 'white', fontSize: 18, fontWeight: 'bold' },

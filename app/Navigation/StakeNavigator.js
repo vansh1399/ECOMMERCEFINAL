@@ -180,8 +180,12 @@ export const HomeStack = () => {
                 <MaterialIcons name="search" color="black" size={30} />
         })}
         />
-        <Stack.Screen name='Addshipping Adress' component={AddShipingAddress} />
-        <Stack.Screen name="cart" component={ShippingAddresses} options={({ navigation }) => ({
+        <Stack.Screen name='Addshipping Adress' component={AddShipingAddress} options={({ navigation }) => ({
+            headerLeft: () => {
+                <HeaderBarLeft navigation={navigation} />
+            }
+        })} />
+        <Stack.Screen name="Shipping Address" component={ShippingAddresses} options={({ navigation }) => ({
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
         })} />
@@ -218,7 +222,12 @@ export const ShopStack = () => {
 }
 
 export const ProductStack = () => {
-    return (<Stack.Navigator>
+    return (<Stack.Navigator screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: { backgroundColor: 'F8F9FA' },
+        headerTintColor: '#000',
+        headerTitleStyle: { fontWeight: 'bold' }
+    }}>
         <Stack.Screen name='Product'
             component={My_Bag}
             options={({ navigation }) => ({
@@ -226,9 +235,15 @@ export const ProductStack = () => {
                     <HeaderBarLeft navigation={navigation} />
             })} />
 
-        {/* <Stack.Screen name='MyBag' component={My_Bag} /> */}
-        <Stack.Screen name='Addshipping Adress' component={ShippingAddresses} />
-        <Stack.Screen name='Shipping Address' component={CategoriesTwo} />
+        <Stack.Screen name='Shipping Address' component={ShippingAddresses} options={({ navigation }) => ({
+            headerLeft: () =>
+                <HeaderBarLeft navigation={navigation} />
+        })} />
+        <Stack.Screen name='Addshipping Adress' component={AddShipingAddress} options={({ navigation }) => ({
+            headerLeft: () => {
+                <HeaderBarLeft navigation={navigation} />
+            }
+        })} />
         <Stack.Screen name='shoop' component={FavouritePage} />
     </Stack.Navigator>)
 }

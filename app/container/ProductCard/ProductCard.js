@@ -90,6 +90,7 @@ export default function ProductCard({route,navigation}) {
     }
 
     const ProductCard = ({ v }) => (
+        <View>
         <TouchableOpacity style={{ marginRight: 20 }} onPress={()=>{navigation.navigate("shoop")}}>
 
             <Image source={v.img} style={{ width: 170, height: 250, borderRadius: 10 }}></Image>
@@ -115,7 +116,7 @@ export default function ProductCard({route,navigation}) {
 
         </TouchableOpacity>
 
-
+        </View>
 
     )
 
@@ -266,7 +267,7 @@ export default function ProductCard({route,navigation}) {
                     
                 </ScrollView>
             </View>
-            <TouchableOpacity style={styles.ButtonView} onPress={()=>handleCart(Product.id) }>
+            <TouchableOpacity style={styles.ButtonView} onPress={()=>handleCart(Product.id)}>
                 <View style={styles.ButtonUnderView}>
                     <Text style={styles.AddCart}>ADD TO CART</Text>
                 </View>

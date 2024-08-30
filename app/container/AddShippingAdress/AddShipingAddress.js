@@ -14,11 +14,11 @@ export default function AddShipingAddress({route,navigation}) {
                 translucent backgroundColor="transparent"
                 barStyle="dark-content"
             />
-            <View style={styles.ArrowView}>
+            {/* <View style={styles.ArrowView}>
                 <Text style={styles.KeyboardArrow}><MaterialIcons name="keyboard-arrow-left" size={50} color="black" /></Text>
                 <Text style={styles.ArrowText}>Add shipping address</Text>
-            </View>
-            <View>
+            </View> */}
+            <View style={{marginTop:5}}>
                 <TextInput
                     style={styles.input}
                     placeholder='Full name'
@@ -59,7 +59,7 @@ export default function AddShipingAddress({route,navigation}) {
 
                 </View>
             </View>
-            <TouchableOpacity style={styles.ButtonView} onPress={()=>{navigation.navigate("cart")}}><View style={styles.ButtonUnderView}>
+            <TouchableOpacity style={styles.ButtonView} onPress={()=>{navigation.navigate("Shipping Address")}}><View style={styles.ButtonUnderView}>
                 <Text style={styles.AddCart}>SAVE ADDRESS</Text>
             </View>
             </TouchableOpacity>

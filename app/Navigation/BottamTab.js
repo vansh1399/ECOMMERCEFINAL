@@ -74,7 +74,6 @@ export default function BottamTab() {
                 headerShown: false
             }} name="My_bagTab" component={BagStack} />
 
-
             <Tab.Screen options={{
                 tabBarLabel: 'Profile',
                 // tabBarIcon: ({ color, size }) => (

@@ -151,12 +151,12 @@ export default function My_Bag({ route, navigation }) {
                 <Text
                   style={{
                     marginTop: 12,
-                    marginHorizontal: 26,
+                    marginHorizontal: 10,
                     color: '#222222',
                     fontFamily: 'Metropolis-Bold',
-                    fontSize: 19,
+                    fontSize: 15,
                   }}>
-                  {v?.Price}₹
+                  {v?.Price} ₹
                 </Text>
               </View>
             </View>
@@ -201,8 +201,7 @@ export default function My_Bag({ route, navigation }) {
         </View>
 
         <View style={Styles.checkoutBtn}>
-          <TouchableOpacity onPress={() => navigation.navigate("Addshipping Adress")}>
-
+          <TouchableOpacity onPress={() => navigation.navigate("Shipping Address")}>
             <Text style={Styles.checkoutText}>Check out</Text>
           </TouchableOpacity>
         </View>
@@ -285,7 +284,7 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   dotsminihead: {
-    marginRight: horizontalScale(10),
+    marginHorizontal: horizontalScale(-20),
     marginTop: verticalScale(8),
   },
   dotsminihead3: {
