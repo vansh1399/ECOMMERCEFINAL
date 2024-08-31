@@ -11,11 +11,11 @@ import { object, string } from 'yup';
 
 
 export default function AddShipingAddress({ route, navigation }) {
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
 
     const handleSubmit1 = (data) => {
         console.log('kkkk', data);
-        dispatch(shippingAddByget({...data,uid:'ankit'}))
+        dispatch(shippingAddByget({ ...data, uid: 'ankit' }))
 
     }
 
@@ -24,8 +24,8 @@ export default function AddShipingAddress({ route, navigation }) {
         Adrress: string().matches(/^[a-zA-Z0-9\s\,\''\-]*$/).required('please enter valid Adrress'),
         City: string().matches(/^[a-zA-Z\u0080-\u024F\s\/\-\)\(\`\.\"\']+$/).required('please enter valid Adrress'),
         Region: string().required('please enter valid Region'),
-        Zip_Code: string().matches(/ ^[A-Za-z][0-9][A-Za-z]\s{0,1}[0-9][A-Za-z][0-9]$/).required('please enter valid Zip_Code'),
-        Country: string().required('please enter valid  Country'),
+        Zip_Code: string().matches().required('please enter valid Zip_Code'),
+        Country: string().matches(/^[a-zA-Z]+(?:(?:|['_\. ])([a-zA-Z]*(\.\s)?[a-zA-Z])+)*$/).required('please enter valid  Country'),
     });
 
     const formik = useFormik({
@@ -68,7 +68,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     onBlur={handleBlur('Full_name')}
                     value={values.Full_name}
                 />
-                <Text style={{color:'red'}}>{errors.Full_name && touched.Full_name ? errors.Full_name:''}</Text>
+                <Text style={{ color: 'red' }}>{errors.Full_name && touched.Full_name ? errors.Full_name : ''}</Text>
                 <TextInput
                     style={styles.input}
                     placeholder='Adrress'
@@ -78,7 +78,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     onBlur={handleBlur('Adrress')}
                     value={values.Adrress}
                 />
-                <Text style={{color:'red'}}>{errors.Adrress && touched.Adrress ? errors.Adrress:''}</Text>
+                <Text style={{ color: 'red' }}>{errors.Adrress && touched.Adrress ? errors.Adrress : ''}</Text>
                 <TextInput
                     style={styles.input}
                     placeholder='City'
@@ -88,7 +88,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     onBlur={handleBlur('City')}
                     value={values.City}
                 />
-                  <Text style={{color:'red'}}>{errors.City && touched.City ? errors.City:''}</Text>
+                <Text style={{ color: 'red' }}>{errors.City && touched.City ? errors.City : ''}</Text>
                 <TextInput
                     style={styles.input}
                     placeholder='State/Province/Region'
@@ -98,7 +98,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     onBlur={handleBlur('Region')}
                     value={values.Region}
                 />
-                  <Text style={{color:'red'}}>{errors.Region && touched.Region ? errors.Region:''}</Text>
+                <Text style={{ color: 'red' }}>{errors.Region && touched.Region ? errors.Region : ''}</Text>
                 <TextInput
                     style={styles.input}
                     placeholder='Zip Code (Postal Code)'
@@ -108,7 +108,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     onBlur={handleBlur('Zip_Code')}
                     value={values.Zip_Code}
                 />
-                  <Text style={{color:'red'}}>{errors.Zip_Code && touched.Zip_Code ? errors.Zip_Code:''}</Text>
+                <Text style={{ color: 'red' }}>{errors.Zip_Code && touched.Zip_Code ? errors.Zip_Code : ''}</Text>
                 <View style={styles.countryView}>
                     <TextInput
                         style={styles.input}
@@ -119,7 +119,7 @@ export default function AddShipingAddress({ route, navigation }) {
                         onBlur={handleBlur('Country')}
                         value={values.Country}
                     />
-                      <Text style={{color:'red'}}>{errors.Country && touched.Country ? errors.Country:''}</Text>
+                    <Text style={{ color: 'red' }}>{errors.Country && touched.Country ? errors.Country : ''}</Text>
                     <MaterialIcons name="keyboard-arrow-right" size={25} color="black" style={styles.Arrow} />
 
                 </View>

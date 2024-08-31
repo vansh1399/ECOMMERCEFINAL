@@ -11,7 +11,7 @@ const initialState = {
 export const shippingAddByget = createAsyncThunk(
     'shippingAddress/shippingAddByget',
     async (data) => {
-        console.log('databkkkkkk',data);
+        console.log('databkkkkkk', data);
 
         try {
             const shipingData = [];
@@ -42,6 +42,44 @@ export const shippingAddByget = createAsyncThunk(
     }
 )
 
+export const addshippingByget = createAsyncThunk(
+    'cart/getCart',
+    async (id) => {
+        console.log('iddddddddd', id);
+
+        const addshipData = [];
+
+        try {
+            await firestore()
+                .collection('address')
+                .doc(id)
+                .get()
+                .then(documentSnapshot => {
+
+                    // console.log("dddddd5252", documentSnapshot.data());
+
+                    if (documentSnapshot.exists) {
+                        addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
+                    }
+                    console.log('getcartttttt', addshipData);
+
+                    // console.log('Total users: ', querySnapshot.size);
+
+                    // querySnapshot.forEach(documentSnapshot => {
+                    //     addshipData.push({id:documentSnapshot.id,...documentSnapshot.data()})
+                    //     // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                    // });
+                });
+                return addshipData
+        } catch (error) {
+            console.log("rrrrreeeeeeeeeeeee", error);
+
+        }
+
+       
+    }
+)
+
 
 
 
@@ -50,6 +88,9 @@ const ShippingAddressSlice = createSlice({
     initialState: initialState,
     extraReducers: (builder) => {
         builder.addCase(shippingAddByget.fulfilled, (state, action) => {
+            state.shippingAddress = action.payload
+        })
+        builder.addCase(addshippingByget.fulfilled, (state, action) => {
             state.shippingAddress = action.payload
         })
     }

@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { horizontalScale, moderateScale } from '../../Metrics';
 import { useDispatch, useSelector } from 'react-redux';
-import { shippingAddByget } from '../../redux/slice/ShippingAddress.Slice';
+import { addshippingByget, shippingAddByget } from '../../redux/slice/ShippingAddress.Slice';
 
 
 const useaddresses = [
@@ -14,7 +14,7 @@ const useaddresses = [
         Addresses: '3 Newbridge Court',
         area: 'Chino Hills, CA 91709,',
         state: 'United States',
-        
+
     },
     {
         id: 2,
@@ -35,11 +35,26 @@ const useaddresses = [
 
 export default function ShippingAddresses({ route, navigation }) {
 
+    const dispatch = useDispatch();
+    useEffect(() => {
+        // dispatch(shippingAddByget());
+        dispatch(addshippingByget('ankit'));
+    }, [])
+    const addshipingDATA = useSelector(state => state.Shippingaddress);
+    console.log('adshipdatatatataoo', addshipingDATA?.shippingAddress[0]?.address);
+
+    const addData=addshipingDATA?.shippingAddress[0]?.address
+    console.log('addatata',addData);
+    
+
     const ShippingAddresses = ({ v }) => (
         <View style={styles.olldeta}>
-            <Text style={styles.addtext1}>{v.name}</Text>
-            <Text style={styles.addtext}>{v.Addresses}</Text>
-            <Text style={styles.addtext}>{v.area} {v.state}</Text>
+            <Text style={styles.addtext1}>{v.Full_name}</Text>
+            <Text style={styles.addtext}>{v.Adrress}</Text>
+            <Text style={styles.addtext}>{v.City}</Text>
+            <Text style={styles.addtext}>{v.Region}</Text>
+            <Text style={styles.addtext}>{v.Zip_Code}</Text>
+            <Text style={styles.addtext}>{v.Country}</Text>
 
             <TouchableOpacity style={styles.UseShipping}>
                 <FontAwesome name="check-square" size={25} color="black" />
@@ -63,7 +78,7 @@ export default function ShippingAddresses({ route, navigation }) {
             </View> */}
 
             <FlatList
-                data={useaddresses}
+                data={addData}
                 renderItem={({ item }) => <ShippingAddresses v={item} />}
                 keyExtractor={item => item.id}
             />
@@ -112,7 +127,7 @@ const styles = StyleSheet.create({
     },
     olldeta: {
         padding: 15,
-        height: 135,
+        // height: 135,
         marginTop: 20,
         backgroundColor: '#FFFFFF',
         borderRadius: horizontalScale(5),
@@ -147,14 +162,14 @@ const styles = StyleSheet.create({
         paddingTop: 4,
     },
     addButton: {
-            
+
         // paddingTop: 16
 
     },
     btnView: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginBottom:10
+        marginBottom: 10
     },
     btnplaceorder: {
         width: "45%",
