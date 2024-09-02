@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { horizontalScale, moderateScale } from '../../Metrics';
 import { useDispatch, useSelector } from 'react-redux';
-import { addshippingByget, shippingAddByget } from '../../redux/slice/ShippingAddress.Slice';
+import { addshippingByget, deleteShipping, shippingAddByget } from '../../redux/slice/ShippingAddress.Slice';
 
 
 const useaddresses = [
@@ -41,11 +41,17 @@ export default function ShippingAddresses({ route, navigation }) {
         dispatch(addshippingByget('ankit'));
     }, [])
     const addshipingDATA = useSelector(state => state.Shippingaddress);
-    console.log('adshipdatatatataoo', addshipingDATA?.shippingAddress[0]?.address);
+    // console.log('adshipdatatatataoo', addshipingDATA?.shippingAddress[0]?.address);
 
-    const addData=addshipingDATA?.shippingAddress[0]?.address
-    console.log('addatata',addData);
+    const addData = addshipingDATA?.shippingAddress?.[0]?.address
+    console.log('addatata', addData);
+
+    const handleDelete=(data)=>{
+        console.log('data1',data);
+        dispatch(deleteShipping(data))
     
+    }
+
 
     const ShippingAddresses = ({ v }) => (
         <View style={styles.olldeta}>
@@ -61,10 +67,13 @@ export default function ShippingAddresses({ route, navigation }) {
                 <Text style={styles.checkicontext}>Use as the shipping address</Text>
             </TouchableOpacity>
             <View style={styles.ViewEdit}>
-                <TouchableOpacity><Text style={styles.ViewEdittext}>Edit</Text></TouchableOpacity>
+                <TouchableOpacity><Text style={styles.ViewEdittextt}>Edit</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=>handleDelete(v)}><Text style={styles.ViewEdittext}>Delete</Text></TouchableOpacity>
             </View>
         </View>
     );
+
+
 
     return (
         <View style={styles.container}>
@@ -153,18 +162,34 @@ const styles = StyleSheet.create({
         paddingTop: 4,
     },
     ViewEdit: {
+        flexDirection: 'row',
         position: 'absolute',
+        columnGap: 15,
         padding: 10,
         right: 10,
     },
     ViewEdittext: {
-        color: 'red',
+        width: 64,
+        height: 30,
+        padding: 10,
+        borderRadius: 5,
+        backgroundColor: 'black',
+        textAlign:'center',
+        color: 'white',
+        paddingTop: 4,
+    },
+    ViewEdittextt:{
+        width: 64,
+        height: 30,
+        padding: 10,
+        textAlign:'center',
+        borderRadius: 5,
+        backgroundColor: 'black',
+        color: 'white',
         paddingTop: 4,
     },
     addButton: {
-
         // paddingTop: 16
-
     },
     btnView: {
         flexDirection: 'row',

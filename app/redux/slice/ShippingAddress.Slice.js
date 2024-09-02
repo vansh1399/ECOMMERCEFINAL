@@ -4,8 +4,9 @@ import { date } from "yup";
 
 const initialState = {
     isLoading: false,
-    shippingAddress: '',
+    shippingAddress: [],
     error: null
+
 }
 
 export const shippingAddByget = createAsyncThunk(
@@ -28,12 +29,26 @@ export const shippingAddByget = createAsyncThunk(
                         )
                     }
                 )
+
             } else {
                 await userDocRef.set({
                     address: [data]
                 })
             }
-            return shipingData
+            const addshipData = [];
+            await firestore()
+                .collection('address')
+                .doc(data.uid)
+                .get()
+                .then(documentSnapshot => {
+
+                    if (documentSnapshot.exists) {
+                        addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
+                    }
+                    console.log('getcartttttt', addshipData);
+
+                });
+            return addshipData
         } catch (error) {
             console.log("error", error);
 
@@ -43,7 +58,7 @@ export const shippingAddByget = createAsyncThunk(
 )
 
 export const addshippingByget = createAsyncThunk(
-    'cart/getCart',
+    'shippingAddress/getCart',
     async (id) => {
         console.log('iddddddddd', id);
 
@@ -56,27 +71,55 @@ export const addshippingByget = createAsyncThunk(
                 .get()
                 .then(documentSnapshot => {
 
-                    // console.log("dddddd5252", documentSnapshot.data());
+                    if (documentSnapshot.exists) {
+                        addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
+                    }
+                    console.log('getcartttttt', addshipData);
+
+
+                });
+            return addshipData
+        } catch (error) {
+            console.log("rrrrreeeeeeeeeeeee", error);
+
+        }
+
+
+    }
+)
+
+export const deleteShipping=createAsyncThunk(
+    'shippingAddress/deleteShipping',
+    async(data)=>{
+        console.log('data3',data);
+        try {
+            const userDocRef = await firestore().collection('address').doc(data.uid);
+            console.log('userrdddddocccc',userDocRef);
+            
+            await userDocRef.update(
+                {
+                    address: firebase.firestore.FieldValue.arrayRemove(
+                        data
+                    )
+                }
+            )
+            const addshipData = [];
+            await firestore()
+                .collection('address')
+                .doc(data.uid)
+                .get()
+                .then(documentSnapshot => {
 
                     if (documentSnapshot.exists) {
                         addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     }
                     console.log('getcartttttt', addshipData);
 
-                    // console.log('Total users: ', querySnapshot.size);
-
-                    // querySnapshot.forEach(documentSnapshot => {
-                    //     addshipData.push({id:documentSnapshot.id,...documentSnapshot.data()})
-                    //     // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-                    // });
                 });
-                return addshipData
+            return addshipData
         } catch (error) {
-            console.log("rrrrreeeeeeeeeeeee", error);
-
+            
         }
-
-       
     }
 )
 
@@ -91,6 +134,9 @@ const ShippingAddressSlice = createSlice({
             state.shippingAddress = action.payload
         })
         builder.addCase(addshippingByget.fulfilled, (state, action) => {
+            state.shippingAddress = action.payload
+        })
+        builder.addCase(deleteShipping.fulfilled, (state, action) => {
             state.shippingAddress = action.payload
         })
     }

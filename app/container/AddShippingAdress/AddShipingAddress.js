@@ -46,8 +46,8 @@ export default function AddShipingAddress({ route, navigation }) {
 
     const { handleBlur, handleChange, handleSubmit, onSubmit, errors, values, touched, resetForm } = formik
 
-    const shippingAddRess = useSelector(state => state.Shippingaddress)
-    console.log('ssssssss', shippingAddRess.shippingAddress);
+    // const shippingAddRess = useSelector(state => state.Shippingaddress)
+    // console.log('ssssssss', shippingAddRess?.shippingAddress[0]?.address);
     return (
         <ScrollView style={styles.container}>
             <StatusBar
@@ -124,12 +124,12 @@ export default function AddShipingAddress({ route, navigation }) {
 
                 </View>
             </View>
-            <TouchableOpacity style={styles.ButtonView} onPress={handleSubmit}><View style={styles.ButtonUnderView}>
+            <TouchableOpacity style={styles.ButtonView} onPress={()=>{handleSubmit(); navigation.navigate("Shipping Addresss")} }><View style={styles.ButtonUnderView}>
                 {/* onPress={()=>{navigation.navigate("Shipping Address")}} */}
                 <Text style={styles.AddCart}>SAVE ADDRESS</Text>
             </View>
-            </TouchableOpacity>
-        </ScrollView>
+        </TouchableOpacity>
+        </ScrollView >
     )
 }
 
