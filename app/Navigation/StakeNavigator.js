@@ -244,7 +244,7 @@ export const ProductStack = () => {
                 <HeaderBarLeft navigation={navigation} />
             }
         })} />
-             <Stack.Screen name='Shipping Addresss' component={ShippingAddresses} options={({ navigation }) => ({
+        <Stack.Screen name='Shipping Addresss' component={ShippingAddresses} options={({ navigation }) => ({
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
         })} />

@@ -1,22 +1,35 @@
 import { View, Text, ScrollView, StatusBar, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 import { useDispatch, useSelector } from 'react-redux';
-import { shippingAddByget } from '../../redux/slice/ShippingAddress.Slice';
+import { editShipping, shippingAddByget } from '../../redux/slice/ShippingAddress.Slice';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
-
 
 
 
 export default function AddShipingAddress({ route, navigation }) {
     const dispatch = useDispatch();
 
+    // console.log('route', route.params);
+
+    useEffect(() => {
+        if (route.params) {
+            setValues(route.params)
+        }
+        
+        // dispatch(editShipping())
+    }, [route.params])
+
     const handleSubmit1 = (data) => {
         console.log('kkkk', data);
-        dispatch(shippingAddByget({ ...data, uid: 'ankit' }))
-
+        if (route?.params) {
+            dispatch(editShipping({newData:{ ...data, uid: 'ankit' },oldData:route.params}));
+        } else {
+            dispatch(shippingAddByget({ ...data, uid: 'ankit' }))
+        }
+        navigation.navigate("Shipping Address")
     }
 
     let userSchema = object({
@@ -43,8 +56,7 @@ export default function AddShipingAddress({ route, navigation }) {
         }
     })
 
-
-    const { handleBlur, handleChange, handleSubmit, onSubmit, errors, values, touched, resetForm } = formik
+    const { handleBlur, handleChange, handleSubmit, setValues, onSubmit, errors, values, touched, resetForm } = formik
 
     // const shippingAddRess = useSelector(state => state.Shippingaddress)
     // console.log('ssssssss', shippingAddRess?.shippingAddress[0]?.address);
@@ -66,7 +78,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     placeholderTextColor='#9B9B9B'
                     onChangeText={handleChange('Full_name')}
                     onBlur={handleBlur('Full_name')}
-                    value={values.Full_name}
+                    value={values?.Full_name}
                 />
                 <Text style={{ color: 'red' }}>{errors.Full_name && touched.Full_name ? errors.Full_name : ''}</Text>
                 <TextInput
@@ -76,7 +88,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     placeholderTextColor='#9B9B9B'
                     onChangeText={handleChange('Adrress')}
                     onBlur={handleBlur('Adrress')}
-                    value={values.Adrress}
+                    value={values?.Adrress}
                 />
                 <Text style={{ color: 'red' }}>{errors.Adrress && touched.Adrress ? errors.Adrress : ''}</Text>
                 <TextInput
@@ -86,7 +98,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     placeholderTextColor='#9B9B9B'
                     onChangeText={handleChange('City')}
                     onBlur={handleBlur('City')}
-                    value={values.City}
+                    value={values?.City}
                 />
                 <Text style={{ color: 'red' }}>{errors.City && touched.City ? errors.City : ''}</Text>
                 <TextInput
@@ -96,7 +108,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     placeholderTextColor='#9B9B9B'
                     onChangeText={handleChange('Region')}
                     onBlur={handleBlur('Region')}
-                    value={values.Region}
+                    value={values?.Region}
                 />
                 <Text style={{ color: 'red' }}>{errors.Region && touched.Region ? errors.Region : ''}</Text>
                 <TextInput
@@ -106,7 +118,7 @@ export default function AddShipingAddress({ route, navigation }) {
                     placeholderTextColor='#9B9B9B'
                     onChangeText={handleChange('Zip_Code')}
                     onBlur={handleBlur('Zip_Code')}
-                    value={values.Zip_Code}
+                    value={values?.Zip_Code}
                 />
                 <Text style={{ color: 'red' }}>{errors.Zip_Code && touched.Zip_Code ? errors.Zip_Code : ''}</Text>
                 <View style={styles.countryView}>
@@ -117,18 +129,18 @@ export default function AddShipingAddress({ route, navigation }) {
                         placeholderTextColor='#9B9B9B'
                         onChangeText={handleChange('Country')}
                         onBlur={handleBlur('Country')}
-                        value={values.Country}
+                        value={values?.Country}
                     />
                     <Text style={{ color: 'red' }}>{errors.Country && touched.Country ? errors.Country : ''}</Text>
                     <MaterialIcons name="keyboard-arrow-right" size={25} color="black" style={styles.Arrow} />
 
                 </View>
             </View>
-            <TouchableOpacity style={styles.ButtonView} onPress={()=>{handleSubmit(); navigation.navigate("Shipping Addresss")} }><View style={styles.ButtonUnderView}>
+            <TouchableOpacity style={styles.ButtonView} onPress={() => { handleSubmit(); navigation.navigate("Shipping Addresss") }}><View style={styles.ButtonUnderView}>
                 {/* onPress={()=>{navigation.navigate("Shipping Address")}} */}
-                <Text style={styles.AddCart}>SAVE ADDRESS</Text>
+                <Text style={styles.AddCart}>{route.params ? 'Update Address ':'Add Address'}</Text>
             </View>
-        </TouchableOpacity>
+            </TouchableOpacity> 
         </ScrollView >
     )
 }

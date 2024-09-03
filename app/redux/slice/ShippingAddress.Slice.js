@@ -88,14 +88,14 @@ export const addshippingByget = createAsyncThunk(
     }
 )
 
-export const deleteShipping=createAsyncThunk(
+export const deleteShipping = createAsyncThunk(
     'shippingAddress/deleteShipping',
-    async(data)=>{
-        console.log('data3',data);
+    async (data) => {
+        console.log('data3', data);
         try {
             const userDocRef = await firestore().collection('address').doc(data.uid);
-            console.log('userrdddddocccc',userDocRef);
-            
+            console.log('userrdddddocccc', userDocRef);
+
             await userDocRef.update(
                 {
                     address: firebase.firestore.FieldValue.arrayRemove(
@@ -118,13 +118,58 @@ export const deleteShipping=createAsyncThunk(
                 });
             return addshipData
         } catch (error) {
-            
+
         }
     }
 )
 
+export const editShipping = createAsyncThunk(
+    'shippingAddress/editShipping',
+    async (data) => {
+        console.log('data44', data);
+        try {
+            const userDocRef = await firestore().collection('address').doc(data.oldData.uid);
+            const userDoc = await userDocRef.get();
+
+            await userDocRef.update(
+                {
+                    address: firebase.firestore.FieldValue.arrayRemove(
+                       data.oldData
+                    )
+                }
+            )
+            await userDocRef.update(
+                {
+                    address: firebase.firestore.FieldValue.arrayUnion(
+                       data.newData
+                    )
+                }
+            )
+
+            const addshipData = [];
+
+            await firestore()
+                .collection('address')
+                .doc(data.oldData.uid)
+                .get()
+                .then(documentSnapshot => {
+
+                    if (documentSnapshot.exists) {
+                        addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
+                    }
+                    console.log('getcartttttt', addshipData);
 
 
+                });
+            return addshipData
+
+
+        } catch (error) {
+            console.log('error', error);
+        }
+
+    }
+)
 
 const ShippingAddressSlice = createSlice({
     name: 'shippingAddress',
@@ -137,6 +182,9 @@ const ShippingAddressSlice = createSlice({
             state.shippingAddress = action.payload
         })
         builder.addCase(deleteShipping.fulfilled, (state, action) => {
+            state.shippingAddress = action.payload
+        })
+        builder.addCase(editShipping.fulfilled, (state, action) => {
             state.shippingAddress = action.payload
         })
     }
