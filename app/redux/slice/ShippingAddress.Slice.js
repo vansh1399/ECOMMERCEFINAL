@@ -25,7 +25,7 @@ export const shippingAddByget = createAsyncThunk(
                 await userDocRef.update(
                     {
                         address: firebase.firestore.FieldValue.arrayUnion(
-                            data
+                           {...data,aid:Math.floor(Math.random()*10000)}
                         )
                     }
                 )
