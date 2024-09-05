@@ -130,7 +130,7 @@ export default function My_Profile({ route, navigation }) {
 
           <View style={Styles.dataHead}>
             <View>
-              <Text style={Styles.data1}>Settings</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate('signup')}><Text style={Styles.data1}>Settings</Text></TouchableOpacity>
               <Text style={Styles.data2}>Notifications, password</Text>
             </View>
 

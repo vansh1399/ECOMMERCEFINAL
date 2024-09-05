@@ -40,13 +40,13 @@ export default function App() {
 
     <Provider store={store}>
       <NavigationContainer>
-        {/* <BottamTab /> */}
+        <BottamTab />
       </NavigationContainer>
       {/* <Forget/> */}
       {/* <BottomSheet/> */}
       {/* <Animation/> */}
       {/* <Animation1/> */}
-      <Animation2/>
+      {/* <Animation2/> */}
       {/* <Signup/> */}
       {/* <AddShipingAddress/> */}
       {/* <Maainpage/> */}

@@ -17,6 +17,8 @@ import Rating from '../container/Rating/Rating';
 import Filter from '../container/Filter/Filter';
 import CategoriesTwo from '../container/CategoriesTwo/CategoriesTwo';
 import Shop from '../container/Shop/Shop';
+import Signup from '../container/Signup/Signup';
+import Login from '../container/Login/Login';
 
 const Stack = createNativeStackNavigator();
 
@@ -276,6 +278,15 @@ export const AddShiipingStack = () => {
                 headerLeft: () =>
                     <HeaderBarLeft navigation={navigation} />
             })} />
+        <Stack.Screen name='signup' component={Signup} options={({ navigation }) => ({
+            headerLeft: () =>
+                <HeaderBarLeft navigation={navigation} />
+        })} />
+        <Stack.Screen name='login' component={Login} options={({ navigation }) => ({
+            headerLeft: () =>
+                <HeaderBarLeft navigation={navigation} />
+
+        })} />
 
         <Stack.Screen name='My Orders' component={My_Orders} options={({ navigation }) => ({
             headerLeft: () =>
@@ -289,6 +300,7 @@ export const AddShiipingStack = () => {
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
         })} />
+
     </Stack.Navigator>)
 }
 

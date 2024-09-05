@@ -11,16 +11,16 @@ const Animations = () => {
             toValue: btnClicked ? 0 : 1,
             useNativeDriver: true,
         }).start();
-        // Animated.timing(animation,{
-        //     toValue:btnClicked ? 0:1,
-        //     duration:500,
-        //     useNativeDriver:true,
+        // Animated.timing(animation, {
+        //     toValue: btnClicked ? 0 : 1,
+        //     duration: 500,
+        //     useNativeDriver: true,
         // }).start();
     }
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            {/* borderRadius:btnClicked?50:0 */}
-            <Animated.View style={[{ width: 100, height: 100, backgroundColor: 'orange', }, {
+{/* borderRadius: btnClicked ? 50 : 0  */}
+            <Animated.View style={[{ width: 100, height: 100, backgroundColor: 'orange'}, {
                 transform: [
                     {
                         translateY: animation.interpolate({
@@ -34,14 +34,18 @@ const Animations = () => {
                             outputRange: ['0deg', '360deg'],
                         })
                     },
-                    // {translateX:animation.interpolate({
-                    //     inputRange:[0,1],
-                    //     outputRange:[0,150],
-                    // })},
-                    // {scale:animation.interpolate({
-                    //     inputRange:[0,1],
-                    //     outputRange:[1,0.5],
-                    // })},
+                    // {
+                    //     translateX: animation.interpolate({
+                    //         inputRange: [0, 1],
+                    //         outputRange: [0, 150],
+                    //     })
+                    // },
+                    // {
+                    //     scale: animation.interpolate({
+                    //         inputRange: [0, 1],
+                    //         outputRange: [1, 0.5],
+                    //     })
+                    // },
 
 
                     // {translateY:animation.interpolate({
@@ -55,13 +59,11 @@ const Animations = () => {
                 width: 200,
                 height: 50,
                 backgroundColor: 'black',
-
-
-
                 justifyContent: 'center',
                 alignItems: 'center'
-            }} onPress={() => { setbtnClicked(!btnClicked); startAnimation(); }}><Text style={{ color: 'white' }}>Animation2</Text></TouchableOpacity>
-
+            }} onPress={() => { setbtnClicked(!btnClicked); startAnimation(); }}>
+                <Text style={{ color: 'white' }}>Animation2</Text>
+            </TouchableOpacity>
         </View>
     )
 }

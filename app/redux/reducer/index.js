@@ -24,5 +24,6 @@ export const rootReducer = combineReducers({
     favourites:FavouriteSice,
     fav:FavouriteSice,
     carts:CartSlice,
-    Shippingaddress:ShippingAddressSlice
+    Shippingaddress:ShippingAddressSlice,
+    
 });
