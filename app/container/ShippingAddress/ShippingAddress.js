@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, ScrollView, StatusBar, StyleSheet, FlatList } from 'react-native';
-import React, { useEffect, useMemo, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, StatusBar, StyleSheet, FlatList, Animated } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { horizontalScale, moderateScale } from '../../Metrics';
 // import BouncyCheckbox from "react-native-bouncy-checkbox";
@@ -33,9 +33,26 @@ const useaddresses = [
 ];
 
 export default function ShippingAddresses({ route, navigation }) {
+    // const progress = useRef(new Animated.Value(0.5)).current; //useSharedValue(0)
+    // const scale = useRef(new Animated.Value(1)).current;
     const [selectedId, setSelectedId] = useState();
     const dispatch = useDispatch();
+
     useEffect(() => {
+        // Animated.loop(
+        //     Animated.parallel([
+        //         Animated.sequence([
+        //             Animated.spring(progress,{toValue:1,useNativeDriver:true}),
+        //             Animated.spring(progress,{toValue:0.5,useNativeDriver:true}),
+        //         ]),
+        //         Animated.sequence([
+        //             Animated.spring(scale,{toValue:2,useNativeDriver:true}),
+        //             Animated.spring(scale,{toValue:1,useNativeDriver:true}),
+        //         ]),
+        //     ]),
+        //     {iterations:3}
+        // ).start();
+
         // dispatch(shippingAddByget());
         dispatch(addshippingByget('ankit'));
     }, [])
@@ -148,6 +165,30 @@ export default function ShippingAddresses({ route, navigation }) {
                 <TouchableOpacity style={styles.btnplaceorder} onPress={() => navigation.navigate("success")}>
                     <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontFamily: 'Metropolis-Medium', marginTop: 7 }}>Place Order</Text>
                 </TouchableOpacity>
+                {/* <TouchableOpacity style={{backgroundColor:'black',borderRadius:50}}>
+                    <Animated.View style={[styles.square,
+                    {
+                        borderRadius: progress.interpolate({
+                            inputRange: [0.5, 1],
+                            outputRange: [SIZE / 4, SIZE / 2],
+                        }),
+                        opacity: progress,
+                        transform: [
+                            { scale },
+                            {
+                                rotate: progress.interpolate(
+                                    {
+                                        inputRange: [0.5, 20],
+                                        outputRange: ['360deg', '180deg'],
+                                    }
+                                ),
+                            },
+                        ],
+                    },
+                    ]}
+                    ><Text style={styles.done}>Place Order</Text></Animated.View>
+
+                </TouchableOpacity> */}
                 <TouchableOpacity style={styles.addButton} onPress={() => { navigation.navigate("Addshipping Adress") }}>
                     <MaterialCommunityIcons name="plus-circle" size={35} color="black" />
                 </TouchableOpacity>
@@ -156,9 +197,12 @@ export default function ShippingAddresses({ route, navigation }) {
 
             </View>
 
+
         </ScrollView>
     );
 }
+
+// const SIZE = 100.0;
 
 const styles = StyleSheet.create({
     container: {
@@ -167,6 +211,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: horizontalScale(19),
         paddingTop: horizontalScale(13),
     },
+    // square: {
+    //     width: 135.0,
+    //     height: 50.0,
+    //     // backgroundColor: 'rgba(0,0,256,0.5)',
+    //     backgroundColor:'#000000'
+    // },
+    
+    // done: {
+    //     color: 'white',
+    //     fontFamily: 'Metropolis-Medium',
+    //     fontSize: 17,
+    //     textAlign: 'center',
+    //     marginTop: 14,
+    // },
     Ordertext: {
         justifyContent: 'space-between',
         flexDirection: 'row',
@@ -184,13 +242,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     olldeta: {
-        width:'95%',
+        width: '95%',
         padding: 15,
         // height: 135,
         marginTop: 20,
         backgroundColor: '#FFFFFF',
         borderRadius: horizontalScale(5),
-        marginLeft:5,
+        marginLeft: 5,
         elevation: 2,
         position: 'relative'
     },
@@ -216,7 +274,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         position: 'absolute',
         // padding: 10,
-        marginTop:11,
+        marginTop: 11,
         right: 10,
     },
     ViewEdittext: {
@@ -246,7 +304,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         marginTop: 20,
-        marginLeft: 50
+        // columnGap:120,
+        columnGap:0,
+        marginLeft: 60
     },
     btnplaceorder: {
         width: "45%",
@@ -281,5 +341,6 @@ const styles = StyleSheet.create({
         // paddingRight:70,
         // padding:5,
         color: 'white'
-    }
+    },
+
 });

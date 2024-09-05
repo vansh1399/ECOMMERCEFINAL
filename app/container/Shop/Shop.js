@@ -176,7 +176,6 @@ export default function Shop({ route, navigation }) {
         // console.log('gggggg', search);
         filterData = filterData.filter((v) => (
             v.Product_name.toLowerCase().includes(search.toLowerCase()) ||
-
             v.Description.toLowerCase().includes(search.toLowerCase()) ||
             v.Price.toString().includes(search)
         ))
@@ -209,7 +208,6 @@ export default function Shop({ route, navigation }) {
             style={styles.CategorisView}
             onPress={() => { setselectCat(v.id), selecthover() }}>
             <View style={selectCat === v.id ? styles.Optionhover : styles.Options}><Text style={styles.OptionsText}>{v.name}</Text></View>
-
         </TouchableOpacity>
     )
 
