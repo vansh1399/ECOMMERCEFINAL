@@ -5,7 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import { useDispatch } from 'react-redux';
-import { authSignupEmail } from '../../redux/slice/auth.Slice';
+import { authloginupEmail, authSignupEmail } from '../../redux/slice/auth.Slice';
 
 export default function Signup({route,navigation}) {
 
@@ -25,7 +25,7 @@ export default function Signup({route,navigation}) {
         },
         validationSchema: signupSchema,
         onSubmit: values => {
-            dispatch(authSignupEmail(values))
+            dispatch(authloginupEmail(values))
         }
     })
 

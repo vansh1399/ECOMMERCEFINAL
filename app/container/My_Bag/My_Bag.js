@@ -64,7 +64,7 @@ export default function My_Bag({ route, navigation }) {
   const mybag = useSelector(state => state.carts)
   // console.log('productttttttttttttttttt', ProductA.Shopping);
   console.log('mybagggggggggggghhhkk', JSON.stringify(mybag?.cart[0]?.cart));
-  const cartD=mybag?.cart[0]?.cart ||[]
+  const cartD = mybag?.cart[0]?.cart || []
   const bagdata = cartD.map((v) => {
     const c = ProductA?.Shopping.find((v1) => v1.pid === v.id)
     if (c) {
@@ -81,7 +81,7 @@ export default function My_Bag({ route, navigation }) {
   }
 
   const handleDecrementQty = (id) => {
-    dispatch(decrementbyCart({id, uid: 'ankit'}))
+    dispatch(decrementbyCart({ id, uid: 'ankit' }))
   }
 
   const DataCity = ({ v }) => (

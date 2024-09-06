@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import auth from '@react-native-firebase/auth';
+import auth, { sendEmailVerification } from '@react-native-firebase/auth';
 
 const initialState = {
     isLoading: false,
@@ -7,15 +7,15 @@ const initialState = {
     error: null,
 }
 
- export const authSignupEmail = createAsyncThunk(
+export const authSignupEmail = createAsyncThunk(
     'auth/authSignupEmail',
     async (data) => {
-        console.log('data5',data);
-        
+        console.log('data5', data);
+
         try {
-          await  auth()
-                .createUserWithEmailAndPassword(data.email,data.password)
-                .then(async({user}) => {
+            await auth()
+                .createUserWithEmailAndPassword(data.email, data.password)
+                .then(async ({ user }) => {
                     await user.sendEmailVerification()
                     console.log('User account created & signed in!');
                 })
@@ -41,13 +41,18 @@ const initialState = {
 export const authloginupEmail = createAsyncThunk(
     'auth/authloginupEmail',
     async (data) => {
-        console.log('data5',data);
-        
+        console.log('data5', data);
+
         try {
-          await  auth()
-                .createUserWithEmailAndPassword(data.email,data.password)
-                .then(async({user}) => {
+            await auth()
+                .createUserWithEmailAndPassword(data.email, data.password)
+                .then(async ({ user }) => {
                     await user.sendEmailVerification()
+
+
+                    // if (user.user ? ) {
+
+                    // }
                     console.log('User account created & signed in!');
                 })
                 .catch(error => {
@@ -68,20 +73,18 @@ export const authloginupEmail = createAsyncThunk(
     }
 )
 
-
-
 export const authSlice = createSlice({
     name: 'auth',
-    initialState:initialState,
+    initialState: initialState,
     extraReducers: (builder) => {
-        builder.addCase(authSignupEmail.fulfilled,(state,action)=>{
-            console.log('actionpayload',action.payload)
-            state.auth=action.payload
+        builder.addCase(authSignupEmail.fulfilled, (state, action) => {
+            console.log('actionpayload', action.payload)
+            state.auth = action.payload
         }),
-        builder.addCase(authloginupEmail.fulfilled,(state,action)=>{
-            console.log('actionpayload',action.payload)
-            state.auth=action.payload
-        })
+            builder.addCase(authloginupEmail.fulfilled, (state, action) => {
+                console.log('actionpayload', action.payload)
+                state.auth = action.payload
+            })
     }
 })
 
