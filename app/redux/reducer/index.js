@@ -10,20 +10,22 @@ import BrandSlice from "../slice/Brand.Slice";
 import FavouriteSice, { getfav } from "../slice/Favourite.Sice";
 import CartSlice from "../slice/Cart.Slice";
 import ShippingAddressSlice from "../slice/ShippingAddress.Slice";
+import authSlice from "../slice/auth.Slice";
 
 
 
 export const rootReducer = combineReducers({
     count: counterSlice,
     categories: categorySlice,
-    subcategories:SubCategorySlice,
-    shopping:ShoppingSlice,
-    product:ProductSlice,
-    Filters:FilterSlice,
-    BrandF:BrandSlice,
-    favourites:FavouriteSice,
-    fav:FavouriteSice,
-    carts:CartSlice,
-    Shippingaddress:ShippingAddressSlice,
-    
+    subcategories: SubCategorySlice,
+    shopping: ShoppingSlice,
+    product: ProductSlice,
+    Filters: FilterSlice,
+    BrandF: BrandSlice,
+    favourites: FavouriteSice,
+    fav: FavouriteSice,
+    carts: CartSlice,
+    Shippingaddress: ShippingAddressSlice,
+    auth: authSlice
+
 });

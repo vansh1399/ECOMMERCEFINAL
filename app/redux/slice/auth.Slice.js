@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import auth, { sendEmailVerification } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 
 const initialState = {
     isLoading: false,
-    auth: [],
+    auth: null,
     error: null,
 }
 
@@ -18,6 +20,18 @@ export const authSignupEmail = createAsyncThunk(
                 .then(async ({ user }) => {
                     await user.sendEmailVerification()
                     console.log('User account created & signed in!');
+
+                    await firestore()
+                        .collection('Users')
+                        .doc(user.uid)
+                        .set({
+                            name: data.name,
+                            email: data.email,
+                            emaiVerification: false
+                        })
+                        .then(() => {
+                            console.log('User added!');
+                        });
                 })
                 .catch(error => {
                     if (error.code === 'auth/email-already-in-use') {
@@ -44,15 +58,28 @@ export const authloginupEmail = createAsyncThunk(
         console.log('data5', data);
 
         try {
+            let userData = {}
             await auth()
-                .createUserWithEmailAndPassword(data.email, data.password)
+                .signInWithEmailAndPassword(data.email, data.password)
                 .then(async ({ user }) => {
-                    await user.sendEmailVerification()
 
-
-                    // if (user.user ? ) {
-
-                    // }
+                    if (user.emailVerified) {
+                        console.log('dddddd');
+                        await firestore()
+                            .collection('Users')
+                            .doc(user.uid)
+                            .update({
+                                emaiVerification: true
+                            })
+                            .then(async () => {
+                                console.log('User updated!');
+                                const user1 = await firestore().collection('Users').doc(user.uid).get();
+                                userData = user1.data();
+                            });
+                    } else {
+                        console.log('eeeee');
+                    }
+                    
                     console.log('User account created & signed in!');
                 })
                 .catch(error => {
@@ -66,6 +93,9 @@ export const authloginupEmail = createAsyncThunk(
 
                     console.error(error);
                 });
+
+                return userData;
+
         } catch (error) {
             console.log("eeeeeeeeeeeeee", error);
 

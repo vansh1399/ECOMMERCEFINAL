@@ -135,7 +135,7 @@ export default function My_Profile({ route, navigation }) {
             </View>
 
             <View>
-              <TouchableOpacity>
+              <TouchableOpacity  onPress={()=>navigation.navigate('signup')}>
                 <MaterialIcons
                   name="keyboard-arrow-right"
                   size={30}

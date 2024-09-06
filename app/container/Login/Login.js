@@ -4,7 +4,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { authSignupEmail } from '../../redux/slice/auth.Slice';
+import { authloginupEmail, authSignupEmail } from '../../redux/slice/auth.Slice';
 import { object, string } from 'yup';
 
 export default function Login() {
@@ -23,11 +23,9 @@ export default function Login() {
         },
         validationSchema: signupSchema,
         onSubmit: values => {
-            dispatch(authSignupEmail(values))
+            dispatch(authloginupEmail(values))
         }
     })
-
-
 
     const { handleChange, handleBlur, handleSubmit, values, errors, touched } = formik
 
@@ -37,9 +35,9 @@ export default function Login() {
                 backgroundColor="#fff"
                 barStyle="dark-content"
             />
-            <View style={{ marginTop: 20 }}>
+            {/* <View style={{ marginTop: 20 }}>
                 <EvilIcons name="chevron-left" size={45} color="black" />
-            </View>
+            </View> */}
             <Text style={{ fontFamily: 'Metropolis-Bold', fontSize: 40, color: '#222222', margin: 20 }}>
                 Login
             </Text>
@@ -51,7 +49,7 @@ export default function Login() {
                 onBlur={handleBlur('email')}
                 value={values.email}
             />
-            {errors.email && touched.email ? <Text style={{color:'red',paddingLeft:25}}>{errors.email}</Text>:null}
+            {errors.email && touched.email ? <Text style={{ color: 'red', paddingLeft: 25 }}>{errors.email}</Text> : null}
             <TextInput
                 name='password'
                 style={Styles.input}
@@ -60,7 +58,7 @@ export default function Login() {
                 onBlur={handleBlur('password')}
                 value={values.password}
             />
-              {errors.password && touched.password ? <Text style={{color:'red',paddingLeft:25}}>{errors.password}</Text>:null}
+            {errors.password && touched.password ? <Text style={{ color: 'red', paddingLeft: 25 }}>{errors.password}</Text> : null}
             <Text style={Styles.already}>
                 Already have an account?
             </Text>

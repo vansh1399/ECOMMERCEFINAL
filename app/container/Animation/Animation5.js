@@ -35,15 +35,15 @@ const App = () => {
         )}
         renderItem={({ item, index }) => {
           const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
-          const translateY = scrollX.interpolate({
-            inputRange,
-            // outputRange: [-width * .7, 0, width * 0.7]
-            outputRange: [-100, 0, 100]
-          })
-          // const translateX=scrollX.interpolate({
+          // const translateY = scrollX.interpolate({
           //   inputRange,
-          //   outputRange: [-500, 0,500]
+          //   // outputRange: [-width * .7, 0, width * 0.7]
+          //   outputRange: [-100, 0, 100]
           // })
+          const translateX=scrollX.interpolate({
+            inputRange,
+            outputRange: [-500, 0,500]
+          })
           return (
             <View style={{ width: width, justifyContent: 'center', alignItems: 'center' }}>
               <View
@@ -64,7 +64,7 @@ const App = () => {
                       width: ITEM_WIDTH,
                       height: ITEM_HEIGHT,
                       // transform: [{ translateX: translateX }],
-                      transform: [{ translateY: translateY }]
+                      transform: [{ translateX: translateX }]
                     }} />
                 </View>
               </View>

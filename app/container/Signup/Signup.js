@@ -7,7 +7,7 @@ import { object, string } from 'yup';
 import { useDispatch } from 'react-redux';
 import { authloginupEmail, authSignupEmail } from '../../redux/slice/auth.Slice';
 
-export default function Signup({route,navigation}) {
+export default function Signup({ route, navigation }) {
 
     let signupSchema = object({
         name: string().matches(/^[a-zA-Z ]{2,30}$/).required('please enter name'),
@@ -25,17 +25,14 @@ export default function Signup({route,navigation}) {
         },
         validationSchema: signupSchema,
         onSubmit: values => {
-            dispatch(authloginupEmail(values))
+            dispatch(authSignupEmail(values))
         }
     })
-
-
 
     const { handleChange, handleBlur, handleSubmit, values, errors, touched } = formik
     // onSubmit: values => {
     //     alert(JSON.stringify(values, null, 2));
     //   },
-
 
     return (
         <View style={Styles.container}>
@@ -43,9 +40,9 @@ export default function Signup({route,navigation}) {
                 backgroundColor="#fff"
                 barStyle="dark-content"
             />
-            <View style={{ marginTop: 20 }}>
+            {/* <View style={{ marginTop: 20 }}>
                 <EvilIcons name="chevron-left" size={45} color="black" />
-            </View>
+            </View> */}
             <Text style={{ fontFamily: 'Metropolis-Bold', fontSize: 40, color: '#222222', margin: 20 }}>
                 Sign up
             </Text>
@@ -76,7 +73,7 @@ export default function Signup({route,navigation}) {
                 value={values.password}
             />
             {errors.password && touched.password ? <Text style={{ color: 'red', paddingLeft: 25 }}>{errors.password}</Text> : null}
-            <TouchableOpacity onPress={()=>navigation.navigate('login')}><Text style={Styles.already}>
+            <TouchableOpacity onPress={() => navigation.navigate('login')}><Text style={Styles.already}>
                 Already have an account?
             </Text></TouchableOpacity>
             <TouchableOpacity style={{ alignItems: 'center' }} onPress={handleSubmit}>
@@ -139,5 +136,4 @@ const Styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 20
     }
-
 })
