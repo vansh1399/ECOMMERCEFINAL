@@ -79,7 +79,7 @@ export const authloginupEmail = createAsyncThunk(
                     } else {
                         console.log('eeeee');
                     }
-                    
+
                     console.log('User account created & signed in!');
                 })
                 .catch(error => {
@@ -94,7 +94,7 @@ export const authloginupEmail = createAsyncThunk(
                     console.error(error);
                 });
 
-                return userData;
+            return userData;
 
         } catch (error) {
             console.log("eeeeeeeeeeeeee", error);
@@ -102,6 +102,7 @@ export const authloginupEmail = createAsyncThunk(
         }
     }
 )
+
 
 export const authSlice = createSlice({
     name: 'auth',

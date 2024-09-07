@@ -43,14 +43,14 @@ export default function My_Profile({ route, navigation }) {
         </View>
 
         <View style={Styles.datamain}>
-          <TouchableOpacity style={Styles.dataHead}  onPress={() => { navigation.navigate("My Orders") }}>
+          <TouchableOpacity style={Styles.dataHead} onPress={() => { navigation.navigate("My Orders") }}>
             <View>
               <Text style={Styles.data1}>My orders</Text>
               <Text style={Styles.data2}>Already have 12 orders</Text>
             </View>
 
             <View>
-              <TouchableOpacity  onPress={() => { navigation.navigate("My Orders") }}>
+              <TouchableOpacity onPress={() => { navigation.navigate("My Orders") }}>
                 <MaterialIcons
                   name="keyboard-arrow-right"
                   size={30}
@@ -60,7 +60,7 @@ export default function My_Profile({ route, navigation }) {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={Styles.dataHead}  onPress={() => navigation.navigate("Shipping Address")}>
+          <TouchableOpacity style={Styles.dataHead} onPress={() => navigation.navigate("Shipping Address")}>
             <View>
               <Text style={Styles.data1}>Shipping addresses</Text>
               <Text style={Styles.data2}>3 ddresses</Text>
@@ -111,14 +111,14 @@ export default function My_Profile({ route, navigation }) {
             </View>
           </View>
 
-          <TouchableOpacity style={Styles.dataHead}  onPress={()=>navigation.navigate("Rating")}>
+          <TouchableOpacity style={Styles.dataHead} onPress={() => navigation.navigate("Rating")}>
             <View>
               <Text style={Styles.data1}>My reviews</Text>
               <Text style={Styles.data2}>Reviews for 4 items</Text>
             </View>
 
             <View>
-              <TouchableOpacity onPress={()=>navigation.navigate("Rating")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Rating")}>
                 <MaterialIcons
                   name="keyboard-arrow-right"
                   size={30}
@@ -130,12 +130,12 @@ export default function My_Profile({ route, navigation }) {
 
           <View style={Styles.dataHead}>
             <View>
-              <TouchableOpacity onPress={()=>navigation.navigate('signup')}><Text style={Styles.data1}>Settings</Text></TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('signup')}><Text style={Styles.data1}>Settings</Text></TouchableOpacity>
               <Text style={Styles.data2}>Notifications, password</Text>
             </View>
 
             <View>
-              <TouchableOpacity  onPress={()=>navigation.navigate('signup')}>
+              <TouchableOpacity onPress={() => navigation.navigate('signup')}>
                 <MaterialIcons
                   name="keyboard-arrow-right"
                   size={30}

@@ -6,7 +6,6 @@ const initialState = {
     isLoading: false,
     shippingAddress: [],
     error: null
-
 }
 
 export const shippingAddByget = createAsyncThunk(

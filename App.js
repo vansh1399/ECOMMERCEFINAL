@@ -32,41 +32,47 @@ import Animation1 from './app/container/Animation/Animation1'
 import Animation2 from './app/container/Animation/Animation2'
 import Animation4 from './app/container/Animation/Animation4'
 import Animation5 from './app/container/Animation/Animation5'
+import AnimationVideoPlay from './app/container/Animation/AnimationVideoPlay'
+import Animation6 from './app/container/Animation/Animation6'
+import { PersistGate } from 'redux-persist/integration/react'
 // import My_Profilee from './app/container/My_Profile/My_Profile'
 // import My_Profile from './app/container/My_Profile/My_Profile'
 
 export default function App() {
 
-  const store = configureStore()
+  const { store, persistor } = configureStore()
   return (
-
     <Provider store={store}>
-      <NavigationContainer>
-        <BottamTab />
-      </NavigationContainer>
-      {/* <Forget/> */}
-      {/* <BottomSheet/> */}
-      {/* <Animation/> */}
-      {/* <Animation1/> */}
-      {/* <Animation2/> */}
-      {/* <Animation4/> */}
-      {/* <Animation5/> */}
-      {/* <Signup/> */}
-      {/* <AddShipingAddress/> */}
-      {/* <Maainpage/> */}
-      {/* <CategoriesTwo/> */}
-      {/* <ProductCard/> */}
-      {/* <Shopping/> */}
-      {/* <FavouritePage/> */}
-      {/* <Filter/> */}
-      {/* <Rating/> */}
-      {/* <My_Orders/> */}
-      {/* <ShippingAddresses/> */}
-      {/* <My_Bag/> */}
-      {/* <Success/> */}
-      {/* <Drawer /> */}
-      {/* <My_Profile/> */}
-      {/* <Shop/> */}
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <BottamTab />
+        </NavigationContainer>
+        {/* <Forget/> */}
+        {/* <BottomSheet/> */}
+        {/* <Animation/> */}
+        {/* <Animation1/> */}
+        {/* <Animation2/> */}
+        {/* <Animation4/> */}
+        {/* <Animation5/> */}
+        {/* <Animation6/> */}
+        {/* <AnimationVideoPlay/> */}
+        {/* <Signup/> */}
+        {/* <AddShipingAddress/> */}
+        {/* <Maainpage/> */}
+        {/* <CategoriesTwo/> */}
+        {/* <ProductCard/> */}
+        {/* <Shopping/> */}
+        {/* <FavouritePage/> */}
+        {/* <Filter/> */}
+        {/* <Rating/> */}
+        {/* <My_Orders/> */}
+        {/* <ShippingAddresses/> */}
+        {/* <My_Bag/> */}
+        {/* <Success/> */}
+        {/* <Drawer /> */}
+        {/* <My_Profile/> */}
+        {/* <Shop/> */}
+      </PersistGate>
     </Provider>
 
   )

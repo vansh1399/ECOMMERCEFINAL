@@ -19,8 +19,8 @@ const Animations = () => {
     }
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-{/* borderRadius: btnClicked ? 50 : 0  */}
-            <Animated.View style={[{ width: 100, height: 100, backgroundColor: 'orange'}, {
+            {/* borderRadius: btnClicked ? 50 : 0 */}
+            <Animated.View style={[{ width: 100, height: 100, backgroundColor: 'orange', }, {
                 transform: [
                     {
                         translateY: animation.interpolate({
