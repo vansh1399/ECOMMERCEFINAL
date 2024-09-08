@@ -14,7 +14,6 @@ import FavouritePage from './app/container/FavouritePage/FavoritesPage'
 import Filter from './app/container/Filter/Filter'
 import Rating from './app/container/Rating/Rating'
 import My_Bag from './app/container/My_Bag/My_Bag'
-
 import Success from './app/container/Success/Success'
 import { NavigationContainer } from '@react-navigation/native';
 import BottamTab from './app/Navigation/BottamTab'
@@ -35,6 +34,32 @@ import Animation5 from './app/container/Animation/Animation5'
 import AnimationVideoPlay from './app/container/Animation/AnimationVideoPlay'
 import Animation6 from './app/container/Animation/Animation6'
 import { PersistGate } from 'redux-persist/integration/react'
+import Animation7 from './app/container/Animation/Animation7'
+import Animation8 from './app/container/Animation/Animation8'
+import Animation9 from './app/container/Animation/Animation9'
+import Animation10 from './app/container/Animation/Animation10'
+import Animation11 from './app/container/Animation/Animation11'
+import Animation12 from './app/container/Animation/Animation12'
+import Animation13 from './app/container/Animation/Animation13'
+import Animation14 from './app/container/Animation/Animation14'
+import Animation15 from './app/container/Animation/Animation15'
+import Animation16 from './app/container/Animation/Animation16'
+import Animation17 from './app/container/Animation/Animation17'
+import Animation18 from './app/container/Animation/Animation18'
+import Animation19 from './app/container/Animation/Animation19'
+import Animation20 from './app/container/Animation/Animation20'
+import Animation21 from './app/container/Animation/Animation21'
+import Keyboard from './app/container/Animation/Device/useAnimatedKeyboard/Keyboard'
+import Accordian from './app/container/Animation/Accordian/Accordian'
+import BottomSheett from './app/container/Animation/Bottomsheet/Bottomsheett'
+import Bottomsheett from './app/container/Animation/Bottomsheet/Bottomsheett'
+import Flip_Card from './app/container/Animation/Flip Card/Flip_Card'
+import FloatingActionButton from './app/container/Animation/Floating Action Button/FloatingActionButton'
+import Marquee from './app/container/Animation/Marquee/Marquee'
+import Section_list from './app/container/Animation/Section List/Section_list'
+import Switch from './app/container/Animation/Switch/Switch'
+import Keyframe from './app/container/Animation/Layout animation/Keyframe animations/Keyframe'
+import LayoutTransitions from './app/container/Animation/Layout animation/Layout transitions/LayoutTransitions'
 // import My_Profilee from './app/container/My_Profile/My_Profile'
 // import My_Profile from './app/container/My_Profile/My_Profile'
 
@@ -45,7 +70,7 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <BottamTab />
+          {/* <BottamTab /> */}
         </NavigationContainer>
         {/* <Forget/> */}
         {/* <BottomSheet/> */}
@@ -55,6 +80,32 @@ export default function App() {
         {/* <Animation4/> */}
         {/* <Animation5/> */}
         {/* <Animation6/> */}
+        {/* <Animation7/> */}
+        {/* <Animation8/> */}
+        {/* <Animation9/> */}
+        {/* <Animation10/> */}
+        {/* <Animation11/> */}
+        {/* <Animation12/> */}
+        {/* <Animation13/> */}
+        {/* <Animation14/> */}
+        {/* <Animation15/> */}
+        {/* <Animation16/> */}
+        {/* <Animation17/> */}
+        {/* <Animation18/> */}
+        {/* <Animation19/> */}
+        {/* <Animation20/> */}
+        {/* <Animation21 /> */}
+        {/* <Keyboard/> */}
+        {/* <Accordian/> */}
+        {/* <Bottomsheett/> */}
+        {/* <Flip_Card/> */}
+        {/* <FloatingActionButton/> */}
+        {/* <Marquee/> */}
+        {/* <Section_list/> */}
+        {/* <Switch/> */}
+        {/* <Keyframe/> */}
+        {/* <LayoutTransitions/> */}
+        {/* <BottomSheet/> */}
         {/* <AnimationVideoPlay/> */}
         {/* <Signup/> */}
         {/* <AddShipingAddress/> */}
