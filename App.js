@@ -60,6 +60,14 @@ import Section_list from './app/container/Animation/Section List/Section_list'
 import Switch from './app/container/Animation/Switch/Switch'
 import Keyframe from './app/container/Animation/Layout animation/Keyframe animations/Keyframe'
 import LayoutTransitions from './app/container/Animation/Layout animation/Layout transitions/LayoutTransitions'
+import Runon from './app/container/Animation/Threading/runOnJS/Runon'
+import Runonui from './app/container/Animation/Threading/runOnUI/Runonui'
+import Measure from './app/container/Animation/Advanced APIs/measure/Measure'
+import UseanimatedReaction from './app/container/Animation/Advanced APIs/useAnimatedReaction/UseanimatedReaction'
+import Useframecallback from './app/container/Animation/Advanced APIs/useFrameCallback/Useframecallback'
+import Useevent from './app/container/Animation/Advanced APIs/useEvent/Useevent'
+import Setnativeprops from './app/container/Animation/Advanced APIs/setNativeProps/Setnativeprops'
+import Makemutable from './app/container/Animation/Advanced APIs/makeMutable/Makemutable'
 // import My_Profilee from './app/container/My_Profile/My_Profile'
 // import My_Profile from './app/container/My_Profile/My_Profile'
 
@@ -70,7 +78,7 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          {/* <BottamTab /> */}
+          <BottamTab />
         </NavigationContainer>
         {/* <Forget/> */}
         {/* <BottomSheet/> */}
@@ -82,18 +90,25 @@ export default function App() {
         {/* <Animation6/> */}
         {/* <Animation7/> */}
         {/* <Animation8/> */}
+        {/* <Makemutable/> */}
         {/* <Animation9/> */}
         {/* <Animation10/> */}
+        {/* <Setnativeprops/> */}
         {/* <Animation11/> */}
         {/* <Animation12/> */}
+        {/* <Useevent/> */}
         {/* <Animation13/> */}
         {/* <Animation14/> */}
+        {/* <Useframecallback/> */}
         {/* <Animation15/> */}
         {/* <Animation16/> */}
+        {/* <UseanimatedReaction/> */}
         {/* <Animation17/> */}
         {/* <Animation18/> */}
+        {/* <Measure/> */}
         {/* <Animation19/> */}
         {/* <Animation20/> */}
+        {/* <Runonui/> */}
         {/* <Animation21 /> */}
         {/* <Keyboard/> */}
         {/* <Accordian/> */}
@@ -103,6 +118,7 @@ export default function App() {
         {/* <Marquee/> */}
         {/* <Section_list/> */}
         {/* <Switch/> */}
+        {/* <Runon/> */}
         {/* <Keyframe/> */}
         {/* <LayoutTransitions/> */}
         {/* <BottomSheet/> */}

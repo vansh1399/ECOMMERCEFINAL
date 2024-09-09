@@ -36,6 +36,7 @@ function HeaderBarLeft({ navigation }) {
 
 const Tab = createBottomTabNavigator();
 
+
 export default function BottamTab() {
 
     const auth = useSelector(state => state.auth);
@@ -117,6 +118,8 @@ export default function BottamTab() {
 
                 })} />
             </Stack.Navigator>
+            
+
 
     )
 }

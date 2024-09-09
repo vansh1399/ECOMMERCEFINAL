@@ -10,11 +10,20 @@ import {
 } from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
+import { useDispatch } from 'react-redux';
+import { authsignOut } from '../../redux/slice/auth.Slice';
 
 
 export default function My_Profile({ route, navigation }) {
+
+  const dispatch = useDispatch();
+
+  const handleSignOut = () => {
+    dispatch(authsignOut());
+    navigation.navigate('signup')
+  }
   return (
     <ScrollView>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
@@ -100,6 +109,7 @@ export default function My_Profile({ route, navigation }) {
               <Text style={Styles.data2}>You have special promocodes</Text>
             </View>
 
+
             <View>
               <TouchableOpacity>
                 <MaterialIcons
@@ -130,8 +140,9 @@ export default function My_Profile({ route, navigation }) {
 
           <View style={Styles.dataHead}>
             <View>
-              <TouchableOpacity onPress={() => navigation.navigate('signup')}><Text style={Styles.data1}>Settings</Text></TouchableOpacity>
-              <Text style={Styles.data2}>Notifications, password</Text>
+              <TouchableOpacity onPress={() => handleSignOut()}><Text style={Styles.data1}>Sign out</Text></TouchableOpacity>
+
+              <Text style={Styles.data2}>you want to go to exist</Text>
             </View>
 
             <View>

@@ -1,5 +1,6 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
 import FavouritePage from '../container/FavouritePage/FavoritesPage';
 import Maainpage from '../container/Mainpage/Maainpage';
 import My_Bag from '../container/My_Bag/My_Bag';
@@ -32,7 +33,6 @@ function HeaderBarLeft({ navigation }) {
         </TouchableOpacity>
     )
 }
-
 
 // function HomeBar() {
 //     return (

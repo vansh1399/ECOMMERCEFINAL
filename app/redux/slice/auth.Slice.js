@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import auth, { sendEmailVerification } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-
+import AsyncStorage from "@react-native-community/async-storage";
 
 const initialState = {
     isLoading: false,
@@ -50,7 +50,6 @@ export const authSignupEmail = createAsyncThunk(
         }
     }
 )
-
 
 export const authloginupEmail = createAsyncThunk(
     'auth/authloginupEmail',
@@ -103,6 +102,20 @@ export const authloginupEmail = createAsyncThunk(
     }
 )
 
+export const authsignOut = createAsyncThunk(
+    'auth/authsignOut',
+    async () => {
+        try {
+            await auth()
+                .signOut()
+                .then(() => console.log('User signed out!'));
+            await AsyncStorage.clear();
+            return null;
+        } catch (error) {
+            console.log('error111', error);
+        }
+    }
+)
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -113,7 +126,11 @@ export const authSlice = createSlice({
             state.auth = action.payload
         }),
             builder.addCase(authloginupEmail.fulfilled, (state, action) => {
-                console.log('actionpayload', action.payload)
+                console.log('authloginupmail', action.payload)
+                state.auth = action.payload
+            }),
+            builder.addCase(authsignOut.fulfilled, (state, action) => {
+                console.log('authsignout', action.payload)
                 state.auth = action.payload
             })
     }
