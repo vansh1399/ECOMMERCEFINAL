@@ -4,10 +4,9 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { authloginupEmail, authSignupEmail, GoogleSignup } from '../../redux/slice/auth.Slice';
+import { authloginupEmail, authSignupEmail, FacebookSignup, GoogleSignup } from '../../redux/slice/auth.Slice';
 import { object, string } from 'yup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-
 
 export default function Login() {
 
@@ -34,7 +33,11 @@ export default function Login() {
     })
 
     const handleGooglesignup = () => {
-        dispatch(GoogleSignup())
+        dispatch(GoogleSignup());
+    }
+
+    const handleFacebookSignup = () => {
+        dispatch(FacebookSignup());
     }
 
     const { handleChange, handleBlur, handleSubmit, values, errors, touched } = formik
@@ -82,7 +85,7 @@ export default function Login() {
             </View>
             <View style={Styles.mainview}>
                 <TouchableOpacity style={Styles.facebook} onPress={() => handleGooglesignup()}><FontAwesome name="google" size={45} color="#23527C" /></TouchableOpacity>
-                <TouchableOpacity style={Styles.facebook}><FontAwesome name="facebook-square" size={45} color="#23527C" /></TouchableOpacity>
+                <TouchableOpacity style={Styles.facebook} onPress={() => handleFacebookSignup()}><FontAwesome name="facebook-square" size={45} color="#23527C" /></TouchableOpacity>
 
             </View>
         </View>

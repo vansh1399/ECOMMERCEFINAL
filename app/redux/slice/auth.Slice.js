@@ -3,6 +3,7 @@ import auth, { sendEmailVerification } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from "@react-native-community/async-storage";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 
 const initialState = {
     isLoading: false,
@@ -123,26 +124,57 @@ export const GoogleSignup = createAsyncThunk(
     async () => {
         try {
             await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-            console.log('GoogleSignin',GoogleSignin);
-            
+            console.log('GoogleSignin', GoogleSignin);
+
             // Get the users ID token
             const userinfo = await GoogleSignin.signIn();
-            console.log('userinfo',userinfo);
+            console.log('userinfo', userinfo);
 
             const { idToken } = await GoogleSignin.getTokens();
-            console.log('idToken',idToken);
+            console.log('idToken', idToken);
 
             // Create a Google credential with the token
             const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
-            console.log('googleCredential',googleCredential);
+            console.log('googleCredential', googleCredential);
 
             // Sign-in the user with the credential
-            const x= auth().signInWithCredential(googleCredential);
-            console.log('x',x);
-            
+            const x = auth().signInWithCredential(googleCredential);
+            console.log('x', x);
+
             return x;
         } catch (error) {
             console.log('error', error);
+        }
+    }
+)
+
+export const FacebookSignup = createAsyncThunk(
+    'auth/FacebookSignup',
+    async () => {
+        try {
+            const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+            if (result.isCancelled) {
+                throw 'User cancelled the login process';
+            }
+
+            // Once signed in, get the users AccessToken
+            const data = await AccessToken.getCurrentAccessToken();
+
+            if (!data) {
+                throw 'Something went wrong obtaining access token';
+            }
+
+            // Create a Firebase credential with the AccessToken
+            const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+
+            // Sign-in the user with the credential
+            const y = auth().signInWithCredential(facebookCredential);
+
+            return y;
+        } catch (error) {
+            console.log('error', error);
+
         }
     }
 )
@@ -164,10 +196,13 @@ export const authSlice = createSlice({
                 state.auth = action.payload
             })
         builder.addCase(GoogleSignup.fulfilled, (state, action) => {
-            console.log('GoogleSignup', action.payload);
+            // console.log('GoogleSignup', action.payload);
             state.auth = action.payload
         })
-
+        builder.addCase(FacebookSignup.fulfilled, (state, action) => {
+            console.log('FacebookSignup', FacebookSignup);
+            state.auth = action.payload
+        })
 
     }
 })
