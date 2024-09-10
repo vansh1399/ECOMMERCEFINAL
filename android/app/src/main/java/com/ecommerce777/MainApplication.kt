@@ -1,4 +1,4 @@
-package com.ecommerce
+package com.ecommerce777
 
 import android.app.Application
 import com.facebook.react.PackageList

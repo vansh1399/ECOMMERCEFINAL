@@ -12,7 +12,12 @@
           "package_name": "com.demo777"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "433931523568-5kmj7js63gnf35d9qoh3gttt3l6a4n4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAS8O0HvFOMIOw_l9xTxZnEL40y6aHKlX0"
@@ -20,18 +25,36 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433931523568-5kmj7js63gnf35d9qoh3gttt3l6a4n4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:433931523568:android:b032a81f8755b28fb9b935",
+        "mobilesdk_app_id": "1:433931523568:android:57c844db97424dc3b9b935",
         "android_client_info": {
-          "package_name": "com.ecommerce"
+          "package_name": "com.ecommerce777"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "433931523568-bru85da99qcqc3oe633bdiikffh3oras.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ecommerce777",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "433931523568-5kmj7js63gnf35d9qoh3gttt3l6a4n4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAS8O0HvFOMIOw_l9xTxZnEL40y6aHKlX0"
@@ -39,7 +62,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433931523568-5kmj7js63gnf35d9qoh3gttt3l6a4n4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -50,7 +78,12 @@
           "package_name": "com.ecommercevanshadmin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "433931523568-5kmj7js63gnf35d9qoh3gttt3l6a4n4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAS8O0HvFOMIOw_l9xTxZnEL40y6aHKlX0"
@@ -58,7 +91,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433931523568-5kmj7js63gnf35d9qoh3gttt3l6a4n4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

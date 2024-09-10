@@ -118,7 +118,7 @@ export default function BottamTab() {
 
                 })} />
             </Stack.Navigator>
-            
+
 
 
     )

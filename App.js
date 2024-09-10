@@ -79,7 +79,7 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          {/* <BottamTab /> */}
+          <BottamTab />
         </NavigationContainer>
         {/* <Forget/> */}
         {/* <BottomSheet/> */}
@@ -113,7 +113,7 @@ export default function App() {
         {/* <Runonui/> */}
         {/* <Animation21 /> */}
         {/* <Keyboard/> */}
-        {/* <Accordian/> */}
+        {/* <Accordian /> */}
         {/* <Bottomsheett/> */}
         {/* <Flip_Card/> */}
         {/* <FloatingActionButton/> */}

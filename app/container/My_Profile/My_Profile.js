@@ -23,6 +23,7 @@ export default function My_Profile({ route, navigation }) {
   const handleSignOut = () => {
     dispatch(authsignOut());
     navigation.navigate('signup')
+    
   }
   return (
     <ScrollView>

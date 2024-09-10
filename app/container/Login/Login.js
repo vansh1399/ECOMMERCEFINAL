@@ -4,10 +4,16 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { authloginupEmail, authSignupEmail } from '../../redux/slice/auth.Slice';
+import { authloginupEmail, authSignupEmail, GoogleSignup } from '../../redux/slice/auth.Slice';
 import { object, string } from 'yup';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
 
 export default function Login() {
+
+    GoogleSignin.configure({
+        webClientId: "433931523568-5kmj7js63gnf35d9qoh3gttt3l6a4n4m.apps.googleusercontent.com",
+    });
 
     let signupSchema = object({
         email: string().email().matches(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).required('please enter email'),
@@ -26,6 +32,10 @@ export default function Login() {
             dispatch(authloginupEmail(values))
         }
     })
+
+    const handleGooglesignup = () => {
+        dispatch(GoogleSignup())
+    }
 
     const { handleChange, handleBlur, handleSubmit, values, errors, touched } = formik
 
@@ -71,7 +81,9 @@ export default function Login() {
                 </Text>
             </View>
             <View style={Styles.mainview}>
+                <TouchableOpacity style={Styles.facebook} onPress={() => handleGooglesignup()}><FontAwesome name="google" size={45} color="#23527C" /></TouchableOpacity>
                 <TouchableOpacity style={Styles.facebook}><FontAwesome name="facebook-square" size={45} color="#23527C" /></TouchableOpacity>
+
             </View>
         </View>
     )

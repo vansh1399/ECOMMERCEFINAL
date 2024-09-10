@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import auth, { sendEmailVerification } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from "@react-native-community/async-storage";
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const initialState = {
     isLoading: false,
@@ -117,22 +118,57 @@ export const authsignOut = createAsyncThunk(
     }
 )
 
+export const GoogleSignup = createAsyncThunk(
+    'auth/GoogleSignup',
+    async () => {
+        try {
+            await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+            console.log('GoogleSignin',GoogleSignin);
+            
+            // Get the users ID token
+            const userinfo = await GoogleSignin.signIn();
+            console.log('userinfo',userinfo);
+
+            const { idToken } = await GoogleSignin.getTokens();
+            console.log('idToken',idToken);
+
+            // Create a Google credential with the token
+            const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
+            console.log('googleCredential',googleCredential);
+
+            // Sign-in the user with the credential
+            const x= auth().signInWithCredential(googleCredential);
+            console.log('x',x);
+            
+            return x;
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+)
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState: initialState,
     extraReducers: (builder) => {
         builder.addCase(authSignupEmail.fulfilled, (state, action) => {
-            console.log('actionpayload', action.payload)
+            // console.log('actionpayload', action.payload)
             state.auth = action.payload
         }),
             builder.addCase(authloginupEmail.fulfilled, (state, action) => {
-                console.log('authloginupmail', action.payload)
+                // console.log('authloginupmail', action.payload)
                 state.auth = action.payload
             }),
             builder.addCase(authsignOut.fulfilled, (state, action) => {
-                console.log('authsignout', action.payload)
+                // console.log('authsignout', action.payload)
                 state.auth = action.payload
             })
+        builder.addCase(GoogleSignup.fulfilled, (state, action) => {
+            console.log('GoogleSignup', action.payload);
+            state.auth = action.payload
+        })
+
+
     }
 })
 
