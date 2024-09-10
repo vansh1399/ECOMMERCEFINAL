@@ -68,6 +68,7 @@ import Useframecallback from './app/container/Animation/Advanced APIs/useFrameCa
 import Useevent from './app/container/Animation/Advanced APIs/useEvent/Useevent'
 import Setnativeprops from './app/container/Animation/Advanced APIs/setNativeProps/Setnativeprops'
 import Makemutable from './app/container/Animation/Advanced APIs/makeMutable/Makemutable'
+import Orderstatus from './app/container/Animation/Order status/Orderstatus'
 // import My_Profilee from './app/container/My_Profile/My_Profile'
 // import My_Profile from './app/container/My_Profile/My_Profile'
 
@@ -78,7 +79,7 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <BottamTab />
+          {/* <BottamTab /> */}
         </NavigationContainer>
         {/* <Forget/> */}
         {/* <BottomSheet/> */}
@@ -89,6 +90,7 @@ export default function App() {
         {/* <Animation5/> */}
         {/* <Animation6/> */}
         {/* <Animation7/> */}
+        {/* <Orderstatus/> */}
         {/* <Animation8/> */}
         {/* <Makemutable/> */}
         {/* <Animation9/> */}

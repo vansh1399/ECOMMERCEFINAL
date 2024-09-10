@@ -8,7 +8,7 @@ const App = () => {
     const [clicked, setClicked] = useState(false);
     const [progress, setProgress] = useState(null);
     const [paused, setPaused] = useState(false);
-    const [muted,setMuted]=useState(false);
+    const [muted, setMuted] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
     const ref = useRef();
 
@@ -19,7 +19,7 @@ const App = () => {
         return `${mins}:${secs}`;
     };
 
-    // Handle full-screen toggle
+
     const handleFullScreen = () => {
         if (fullScreen) {
             Orientation.lockToPortrait();
@@ -30,11 +30,6 @@ const App = () => {
     };
 
     const handleMuteRing = () => {
-        // if (muted) {
-        //     Orientation.addLockListener();
-        // } else {
-        //     Orientation.addOrientationListener();
-        // }
         setMuted(!muted);
     };
 
@@ -42,8 +37,9 @@ const App = () => {
         return () => {
             Orientation.lockToPortrait();
         };
-        
+
     }, []);
+
 
     return (
         <View style={{ flex: 1 }}>
@@ -59,8 +55,8 @@ const App = () => {
                         setProgress(x);
                     }}
                     muted={muted}
-                    paused={paused} 
-                    resizeMode="contain" 
+                    paused={paused}
+                    resizeMode="contain"
                     style={{
                         width: '100%',
                         height: fullScreen ? Dimensions.get('window').height : 200, // Full screen mode for video
