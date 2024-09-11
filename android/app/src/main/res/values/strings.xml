@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Ecommerce</string>
+    <string name="facebook_app_id">1481305225887858</string>
+    <string name="fb_login_protocol_scheme">fb1481305225887858</string>
+    <string name="facebook_client_token">8619b24d9278ff7d3faf25bb51670d0d</string>
 </resources>

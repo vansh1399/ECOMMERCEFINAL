@@ -203,7 +203,6 @@ export const authSlice = createSlice({
             console.log('FacebookSignup', FacebookSignup);
             state.auth = action.payload
         })
-
     }
 })
 
