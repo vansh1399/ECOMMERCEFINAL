@@ -169,9 +169,8 @@ export const FacebookSignup = createAsyncThunk(
             const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
 
             // Sign-in the user with the credential
-            const y = auth().signInWithCredential(facebookCredential);
+            return auth().signInWithCredential(facebookCredential);
 
-            return y;
         } catch (error) {
             console.log('error', error);
 
