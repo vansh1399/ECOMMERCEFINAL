@@ -86,7 +86,6 @@ export default function Login() {
             <View style={Styles.mainview}>
                 <TouchableOpacity style={Styles.facebook} onPress={() => handleGooglesignup()}><FontAwesome name="google" size={45} color="#23527C" /></TouchableOpacity>
                 <TouchableOpacity style={Styles.facebook} onPress={() => handleFacebookSignup()}><FontAwesome name="facebook-square" size={45} color="#23527C" /></TouchableOpacity>
-
             </View>
         </View>
     )

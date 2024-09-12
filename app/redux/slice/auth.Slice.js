@@ -153,27 +153,38 @@ export const FacebookSignup = createAsyncThunk(
     async () => {
         try {
             const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+            console.log('result', result);
+
 
             if (result.isCancelled) {
                 throw 'User cancelled the login process';
             }
+            console.log('result.isCancelled', result.isCancelled);
+
 
             // Once signed in, get the users AccessToken
             const data = await AccessToken.getCurrentAccessToken();
+            console.log('datafacebook', data);
+
 
             if (!data) {
                 throw 'Something went wrong obtaining access token';
+            } else {
+                console.log('=>success', data);
+
             }
 
             // Create a Firebase credential with the AccessToken
             const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+            console.log('facebookCredential', facebookCredential);
 
             // Sign-in the user with the credential
-            return auth().signInWithCredential(facebookCredential);
+            const y = auth().signInWithCredential(facebookCredential);
+            console.log('y', y);
+            return y;
 
         } catch (error) {
             console.log('error', error);
-
         }
     }
 )
