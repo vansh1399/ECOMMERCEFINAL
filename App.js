@@ -69,6 +69,7 @@ import Useevent from './app/container/Animation/Advanced APIs/useEvent/Useevent'
 import Setnativeprops from './app/container/Animation/Advanced APIs/setNativeProps/Setnativeprops'
 import Makemutable from './app/container/Animation/Advanced APIs/makeMutable/Makemutable'
 import Orderstatus from './app/container/Animation/Order status/Orderstatus'
+import Phone_number from './app/container/Phone_number/Phone_number'
 // import My_Profilee from './app/container/My_Profile/My_Profile'
 // import My_Profile from './app/container/My_Profile/My_Profile'
 
@@ -81,6 +82,7 @@ export default function App() {
         <NavigationContainer>
           <BottamTab />
         </NavigationContainer>
+        {/* <Phone_number/> */}
         {/* <Forget/> */}
         {/* <BottomSheet/> */}
         {/* <Animation/> */}

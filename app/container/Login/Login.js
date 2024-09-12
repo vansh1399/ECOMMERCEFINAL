@@ -8,7 +8,7 @@ import { authloginupEmail, authSignupEmail, FacebookSignup, GoogleSignup } from 
 import { object, string } from 'yup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-export default function Login() {
+export default function Login({ route, navigation }) {
 
     GoogleSignin.configure({
         webClientId: "433931523568-5kmj7js63gnf35d9qoh3gttt3l6a4n4m.apps.googleusercontent.com",
@@ -73,7 +73,7 @@ export default function Login() {
             />
             {errors.password && touched.password ? <Text style={{ color: 'red', paddingLeft: 25 }}>{errors.password}</Text> : null}
             <Text style={Styles.already}>
-                Already have an account?
+                Already have an account ?
             </Text>
             <TouchableOpacity style={{ alignItems: 'center' }} onPress={handleSubmit}>
                 <Text style={Styles.Sign}>Sign up</Text>
@@ -83,10 +83,18 @@ export default function Login() {
                     Forgot your Password
                 </Text>
             </View>
+            <View style={Styles.text1}>
+                <TouchableOpacity onPress={() => navigation.navigate('Phone number')}>
+                    <Text style={Styles.already1}>
+                        Do you sign in with Phone number ?
+                    </Text>
+                </TouchableOpacity>
+            </View>
             <View style={Styles.mainview}>
                 <TouchableOpacity style={Styles.facebook} onPress={() => handleGooglesignup()}><FontAwesome name="google" size={45} color="#23527C" /></TouchableOpacity>
                 <TouchableOpacity style={Styles.facebook} onPress={() => handleFacebookSignup()}><FontAwesome name="facebook-square" size={45} color="#23527C" /></TouchableOpacity>
             </View>
+
         </View>
     )
 }
@@ -110,6 +118,13 @@ const Styles = StyleSheet.create({
         color: '#222222',
         textAlign: 'center'
     },
+    already1: {
+        marginTop: 80,
+        // paddingLeft: 75,
+        color: '#222222',
+        // textAlign: 'center',
+
+    },
     Sign: {
         width: '80%',
         height: 50,
@@ -124,7 +139,8 @@ const Styles = StyleSheet.create({
     },
     social: {
         textAlign: 'center',
-        marginVertical: 80,
+        marginVertical: 10,
+        marginLeft: 120,
         color: '#222222'
     },
     facebook: {
@@ -133,7 +149,13 @@ const Styles = StyleSheet.create({
     mainview: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginBottom: 20
+        marginTop: 80,
+        // marginBottom: 20
+    },
+    text1: {
+        flex: 0,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 
 })

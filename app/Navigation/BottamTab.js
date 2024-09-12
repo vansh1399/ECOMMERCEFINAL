@@ -20,6 +20,7 @@ import { authloginupEmail } from '../redux/slice/auth.Slice';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from '../container/Signup/Signup';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Phone_number from '../container/Phone_number/Phone_number';
 
 const Stack = createNativeStackNavigator();
 
@@ -115,11 +116,11 @@ export default function BottamTab() {
                 <Stack.Screen name='login' component={Login} options={({ navigation }) => ({
                     headerLeft: () =>
                         <HeaderBarLeft navigation={navigation} />
-
+                })} />
+                 <Stack.Screen name='Phone number' component={Phone_number} options={({ navigation }) => ({
+                    headerLeft: () =>
+                        <HeaderBarLeft navigation={navigation} />
                 })} />
             </Stack.Navigator>
-
-
-
     )
 }
