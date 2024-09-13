@@ -16,6 +16,7 @@ export default function Otp() {
             otpInputRef.current.setValue('7096')
         }
     }
+
     return (
         <View>
             <OTPTextInput ref={otpInputRef} />

@@ -9,6 +9,7 @@ const initialState = {
     isLoading: false,
     auth: null,
     error: null,
+    confirmation: null
 }
 
 export const authSignupEmail = createAsyncThunk(
@@ -189,17 +190,34 @@ export const FacebookSignup = createAsyncThunk(
     }
 )
 
-export const PhoneNumber = createAsyncThunk(
-    'auth/PhoneNumber',
-    async (phoneNumber, { rejectWithValue }) => {
+export const phoneAuth = createAsyncThunk(
+    'auth/phoneAuth',
+    async (data) => {
+        console.log('data and phone', data.phone);
         try {
-            const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-            console.log('confirmation',confirmation);
-            return confirmation;
+            const confirmation = await auth().signInWithPhoneNumber(data.phone);
+            console.log('confirmation', confirmation);
+
+            return confirmation
         } catch (error) {
-            console.log('PhoneNumber error', error);
-            return rejectWithValue(error.message);
+            console.log('error is phone number: ', error);
         }
+    }
+)
+
+export const OtpNo=createAsyncThunk(
+    'auth/OtpNo',
+    async(data)=>{
+        console.log('data and code',data.code);
+        
+        try {
+           const dataR= await data.confirm.confirm(data.code);
+           console.log(dataR);
+
+           return dataR;
+          } catch (error) {
+            console.log('Invalid code.');
+          }
     }
 )
 
@@ -227,8 +245,12 @@ export const authSlice = createSlice({
             // console.log('FacebookSignup', FacebookSignup);
             state.auth = action.payload
         })
-        builder.addCase(PhoneNumber.fulfilled, (state, action) => {
-            console.log('PhoneNumber', PhoneNumber);
+        builder.addCase(phoneAuth.fulfilled, (state, action) => {
+            // console.log('phoneAuth', phoneAuth);
+            state.confirmation = action.payload
+        })
+        builder.addCase(OtpNo.fulfilled, (state, action) => {
+            // console.log('OtpNo', OtpNo);
             state.auth = action.payload
         })
     }

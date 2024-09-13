@@ -122,10 +122,6 @@ export default function BottamTab() {
                     headerLeft: () =>
                         <HeaderBarLeft navigation={navigation} />
                 })} />
-                 <Stack.Screen name='Verify' component={Otp} options={({ navigation }) => ({
-                    headerLeft: () =>
-                        <HeaderBarLeft navigation={navigation} />
-                })} />
             </Stack.Navigator>
     )
 }
