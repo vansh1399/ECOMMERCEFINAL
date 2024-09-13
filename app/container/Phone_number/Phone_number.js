@@ -4,8 +4,36 @@ import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import { useDispatch } from 'react-redux';
 import { PhoneNumber } from '../../redux/slice/auth.Slice'
+import auth from '@react-native-firebase/auth';
 
-export default function Login() {
+export default function Login({ route, navigation }) {
+
+    const [confirm, setConfirm] = useState(null);
+    const [code, setCode] = useState('');
+
+    const signInWithPhoneNumber = async (phoneNumber) => {
+        try {
+            const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+            setConfirm(confirmation);
+        } catch (error) {
+            console.log('error sending code', error);
+        }
+
+    }
+
+    const confirmCode = async () => {
+        try {
+            if (confirm) {
+                const userCredential = await confirm.confirm(code);
+                const user = userCredential.user;
+                console.log('user OTP confirmed, user signed in!', user);
+            } else {
+                console.log('No confirmation object, request OTP first.');
+            }
+        } catch (error) {
+            console.log('Invalid code', error);
+        }
+    };
 
     let PhonenumberSchema = object({
         phone_number: string().matches(/^[0-9]{10}$/).required('please enter your valid mobile number')
@@ -38,14 +66,14 @@ export default function Login() {
                 name='Phone number'
                 style={Styles.input}
                 placeholder='Phone number'
-                onChangeText={handleChange('phone_number')}
+                onChangeText={() => { handleChange('phone_number'); { text => setCode(text) } }}
                 onBlur={handleBlur('phone_number')}
-                value={values.phone_number}
+                value={() => { values.phone_number; code }}
             />
             {errors.phone_number && touched.phone_number ? <Text style={{ color: 'red', marginLeft: 25 }}>{errors.phone_number}</Text> : null}
 
-            <TouchableOpacity style={{ alignItems: 'center' }} onPress={handleSubmit}>
-                <Text style={Styles.Sign}>OTP</Text>
+            <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => { signInWithPhoneNumber('+91 7096 593721'); confirmCode(); navigation.navigate('Verify') }}>
+                <Text style={Styles.Sign}>Sign in</Text>
             </TouchableOpacity>
             <View>
                 <Text style={Styles.social}>
@@ -79,7 +107,7 @@ const Styles = StyleSheet.create({
         fontFamily: 'Metropolis-ExtraBold',
         color: '#FFFFFF',
         fontSize: 18,
-        marginTop: 90,
+        marginTop: 50,
     },
     social: {
         textAlign: 'center',
@@ -88,3 +116,4 @@ const Styles = StyleSheet.create({
         color: '#222222'
     },
 })
+

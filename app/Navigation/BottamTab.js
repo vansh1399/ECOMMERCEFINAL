@@ -21,6 +21,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from '../container/Signup/Signup';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Phone_number from '../container/Phone_number/Phone_number';
+import Otp from '../container/Otp/Otp';
 
 const Stack = createNativeStackNavigator();
 
@@ -118,6 +119,10 @@ export default function BottamTab() {
                         <HeaderBarLeft navigation={navigation} />
                 })} />
                  <Stack.Screen name='Phone number' component={Phone_number} options={({ navigation }) => ({
+                    headerLeft: () =>
+                        <HeaderBarLeft navigation={navigation} />
+                })} />
+                 <Stack.Screen name='Verify' component={Otp} options={({ navigation }) => ({
                     headerLeft: () =>
                         <HeaderBarLeft navigation={navigation} />
                 })} />

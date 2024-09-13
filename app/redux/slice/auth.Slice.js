@@ -191,16 +191,17 @@ export const FacebookSignup = createAsyncThunk(
 
 export const PhoneNumber = createAsyncThunk(
     'auth/PhoneNumber',
-    async () => {
+    async (phoneNumber, { rejectWithValue }) => {
         try {
-
+            const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+            console.log('confirmation',confirmation);
+            return confirmation;
         } catch (error) {
-            console.log('error', error);
-
+            console.log('PhoneNumber error', error);
+            return rejectWithValue(error.message);
         }
     }
 )
-
 
 export const authSlice = createSlice({
     name: 'auth',
