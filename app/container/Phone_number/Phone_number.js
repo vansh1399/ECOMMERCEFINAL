@@ -13,7 +13,7 @@ export default function Phone_number({ route, navigation }) {
     const dispatch = useDispatch();
 
     const auth = useSelector(state => state.auth)
-    console.log('auth1', auth);
+    console.log('auth1', auth.confirmation);
 
 
     let PhonenumberSchema = object({
@@ -26,7 +26,7 @@ export default function Phone_number({ route, navigation }) {
         },
         validationSchema: PhonenumberSchema,
         onSubmit: values => {
-            console.log(values);
+            console.log('wowwwwwww', values);
             dispatch(phoneAuth({ phone: values.phone_number }))
         }
     })
@@ -41,15 +41,11 @@ export default function Phone_number({ route, navigation }) {
         },
         validationSchema: OtpSchema,
         onSubmit: values => {
-            console.log(values);
-           
+            console.log('vansh', values.otp);
+            dispatch(OtpNo({ confirm: auth.confirmation, code: values.otp }))
         }
     })
-const handlepeq = () => {
-    dispatch(OtpNo({ confirm: auth.confirmation, code: code }))
-}
-    const { handleChange, handleBlur, handleSubmit, values, errors, touched } = formik
-    // const { handleChange1, handleBlur1, handleSubmit1, values1, errors1, touched1 } = formik1
+
 
     if (!auth.confirmation) {
         return (
@@ -65,13 +61,11 @@ const handlepeq = () => {
                     name='Phone number'
                     style={Styles.input}
                     placeholder='Phone number'
-                    onChangeText={handleChange('phone_number')}
-                    onBlur={handleBlur('phone_number')}
-                // value={() => values.phone_number}
+                    onChangeText={formik.handleChange('phone_number')}
+                    onBlur={formik.handleBlur('phone_number')}
                 />
-                {/* {errors.phone_number && touched.phone_number ? <Text style={{ color: 'red', marginLeft: 25 }}>{errors.phone_number}</Text> : null} */}
                 <View style={Styles.signhead}>
-                    <TouchableOpacity style={Styles.signedit} onPress={handleSubmit}>
+                    <TouchableOpacity style={Styles.signedit} onPress={formik.handleSubmit}>
                         <Text style={Styles.SignText}>Sign in</Text>
                     </TouchableOpacity>
                 </View>
@@ -84,43 +78,29 @@ const handlepeq = () => {
             </View>
         )
     }
+
     return (
-        <>
-            <TextInput
-                name='otp'
-                style={Styles.input}
-                placeholder='Enter otp'
-                onChangeText={text => setCode(text)}
-                onBlur={handleBlur('otp')}
-                value={code}
-
+        <View style={Styles.container}>
+            <StatusBar
+                backgroundColor="#fff"
+                barStyle="dark-content"
             />
-            <Button title="Confirm Code" onPress={()=>handlepeq()} />
-        </>
-        // <View style={Styles.container}>
-        //     <StatusBar
-        //         backgroundColor="#fff"
-        //         barStyle="dark-content"
-        //     />
-        //     <Text style={{ fontFamily: 'Metropolis-Bold', fontSize: 30, color: '#222222', margin: 30, marginTop: 40 }}>
-        //         Otp Verification
-        //     </Text>
-        //
-        //     {/* {errors.otp && touched.otp ? <Text style={{ color: 'red', marginLeft: 25 }}>{errors.otp}</Text> : null} */}
-        //     <View style={Styles.signhead}>
-        //         <TouchableOpacity style={Styles.signedit} onPress={() => { handleSubmit(), confirmCode() }}>
-        //             <Text style={Styles.SignText}>Verify</Text>
-        //         </TouchableOpacity>
-        //     </View>
-
-        //     <View>
-        //         <Text style={Styles.social}>
-        //             Forgot your otp
-        //         </Text>
-        //     </View>
-
-
-        // </View>
+            <Text style={{ fontFamily: 'Metropolis-Bold', fontSize: 30, color: '#222222', margin: 30, marginTop: 40 }}>
+                Verify Otp
+            </Text>
+            <TextInput
+                name='Otp'
+                style={Styles.input}
+                placeholder='Enter Otp'
+                onChangeText={formik1.handleChange('otp')}
+                onBlur={formik1.handleBlur('otp')}
+            />
+            <View style={Styles.signhead}>
+                <TouchableOpacity style={Styles.signedit} onPress={formik1.handleSubmit}>
+                    <Text style={Styles.SignText}>Otp</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     )
 
 }

@@ -118,7 +118,7 @@ export default function BottamTab() {
                     headerLeft: () =>
                         <HeaderBarLeft navigation={navigation} />
                 })} />
-                 <Stack.Screen name='Phone number' component={Phone_number} options={({ navigation }) => ({
+                <Stack.Screen name='Phone number' component={Phone_number} options={({ navigation }) => ({
                     headerLeft: () =>
                         <HeaderBarLeft navigation={navigation} />
                 })} />

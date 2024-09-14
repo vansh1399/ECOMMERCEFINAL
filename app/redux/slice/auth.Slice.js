@@ -193,10 +193,10 @@ export const FacebookSignup = createAsyncThunk(
 export const phoneAuth = createAsyncThunk(
     'auth/phoneAuth',
     async (data) => {
-        console.log('data and phone', data.phone);
+        // console.log('data and phone', data.phone);
         try {
             const confirmation = await auth().signInWithPhoneNumber(data.phone);
-            console.log('confirmation', confirmation);
+            // console.log('confirmation', confirmation);
 
             return confirmation
         } catch (error) {
@@ -205,19 +205,19 @@ export const phoneAuth = createAsyncThunk(
     }
 )
 
-export const OtpNo=createAsyncThunk(
+export const OtpNo = createAsyncThunk(
     'auth/OtpNo',
-    async(data)=>{
-        console.log('data and code',data.code);
-        
+    async (data) => {
+      
         try {
-           const dataR= await data.confirm.confirm(data.code);
-           console.log(dataR);
+            console.log('data and code1', data.code);
+            const dataR = await data.confirm.confirm(data.code);
+            console.log(dataR);
 
-           return dataR;
-          } catch (error) {
-            console.log('Invalid code.');
-          }
+            return dataR;
+        } catch (error) {
+            // console.log('Invalid code.');
+        }
     }
 )
 
