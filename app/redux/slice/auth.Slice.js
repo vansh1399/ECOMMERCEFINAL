@@ -30,7 +30,7 @@ export const authSignupEmail = createAsyncThunk(
                         .set({
                             name: data.name,
                             email: data.email,
-                            emaiVerification: false
+                            emaiVerification: false,
                         })
                         .then(() => {
                             console.log('User added!');
@@ -63,10 +63,11 @@ export const authloginupEmail = createAsyncThunk(
             let userData = {}
             await auth()
                 .signInWithEmailAndPassword(data.email, data.password)
+                // console.log('signInWithEmailAndPassword', x)
                 .then(async ({ user }) => {
 
                     if (user.emailVerified) {
-                        console.log('dddddd');
+                        // console.log('dddddd');
                         await firestore()
                             .collection('Users')
                             .doc(user.uid)
@@ -81,6 +82,8 @@ export const authloginupEmail = createAsyncThunk(
                     } else {
                         console.log('eeeee');
                     }
+
+
 
                     console.log('User account created & signed in!');
                 })
@@ -112,6 +115,7 @@ export const authsignOut = createAsyncThunk(
             await auth()
                 .signOut()
                 .then(() => console.log('User signed out!'));
+            await GoogleSignin.revokeAccess();
             await AsyncStorage.clear();
             return null;
         } catch (error) {
@@ -139,10 +143,28 @@ export const GoogleSignup = createAsyncThunk(
             // console.log('googleCredential', googleCredential);
 
             // Sign-in the user with the credential
-            const x = auth().signInWithCredential(googleCredential);
-            // console.log('x', x);
+            const x = await auth().signInWithCredential(googleCredential);
+            console.log('x', x.user);
 
-            return x;
+            await firestore()
+                .collection('Users')
+                .doc(x.user.uid)
+                .set({
+                    name: x.user.displayName,
+                    email: x.user.email,
+                    emaiVerification: x.user.emailVerified,
+                    loginType: 'Google'
+                })
+                .then(() => {
+                    console.log('User added!');
+                });
+            return {
+                name: x.user.displayName,
+                email: x.user.email,
+                emaiVerification: x.user.emailVerified,
+                loginType: 'Google',
+                uid: x.user.uid
+            };
         } catch (error) {
             console.log('error', error);
         }
@@ -181,8 +203,25 @@ export const FacebookSignup = createAsyncThunk(
 
             // Sign-in the user with the credential
             const y = await auth().signInWithCredential(facebookCredential);
-            // console.log('y', y);
-            return y;
+            console.log('y', y.user);
+            await firestore()
+                .collection('Users')
+                .doc(y.user.uid)
+                .set({
+                    name: y.user.displayName,
+                    email: y.user.email,
+                    emaiVerification: y.user.emailVerified,
+                    loginType: 'Facebook'
+                })
+                .then(() => {
+                    console.log('User added!');
+                });
+            return {
+                name: y.user.displayName,
+                email: y.user.email,
+                emaiVerification: y.user.emailVerified,
+                loginType: 'Facebook'
+            };
 
         } catch (error) {
             console.log('error', error);
@@ -196,7 +235,7 @@ export const phoneAuth = createAsyncThunk(
         // console.log('data and phone', data.phone);
         try {
             const confirmation = await auth().signInWithPhoneNumber(data.phone);
-            // console.log('confirmation', confirmation);
+            console.log('confirmation', confirmation);
 
             return confirmation
         } catch (error) {
@@ -208,15 +247,32 @@ export const phoneAuth = createAsyncThunk(
 export const OtpNo = createAsyncThunk(
     'auth/OtpNo',
     async (data) => {
-      
         try {
-            console.log('data and code1', data.code);
+            // const { confirm, code } = data;
+            // console.log('data and code1', data.confirm);
             const dataR = await data.confirm.confirm(data.code);
-            console.log(dataR);
+            console.log('dataR', dataR);
 
-            return dataR;
+            await firestore()
+                .collection('Users')
+                .doc(dataR.user.uid)
+                .set({
+                    phone: dataR.user.phoneNumber,
+                    emaiVerification: true,
+                    loginType: 'phoneNumber'
+                })
+                .then(() => {
+                    console.log('User added!');
+                });
+
+            return {
+                phone: dataR.user.phoneNumber,
+                emaiVerification: true,
+                loginType: 'phoneNumber',
+                uid: dataR.user.uid
+            };
         } catch (error) {
-            // console.log('Invalid code.');
+            console.log('Invalid code.', error);
         }
     }
 )

@@ -86,7 +86,7 @@ export default function Login({ route, navigation }) {
             <View style={Styles.text1}>
                 <TouchableOpacity onPress={() => navigation.navigate('Phone number')}>
                     <Text style={Styles.already1}>
-                        Do you sign in with Phone number ?
+                        Do you want to sign in with Phone number ?
                     </Text>
                 </TouchableOpacity>
             </View>

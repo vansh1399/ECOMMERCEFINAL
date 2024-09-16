@@ -5,15 +5,12 @@ import { object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { OtpNo, phoneAuth } from '../../redux/slice/auth.Slice';
 
-
 export default function Phone_number({ route, navigation }) {
 
-    const [confirm, setConfirm] = useState(null);
-    const [code, setCode] = useState('');
     const dispatch = useDispatch();
 
     const auth = useSelector(state => state.auth)
-    console.log('auth1', auth.confirmation);
+    // console.log('auth1', auth.confirmation);
 
 
     let PhonenumberSchema = object({
@@ -26,7 +23,7 @@ export default function Phone_number({ route, navigation }) {
         },
         validationSchema: PhonenumberSchema,
         onSubmit: values => {
-            console.log('wowwwwwww', values);
+            // console.log('wowwwwwww', values.phone_number);
             dispatch(phoneAuth({ phone: values.phone_number }))
         }
     })
@@ -41,11 +38,13 @@ export default function Phone_number({ route, navigation }) {
         },
         validationSchema: OtpSchema,
         onSubmit: values => {
-            console.log('vansh', values.otp);
+            // console.log('vansh', values.otp);
             dispatch(OtpNo({ confirm: auth.confirmation, code: values.otp }))
         }
     })
 
+    console.log('gggg',auth.confirmation);
+    
 
     if (!auth.confirmation) {
         return (
@@ -78,6 +77,9 @@ export default function Phone_number({ route, navigation }) {
             </View>
         )
     }
+
+    console.log('eeeeeee',formik1.errors);
+    
 
     return (
         <View style={Styles.container}>
