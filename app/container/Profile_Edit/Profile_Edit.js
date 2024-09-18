@@ -165,7 +165,6 @@ export default function Profile_Edit() {
                 <View style={{ width: '90%', borderWidth: 0.3, marginLeft: 48, backgroundColor: 'gray' }}></View>
 
                 <View style={{ flex: 1 }} >
-
                     <FlatList
                         data={items}
                         renderItem={(props) => renderItem({ ...props, refRBSheet })}
