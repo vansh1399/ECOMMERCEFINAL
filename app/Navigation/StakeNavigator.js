@@ -20,6 +20,7 @@ import CategoriesTwo from '../container/CategoriesTwo/CategoriesTwo';
 import Shop from '../container/Shop/Shop';
 import Signup from '../container/Signup/Signup';
 import Login from '../container/Login/Login';
+import Profile_Edit from '../container/Profile_Edit/Profile_Edit';
 
 const Stack = createNativeStackNavigator();
 
@@ -297,6 +298,10 @@ export const AddShiipingStack = () => {
                 <HeaderBarLeft navigation={navigation} />
         })} />
         <Stack.Screen name='Rating' component={Rating} options={({ navigation }) => ({
+            headerLeft: () =>
+                <HeaderBarLeft navigation={navigation} />
+        })} />
+        <Stack.Screen name='Profile' component={Profile_Edit} options={({ navigation }) => ({
             headerLeft: () =>
                 <HeaderBarLeft navigation={navigation} />
         })} />

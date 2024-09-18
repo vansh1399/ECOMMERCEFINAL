@@ -70,6 +70,7 @@ import Setnativeprops from './app/container/Animation/Advanced APIs/setNativePro
 import Makemutable from './app/container/Animation/Advanced APIs/makeMutable/Makemutable'
 import Orderstatus from './app/container/Animation/Order status/Orderstatus'
 import Phone_number from './app/container/Phone_number/Phone_number'
+import Profile_Edit from './app/container/Profile_Edit/Profile_Edit'
 // import My_Profilee from './app/container/My_Profile/My_Profile'
 // import My_Profile from './app/container/My_Profile/My_Profile'
 
@@ -83,6 +84,7 @@ export default function App() {
           <BottamTab />
         </NavigationContainer>
         {/* <Phone_number/> */}
+        {/* <Profile_Edit/> */}
         {/* <Forget/> */}
         {/* <BottomSheet/> */}
         {/* <Animation/> */}

@@ -23,7 +23,7 @@ export default function My_Profile({ route, navigation }) {
   const handleSignOut = () => {
     dispatch(authsignOut());
     navigation.navigate('signup')
-    
+
   }
   return (
     <ScrollView>
@@ -39,10 +39,12 @@ export default function My_Profile({ route, navigation }) {
         <Text style={Styles.myProfile}>My Profile</Text>
 
         <View style={Styles.profileHead}>
-          <Image
-            style={Styles.Profileimg}
-            source={require('../../assets/image/fashion_girl_img7.png')}
-          />
+          <TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
+            <Image
+              style={Styles.Profileimg}
+              source={require('../../assets/image/fashion_girl_img7.png')}
+            />
+          </TouchableOpacity>
 
           <View style={Styles.matildabrownTextMAin}>
             <Text style={Styles.matildabrownText}>Matilda Brown</Text>
