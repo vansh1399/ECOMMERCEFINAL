@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity, Image, Text, FlatList, TextInput } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, FlatList, TextInput, PermissionsAndroid } from 'react-native'
 import React, { useRef } from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -7,13 +7,35 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const items = [('')];
+
 
 export default function Profile_Edit() {
 
     const refRBSheet = useRef([]);
-    const refVBSheet = useRef([]);
+    // const refVBSheet = useRef([]);
+
+    const handleCamera = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            console.log('camera', image.path);
+        });
+    }
+
+    const handleGallery = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log('gallery', image.path);
+        });
+    }
 
     const renderItem = ({ item, index, refRBSheet }) => {
         return (
@@ -25,7 +47,7 @@ export default function Profile_Edit() {
                             <View style={styles.bottomcover}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <View style={{ marginTop: 10, marginLeft: 10 }}>
-                                        <TouchableOpacity><Fontisto name="close-a" size={15} color="#A9AEB1" /></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => refRBSheet.current[0]?.close()}><Fontisto name="close-a" size={15} color="#A9AEB1" /></TouchableOpacity>
                                     </View>
                                     <View style={{ marginLeft: 80 }}>
                                         <Text style={styles.bottomSheetText}>Profile photo</Text>
@@ -34,13 +56,13 @@ export default function Profile_Edit() {
 
                                 <View style={styles.bottomiconhead}>
                                     <View>
-                                        <TouchableOpacity style={styles.imagecircle2}>
+                                        <TouchableOpacity style={styles.imagecircle2} onPress={() => handleCamera()}>
                                             <Feather name="camera" size={24} color="#DB3022" />
                                             <View style={{ marginTop: 10 }}><Text>Camera</Text></View>
                                         </TouchableOpacity>
                                     </View>
                                     <View>
-                                        <TouchableOpacity style={styles.imagecircle2}>
+                                        <TouchableOpacity style={styles.imagecircle2} onPress={() => handleGallery()}>
                                             <MaterialCommunityIcons name="image-outline" size={24} color="#DB3022" />
                                             <View style={{ marginTop: 10 }}><Text>Gallery</Text></View>
                                         </TouchableOpacity>
@@ -52,7 +74,6 @@ export default function Profile_Edit() {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-
                             </View>
                         </View>
                     </View>
@@ -62,38 +83,37 @@ export default function Profile_Edit() {
         );
     };
 
-    const ErenderItem = ({ item, index, refVBSheet }) => {
-        return (
-            <View>
-                <RBSheet ref={ref => (refVBSheet.current[index] = ref)}>
-                    <View style={styles.bottomSheetContainer}>
-                        <View style={styles.bottommini}>
-                            <View>
-                                <Text style={{ color: 'black' }}>Enter Your name</Text>
-                                <View style={{ flexDirection: 'row', marginTop: 30, }}>
-                                    <View style={styles.inputStyle}>
-                                        <TextInput>
-                                        </TextInput>
-                                    </View>
-                                    <View style={{ marginLeft: 15, marginTop: 8 }}>
-                                        <TouchableOpacity><Fontisto name="smiling" size={24} color="gray" /></TouchableOpacity>
-                                    </View>
-                                </View>
+    // const ErenderItem = ({ item, index, refVBSheet }) => {
+    //     return (
+    //         <View>
+    //             <RBSheet ref={ref => (refVBSheet.current[index] = ref)}>
+    //                 <View style={styles.bottomSheetContainer}>
+    //                     <View style={styles.bottommini}>
+    //                         <View>
+    //                             <Text style={{ color: 'black' }}>Enter Your name</Text>
+    //                             <View style={{ flexDirection: 'row', marginTop: 30, }}>
+    //                                 <View style={styles.inputStyle}>
+    //                                     <TextInput>
+    //                                     </TextInput>
+    //                                 </View>
+    //                                 <View style={{ marginLeft: 15, marginTop: 8 }}>
+    //                                     <TouchableOpacity><Fontisto name="smiling" size={24} color="gray" /></TouchableOpacity>
+    //                                 </View>
+    //                             </View>
 
-                                <View style={{ flexDirection: 'row', marginLeft: 190, marginTop: 30 }}>
-                                    <TouchableOpacity style={{ marginRight: 30 }}><Text style={styles.cancelText}>Cancel</Text></TouchableOpacity>
-                                    <TouchableOpacity><Text style={styles.cancelText}>Save</Text></TouchableOpacity>
-                                </View>
+    //                             <View style={{ flexDirection: 'row', marginLeft: 190, marginTop: 30 }}>
+    //                                 <TouchableOpacity style={{ marginRight: 30 }}><Text style={styles.cancelText}>Cancel</Text></TouchableOpacity>
+    //                                 <TouchableOpacity><Text style={styles.cancelText}>Save</Text></TouchableOpacity>
+    //                             </View>
 
-                            </View>
-                        </View>
-                    </View>
-                </RBSheet>
-            </View>
-            // {/* //  {item + 1} */}
-        );
-    };
-
+    //                         </View>
+    //                     </View>
+    //                 </View>
+    //             </RBSheet>
+    //         </View>
+    //         // {/* //  {item + 1} */}
+    //     );
+    // };
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -111,56 +131,54 @@ export default function Profile_Edit() {
             <View style={styles.ProfilebodyHead}>
                 <TouchableOpacity>
                     <View style={styles.Profilebody}>
-                        <View style={{ width: '10%' }}><TouchableOpacity><FontAwesome name="user" size={23} color="gray" /></TouchableOpacity></View>
+                        <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><FontAwesome name="user" size={23} color="gray" /></TouchableOpacity></View>
                         <View style={{ width: '85%' }}>
-                            <Text>Name</Text>
-                            <Text>Vansh Gabani</Text>
-                            <Text>This is not your username or pin. This name will be visible to your WhatsApp contacts.</Text>
+                            <TextInput placeholder='name'></TextInput>
                         </View>
                         <View style={{ width: '10%' }}>
                             <TouchableOpacity onPress={() => refVBSheet.current[0]?.open()}>
-                                <MaterialIcons name="edit" size={23} color="#DB3022" />
+                                {/* <MaterialIcons name="edit" size={23} color="#DB3022" /> */}
                             </TouchableOpacity>
                         </View>
                     </View>
                 </TouchableOpacity>
-                <View style={{ width: '90%', borderWidth: 0.1, marginLeft: 48, backgroundColor: 'gray' }}></View>
+                <View style={{ width: '90%', borderWidth: 0.3, marginLeft: 48, backgroundColor: 'gray' }}></View>
                 <TouchableOpacity>
                     <View style={styles.Profilebody}>
-                        <View style={{ width: '10%' }}><TouchableOpacity><EvilIcons name="exclamation" size={26} color="gray" /></TouchableOpacity></View>
+                        <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><EvilIcons name="exclamation" size={26} color="gray" /></TouchableOpacity></View>
                         <View style={{ width: '85%' }}>
-                            <Text>About</Text>
-                            <Text>|| Krishna ||</Text>
+                            <TextInput placeholder='About'></TextInput>
                         </View>
-                        <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View>
+                        {/* <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View> */}
                     </View>
                 </TouchableOpacity>
-                <View style={{ width: '90%', borderWidth: 0.2, marginLeft: 48, backgroundColor: 'gray' }}></View>
+                <View style={{ width: '90%', borderWidth: 0.3, marginLeft: 48, backgroundColor: 'gray' }}></View>
                 <TouchableOpacity>
                     <View style={styles.Profilebody}>
-                        <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="phone" size={23} color="gray" /></TouchableOpacity></View>
+                        <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><MaterialIcons name="phone" size={23} color="gray" /></TouchableOpacity></View>
                         <View style={{ width: '85%' }}>
-                            <Text>Phone</Text>
-                            <Text>+91 70965 93721</Text>
+                            <TextInput placeholder='Phone'></TextInput>
                         </View>
-                        <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View>
+                        {/* <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View> */}
                     </View>
                 </TouchableOpacity>
+                <View style={{ width: '90%', borderWidth: 0.3, marginLeft: 48, backgroundColor: 'gray' }}></View>
 
                 <View style={{ flex: 1 }} >
+
                     <FlatList
                         data={items}
                         renderItem={(props) => renderItem({ ...props, refRBSheet })}
                         keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
-                <View style={{ flex: 1 }} >
+                {/* <View style={{ flex: 1 }} >
                     <FlatList
                         data={items}
                         renderItem={(props) => ErenderItem({ ...props, refVBSheet })}
                         keyExtractor={(item, index) => index.toString()}
                     />
-                </View>
+                </View> */}
             </View>
         </View >
     )
