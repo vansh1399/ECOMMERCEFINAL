@@ -1,5 +1,5 @@
 import { View, StyleSheet, TouchableOpacity, Text, FlatList, TextInput, PermissionsAndroid } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -8,14 +8,41 @@ import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadImage } from '../../redux/slice/auth.Slice';
+import { useFormik } from 'formik';
+import { object, string } from 'yup';
 
 const items = [('')];
-
 
 export default function Profile_Edit() {
 
     const refRBSheet = useRef([]);
+    const [Image, setImage] = useState('');
     // const refVBSheet = useRef([]);
+
+    const dispatch = useDispatch();
+
+    const auth = useSelector(state => state.auth);
+    // console.log('auth1', auth);
+
+    let imageSchema = object({
+        name: string().required(),
+    });
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+        },
+        validationSchema: imageSchema,
+        onSubmit: values => {
+            console.log('valuesvalues', values);
+            dispatch(uploadImage({ ...values, path:Image.path, uid: auth.auth.uid }))
+        },
+    });
+
+    const { handleChange, handleBlur, handleSubmit, values, errors, touched } = formik
+
 
     const handleCamera = () => {
         ImagePicker.openCamera({
@@ -24,6 +51,7 @@ export default function Profile_Edit() {
             cropping: true,
         }).then(image => {
             console.log('camera', image.path);
+            setImage(image.path)
         });
     }
 
@@ -34,6 +62,7 @@ export default function Profile_Edit() {
             cropping: true
         }).then(image => {
             console.log('gallery', image.path);
+         
         });
     }
 
@@ -133,7 +162,13 @@ export default function Profile_Edit() {
                     <View style={styles.Profilebody}>
                         <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><FontAwesome name="user" size={23} color="gray" /></TouchableOpacity></View>
                         <View style={{ width: '85%' }}>
-                            <TextInput placeholder='name'></TextInput>
+                            <TextInput
+                                value={auth.auth?.name}
+                                placeholder='name'
+                                onChangeText={formik.handleChange('name')}
+                                onBlur={formik.handleBlur('name')}
+                            >
+                            </TextInput>
                         </View>
                         <View style={{ width: '10%' }}>
                             <TouchableOpacity onPress={() => refVBSheet.current[0]?.open()}>
@@ -147,7 +182,11 @@ export default function Profile_Edit() {
                     <View style={styles.Profilebody}>
                         <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><EvilIcons name="exclamation" size={26} color="gray" /></TouchableOpacity></View>
                         <View style={{ width: '85%' }}>
-                            <TextInput placeholder='About'></TextInput>
+                            <TextInput
+                                value={auth.auth?.About}
+                                placeholder='About'
+                            >
+                            </TextInput>
                         </View>
                         {/* <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View> */}
                     </View>
@@ -157,12 +196,19 @@ export default function Profile_Edit() {
                     <View style={styles.Profilebody}>
                         <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><MaterialIcons name="phone" size={23} color="gray" /></TouchableOpacity></View>
                         <View style={{ width: '85%' }}>
-                            <TextInput placeholder='Phone'></TextInput>
+                            <TextInput
+                                value={auth.auth?.phone}
+                                placeholder='Phone'
+                            >
+                            </TextInput>
                         </View>
                         {/* <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View> */}
                     </View>
                 </TouchableOpacity>
                 <View style={{ width: '90%', borderWidth: 0.3, marginLeft: 48, backgroundColor: 'gray' }}></View>
+                <TouchableOpacity style={{ alignItems: 'center' }} onPress={handleSubmit}>
+                    <Text style={styles.Submit}>Submit</Text>
+                </TouchableOpacity>
 
                 <View style={{ flex: 1 }} >
                     <FlatList
@@ -229,6 +275,18 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    Submit: {
+        width: '50%',
+        height: 50,
+        backgroundColor: '#DB3022',
+        borderRadius: 50,
+        textAlign: 'center',
+        padding: 10,
+        fontFamily: 'Metropolis-ExtraBold',
+        color: '#FFFFFF',
+        fontSize: 18,
+        marginTop: 70,
     },
     bottomiconhead: {
         width: '85%',

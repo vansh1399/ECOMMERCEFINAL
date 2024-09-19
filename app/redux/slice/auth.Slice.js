@@ -4,6 +4,8 @@ import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from "@react-native-community/async-storage";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import storage from '@react-native-firebase/storage';
+import { array } from "yup";
 
 const initialState = {
     isLoading: false,
@@ -274,6 +276,32 @@ export const OtpNo = createAsyncThunk(
         } catch (error) {
             console.log('Invalid code.', error);
         }
+    }
+)
+
+export const uploadImage = createAsyncThunk(
+    'auth/uploadImage',
+    async (data) => {
+        console.log('dataPath',data.path);
+        
+        const rNo = Math.floor(Math.random() * 10000)
+        console.log('rNo', rNo);
+
+        const arr = data.split("/");
+        console.log('arr', arr[arr.length - 1]);
+
+        const fileName = rNo + arr[arr.length - 1]
+        console.log('fileName', fileName);
+
+        const reference = await storage().ref('/users/' + fileName);
+        console.log('reference', reference);
+
+        const task = await reference.putFile(data);
+        console.log('task', task);
+
+        const url = await storage().ref('/users/' + fileName).getDownloadURL();
+        console.log('url', url);
+
     }
 )
 

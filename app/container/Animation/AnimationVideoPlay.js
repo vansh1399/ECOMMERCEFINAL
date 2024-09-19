@@ -49,7 +49,7 @@ const App = () => {
                     height: fullScreen ? Dimensions.get('window').height : 200, // Full screen height if in full-screen mode
                 }}>
                 <Video
-                    source={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }}
+                    source={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' }}
                     ref={ref}
                     onProgress={(x) => {
                         setProgress(x);
