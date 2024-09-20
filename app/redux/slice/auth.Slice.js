@@ -281,13 +281,15 @@ export const OtpNo = createAsyncThunk(
 
 export const uploadImage = createAsyncThunk(
     'auth/uploadImage',
-    async (data) => {
-        // console.log('dataPath', data.path);
+    async (data, { getState }) => {
+        // console.log('dataPath', data);
+
+        const { auth } = getState();
 
         const rNo = Math.floor(Math.random() * 10000)
         // console.log('rNo', rNo);
 
-        const arr = data.split("/");
+        const arr = data.path.split("/");
         // console.log('arr', arr[arr.length - 1]);
 
         const fileName = rNo + arr[arr.length - 1]
@@ -296,11 +298,32 @@ export const uploadImage = createAsyncThunk(
         const reference = await storage().ref('/users/' + fileName);
         // console.log('reference', reference);
 
-        const task = await reference.putFile(data);
+        const task = await reference.putFile(data.path);
         // console.log('task', task);
 
         const url = await storage().ref('/users/' + fileName).getDownloadURL();
         // console.log('url', url);
+
+        await firestore()
+            .collection('Users')
+            .doc(auth.auth.uid)
+            .update({
+                url: url,
+                name: data.name,
+                email: data.email,
+                Phone: data.Phone
+            })
+            .then(() => {
+                console.log('User updated!');
+            });
+
+        return {
+            ...auth.auth,
+            url: url,
+            name: data.name,
+            email: data.email,
+            Phone: data.Phone
+        }
     }
 )
 
@@ -309,15 +332,15 @@ export const authSlice = createSlice({
     initialState: initialState,
     extraReducers: (builder) => {
         builder.addCase(authSignupEmail.fulfilled, (state, action) => {
-            // console.log('actionpayload', action.payload)
+            // console.log('authSignupEmail', action.payload)
             state.auth = action.payload
         }),
             builder.addCase(authloginupEmail.fulfilled, (state, action) => {
-                // console.log('authloginupmail', action.payload)
+                // console.log('authloginupEmail', action.payload)
                 state.auth = action.payload
             }),
             builder.addCase(authsignOut.fulfilled, (state, action) => {
-                // console.log('authsignout', action.payload)
+                // console.log('authsignOut', action.payload)
                 state.auth = action.payload
             })
         builder.addCase(GoogleSignup.fulfilled, (state, action) => {
@@ -325,15 +348,19 @@ export const authSlice = createSlice({
             state.auth = action.payload
         })
         builder.addCase(FacebookSignup.fulfilled, (state, action) => {
-            // console.log('FacebookSignup', FacebookSignup);
+            // console.log('FacebookSignup', action.payload );
             state.auth = action.payload
         })
         builder.addCase(phoneAuth.fulfilled, (state, action) => {
-            // console.log('phoneAuth', phoneAuth);
+            // console.log('phoneAuth', action.payload );
             state.confirmation = action.payload
         })
         builder.addCase(OtpNo.fulfilled, (state, action) => {
-            // console.log('OtpNo', OtpNo);
+            // console.log('OtpNo', action.payload );
+            state.auth = action.payload
+        })
+        builder.addCase(uploadImage.fulfilled, (state, action) => {
+            console.log('uploadImage', action.payload);
             state.auth = action.payload
         })
     }

@@ -12,13 +12,17 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React, { useEffect } from 'react';
 import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authsignOut } from '../../redux/slice/auth.Slice';
 
 
 export default function My_Profile({ route, navigation }) {
 
   const dispatch = useDispatch();
+
+  const auth = useSelector(state => state.auth);
+  // console.log('ggggggg', auth.auth);
+
 
   const handleSignOut = () => {
     dispatch(authsignOut());
@@ -36,14 +40,15 @@ export default function My_Profile({ route, navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
             <Image
               style={Styles.Profileimg}
-              source={require('../../assets/image/fashion_girl_img7.png')}
+              source={{ uri: auth.auth?.url }}
             />
           </TouchableOpacity>
 
           <View style={Styles.matildabrownTextMAin}>
-            <Text style={Styles.matildabrownText}>Matilda Brown</Text>
+            <Text style={Styles.matildabrownText}>{auth.auth?.name}</Text>
             <Text style={Styles.matildabrowngmailText}>
-              matildabrown@mail.com
+              {auth.auth?.email}
+
             </Text>
           </View>
         </View>

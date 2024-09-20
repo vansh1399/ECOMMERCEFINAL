@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity, Text, FlatList, TextInput, PermissionsAndroid } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, FlatList, TextInput, PermissionsAndroid, Image } from 'react-native'
 import React, { useRef, useState } from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -13,12 +13,13 @@ import { uploadImage } from '../../redux/slice/auth.Slice';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 
+
 const items = [('')];
 
 export default function Profile_Edit() {
 
     const refRBSheet = useRef([]);
-    const [Image, setImage] = useState('');
+    const [image, setImage] = useState('');
     // const refVBSheet = useRef([]);
 
     const dispatch = useDispatch();
@@ -28,18 +29,20 @@ export default function Profile_Edit() {
 
     let imageSchema = object({
         name: string().matches(/^[a-zA-Z ]{2,30}$/).required('please enter valid name'),
-        email: string().matches( /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).required('please enter email name'),
+        email: string().matches(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).required('please enter email name'),
+        Phone: string().required()
     });
 
     const formik = useFormik({
         initialValues: {
             name: '',
             email: '',
+            Phone: ''
         },
         validationSchema: imageSchema,
         onSubmit: values => {
             console.log('valuesvalues', values);
-            dispatch(uploadImage({ ...values, path: Image.path, uid: auth.auth.uid }))
+            dispatch(uploadImage({ ...values, path: image, uid: auth.auth.uid }))
         },
     });
 
@@ -64,7 +67,7 @@ export default function Profile_Edit() {
             cropping: true
         }).then(image => {
             console.log('gallery', image.path);
-
+            setImage(image.path)
         });
     }
 
@@ -152,7 +155,16 @@ export default function Profile_Edit() {
             <View style={styles.profileView}>
 
                 <TouchableOpacity style={styles.profilecircle} onPress={() => refRBSheet.current[0]?.open()}>
-                    <FontAwesome name="user" size={100} color="#A9AEB1" />
+                    {
+                        auth.auth?.url ?
+                            <Image
+                                style={styles.profilecircle}
+                                source={{
+                                    uri: auth.auth?.url
+                                }}
+                            /> : <FontAwesome name="user" size={100} color="#A9AEB1" />
+                    }
+                    {/* <FontAwesome name="user" size={100} color="#A9AEB1" /> */}
                 </TouchableOpacity>
 
                 <View style={styles.cameracircle}>
@@ -176,15 +188,15 @@ export default function Profile_Edit() {
 
                         <View style={{ width: '85%' }}>
                             <TextInput
-                                value={auth.auth?.name}
+                                name='name'
                                 placeholder='name'
                                 onChangeText={formik.handleChange('name')}
                                 onBlur={formik.handleBlur('name')}
-                            >
-                            </TextInput>
-                            {errors.name && touched.name ? <Text style={{color:'red',marginRight:100}}>{errors.name}</Text>:null}
+                                value={auth.auth?.name}
+                            />
+                            {errors.name && touched.name ? <Text style={{ color: 'red', marginRight: 100 }}>{errors.name}</Text> : null}
                         </View>
-                      
+
                         {/* <View style={{ width: '10%' }}>
                             <TouchableOpacity onPress={() => refVBSheet.current[0]?.open()}>
                                 {/* <MaterialIcons name="edit" size={23} color="#DB3022" /> */}
@@ -212,7 +224,7 @@ export default function Profile_Edit() {
                                 onBlur={handleBlur('email')}
                             >
                             </TextInput>
-                            {errors.email && touched.email ? <Text style={{color:'red'}}>{errors.email}</Text>:null}
+                            {errors.email && touched.email ? <Text style={{ color: 'red' }}>{errors.email}</Text> : null}
                         </View>
 
                         {/* <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View> */}
@@ -233,8 +245,11 @@ export default function Profile_Edit() {
 
                         <View style={{ width: '85%' }}>
                             <TextInput
-                                value={auth.auth?.phone}
+
+                                value={auth.auth?.Phone}
                                 placeholder='Phone'
+                                onChangeText={handleChange('Phone')}
+                                onBlur={handleBlur('Phone')}
                             >
                             </TextInput>
                         </View>
@@ -243,6 +258,7 @@ export default function Profile_Edit() {
 
                     </View>
                 </TouchableOpacity>
+
                 <View style={{ width: '90%', borderWidth: 0.1, marginLeft: 48, backgroundColor: 'gray' }}></View>
                 <View style={{ width: '90%', borderWidth: 0.1, marginLeft: 48, backgroundColor: 'gray' }}></View>
 
@@ -251,7 +267,6 @@ export default function Profile_Edit() {
                         <Text style={styles.SubmitText}>Submit</Text>
                     </TouchableOpacity>
                 </View>
-
 
                 <View style={{ flex: 1 }} >
                     <FlatList
