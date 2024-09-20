@@ -27,17 +27,19 @@ export default function Profile_Edit() {
     // console.log('auth1', auth);
 
     let imageSchema = object({
-        name: string().required(),
+        name: string().matches(/^[a-zA-Z ]{2,30}$/).required('please enter valid name'),
+        email: string().matches( /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).required('please enter email name'),
     });
 
     const formik = useFormik({
         initialValues: {
             name: '',
+            email: '',
         },
         validationSchema: imageSchema,
         onSubmit: values => {
             console.log('valuesvalues', values);
-            dispatch(uploadImage({ ...values, path:Image.path, uid: auth.auth.uid }))
+            dispatch(uploadImage({ ...values, path: Image.path, uid: auth.auth.uid }))
         },
     });
 
@@ -62,7 +64,7 @@ export default function Profile_Edit() {
             cropping: true
         }).then(image => {
             console.log('gallery', image.path);
-         
+
         });
     }
 
@@ -146,21 +148,32 @@ export default function Profile_Edit() {
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
+
             <View style={styles.profileView}>
+
                 <TouchableOpacity style={styles.profilecircle} onPress={() => refRBSheet.current[0]?.open()}>
                     <FontAwesome name="user" size={100} color="#A9AEB1" />
                 </TouchableOpacity>
+
                 <View style={styles.cameracircle}>
                     <TouchableOpacity onPress={() => refRBSheet.current[0]?.open()}>
                         <Feather name="camera" size={23} color="white" />
                     </TouchableOpacity>
                 </View>
+
             </View>
 
             <View style={styles.ProfilebodyHead}>
+
                 <TouchableOpacity>
                     <View style={styles.Profilebody}>
-                        <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><FontAwesome name="user" size={23} color="gray" /></TouchableOpacity></View>
+
+                        <View style={{ width: '10%', justifyContent: 'center' }}>
+                            <TouchableOpacity>
+                                <FontAwesome name="user" size={23} color="gray" />
+                            </TouchableOpacity>
+                        </View>
+
                         <View style={{ width: '85%' }}>
                             <TextInput
                                 value={auth.auth?.name}
@@ -169,32 +182,55 @@ export default function Profile_Edit() {
                                 onBlur={formik.handleBlur('name')}
                             >
                             </TextInput>
+                            {errors.name && touched.name ? <Text style={{color:'red',marginRight:100}}>{errors.name}</Text>:null}
                         </View>
-                        <View style={{ width: '10%' }}>
+                      
+                        {/* <View style={{ width: '10%' }}>
                             <TouchableOpacity onPress={() => refVBSheet.current[0]?.open()}>
                                 {/* <MaterialIcons name="edit" size={23} color="#DB3022" /> */}
+                        {/* </TouchableOpacity>
+                        </View> */}
+
+                    </View>
+                </TouchableOpacity>
+                <View style={{ width: '90%', borderWidth: 0.1, marginLeft: 48, backgroundColor: 'gray' }}></View>
+
+                <TouchableOpacity>
+                    <View style={styles.Profilebody}>
+
+                        <View style={{ width: '10%', justifyContent: 'center' }}>
+                            <TouchableOpacity>
+                                <MaterialCommunityIcons name="gmail" size={26} color="gray" />
                             </TouchableOpacity>
                         </View>
-                    </View>
-                </TouchableOpacity>
-                <View style={{ width: '90%', borderWidth: 0.3, marginLeft: 48, backgroundColor: 'gray' }}></View>
-                <TouchableOpacity>
-                    <View style={styles.Profilebody}>
-                        <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><EvilIcons name="exclamation" size={26} color="gray" /></TouchableOpacity></View>
+
                         <View style={{ width: '85%' }}>
                             <TextInput
-                                value={auth.auth?.About}
-                                placeholder='About'
+                                value={auth.auth?.email}
+                                placeholder='Email'
+                                onChangeText={handleChange('email')}
+                                onBlur={handleBlur('email')}
                             >
                             </TextInput>
+                            {errors.email && touched.email ? <Text style={{color:'red'}}>{errors.email}</Text>:null}
                         </View>
+
                         {/* <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View> */}
+
                     </View>
                 </TouchableOpacity>
-                <View style={{ width: '90%', borderWidth: 0.3, marginLeft: 48, backgroundColor: 'gray' }}></View>
+                <View style={{ width: '90%', borderWidth: 0.1, marginLeft: 48, backgroundColor: 'gray' }}></View>
+                <View style={{ width: '90%', borderWidth: 0.1, marginLeft: 48, backgroundColor: 'gray' }}></View>
+
                 <TouchableOpacity>
                     <View style={styles.Profilebody}>
-                        <View style={{ width: '10%', justifyContent: 'center' }}><TouchableOpacity><MaterialIcons name="phone" size={23} color="gray" /></TouchableOpacity></View>
+
+                        <View style={{ width: '10%', justifyContent: 'center' }}>
+                            <TouchableOpacity>
+                                <MaterialIcons name="phone" size={23} color="gray" />
+                            </TouchableOpacity>
+                        </View>
+
                         <View style={{ width: '85%' }}>
                             <TextInput
                                 value={auth.auth?.phone}
@@ -202,13 +238,20 @@ export default function Profile_Edit() {
                             >
                             </TextInput>
                         </View>
+
                         {/* <View style={{ width: '10%' }}><TouchableOpacity><MaterialIcons name="edit" size={23} color="#DB3022" /></TouchableOpacity></View> */}
+
                     </View>
                 </TouchableOpacity>
-                <View style={{ width: '90%', borderWidth: 0.3, marginLeft: 48, backgroundColor: 'gray' }}></View>
-                <TouchableOpacity style={{ alignItems: 'center' }} onPress={handleSubmit}>
-                    <Text style={styles.Submit}>Submit</Text>
-                </TouchableOpacity>
+                <View style={{ width: '90%', borderWidth: 0.1, marginLeft: 48, backgroundColor: 'gray' }}></View>
+                <View style={{ width: '90%', borderWidth: 0.1, marginLeft: 48, backgroundColor: 'gray' }}></View>
+
+                <View style={{ alignItems: 'center' }}>
+                    <TouchableOpacity style={styles.Submit} onPress={handleSubmit}>
+                        <Text style={styles.SubmitText}>Submit</Text>
+                    </TouchableOpacity>
+                </View>
+
 
                 <View style={{ flex: 1 }} >
                     <FlatList
@@ -217,6 +260,7 @@ export default function Profile_Edit() {
                         keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
+
                 {/* <View style={{ flex: 1 }} >
                     <FlatList
                         data={items}
@@ -224,6 +268,7 @@ export default function Profile_Edit() {
                         keyExtractor={(item, index) => index.toString()}
                     />
                 </View> */}
+
             </View>
         </View >
     )
@@ -255,7 +300,6 @@ const styles = StyleSheet.create({
     Profilebody: {
         width: '90%',
         flexDirection: 'row',
-        // columnGap: 10,
         margin: 15
     },
     cameracircle: {
@@ -281,12 +325,14 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: '#DB3022',
         borderRadius: 50,
+        justifyContent: 'center',
+        marginTop: 60
+    },
+    SubmitText: {
         textAlign: 'center',
-        padding: 10,
-        fontFamily: 'Metropolis-ExtraBold',
+        fontFamily: 'Metropolis-Medium',
         color: '#FFFFFF',
         fontSize: 18,
-        marginTop: 70,
     },
     bottomiconhead: {
         width: '85%',

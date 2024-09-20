@@ -45,7 +45,9 @@ export default function BottamTab() {
     console.log('authhhhhhhhh', auth.auth);
 
     return (
+
         auth.auth ?
+
             <Tab.Navigator screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
@@ -68,22 +70,23 @@ export default function BottamTab() {
 
                     return <MaterialCommunityIcons name={iconName} size={28} color={color} />;
                 },
-                tabBarActiveTintColor: 'tomato',
+                tabBarActiveTintColor: '#DB3022',
                 tabBarInactiveTintColor: 'gray',
             })}>
+
                 <Tab.Screen options={{
                     tabBarLabel: 'Home',
                     headerShown: false
                 }} name="HomeTab" component={HomeStack} />
 
                 <Tab.Screen options={{
-
                     tabBarLabel: 'Shop',
                     // tabBarIcon: ({ color, size }) => (
                     //     <Entypo name="shopping-cart" color={color} size={20} />
                     // ),
                     headerShown: false
                 }} name="FavouriteTab" component={ShopStack} />
+
                 <Tab.Screen options={{
                     tabBarLabel: 'Bag',
                     // tabBarIcon: ({ color, size }) => (
@@ -91,6 +94,7 @@ export default function BottamTab() {
                     // ),
                     headerShown: false
                 }} name="productTab" component={ProductStack} />
+
                 <Tab.Screen options={{
                     tabBarLabel: 'Favourite',
                     // tabBarIcon: ({ color, size }) => (
@@ -108,7 +112,9 @@ export default function BottamTab() {
                 }} name="order_detailsTab" component={AddShiipingStack} />
 
             </Tab.Navigator>
+
             :
+
             <Stack.Navigator>
                 <Stack.Screen name='signup' component={Signup} options={({ navigation }) => ({
                     headerLeft: () =>

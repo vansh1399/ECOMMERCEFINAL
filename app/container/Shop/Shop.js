@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StatusBar, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, Button } from 'react-native'
+import { View, Text, ScrollView, StatusBar, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, Button, ScrollViewBase } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -97,7 +97,6 @@ export default function Shop({ route, navigation }) {
         dispatch(getFilter());
         dispatch(getFilterBrand());
         dispatch(getfav());
-        // dispatch(googleFavourite());
     }, [])
 
     const category = useSelector(state => state.categories)
@@ -105,15 +104,10 @@ export default function Shop({ route, navigation }) {
     const brandA = useSelector(state => state.BrandF);
     const fav = useSelector(state => state.favourites);
 
-
     // console.log("favvvvvvvv", fav.favourite);
-
     // const favouriteA = useSelector(state => state.favourites)
-
     // console.log("idddddddddd", favouriteA.favourite);
-
     // console.log('okk', category.categories);
-
 
     const selecthover = () => {
         setselectCathover(!selectCathover)
@@ -146,7 +140,6 @@ export default function Shop({ route, navigation }) {
             //  {item + 1}
         );
     };
-
     // console.log('kkkk', route);
 
     // console.log('ssssssssssssss', shoppingA.Shopping);
@@ -262,18 +255,17 @@ export default function Shop({ route, navigation }) {
                 translucent backgroundColor="transparent"
                 barStyle="dark-content"
             />
-            <View style={styles.ArrowView}>
-                {/* <Text style={styles.KeyboardArrow}><MaterialIcons name="keyboard-arrow-left" size={50} color="black" /></Text>
-                <Text style={styles.ArrowText}>Women's tops</Text>
-                <TouchableOpacity><MaterialIcons name="search" size={30} color="black" style={{ marginTop: 25 }} /></TouchableOpacity> */}
-            </View>
-            <TouchableOpacity
-                style={styles.CategorisView}
-                onPress={() => { setselectCat(''), selecthover() }}>
-                <View style={selectCat === '' ? styles.Optionhover : styles.Options}><Text style={styles.OptionsText}>All</Text></View>
 
-            </TouchableOpacity>
             <View style={{ backgroundColor: 'white', marginBottom: 10 }}>
+
+                <View style={{ marginBottom: 15, marginTop: 15 }}>
+                    <TouchableOpacity
+                        style={styles.CategorisView}
+                        onPress={() => { setselectCat(''), selecthover() }}>
+                        <View style={selectCat === '' ? styles.Optionhover : styles.Options}><Text style={styles.OptionsText}>All</Text></View>
+                    </TouchableOpacity>
+                </View>
+
                 <FlatList
                     data={category.categories}
                     renderItem={({ item }) => <ProductCard v={item} />}
@@ -281,46 +273,37 @@ export default function Shop({ route, navigation }) {
                     horizontal={true}
                 />
 
-                <View style={styles.FilterOptions}>
-                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("filter", {
-                        price: route?.params?.price,
-                        color: route?.params?.color,
-                        brand: route?.params?.brand,
-                    })}><MaterialIcons name="filter-list" size={30} color="black" /><Text style={styles.filterText}>Filters</Text></TouchableOpacity>
-                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => refRBSheet.current[0].open()} ><FontAwesome name="arrows-v" size={26} color="black" /><Text style={styles.filterText}>Price:lowest to high</Text></TouchableOpacity>
-                    <TouchableOpacity><FontAwesome name="th-list" size={26} color="black" /></TouchableOpacity>
+                <View
+                    style={styles.FilterOptions}>
+                    <View style={{ width: '35%' }}>
+                        <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("filter", {
+                            price: route?.params?.price,
+                            color: route?.params?.color,
+                            brand: route?.params?.brand,
+                        })}><MaterialIcons name="filter-list" size={30} color="black" /><Text style={styles.filterText}>Filters</Text></TouchableOpacity>
+                    </View>
+
+                    <View style={{ width: '60%' }}>
+                        <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => refRBSheet.current[0].open()} >
+                            <FontAwesome name="arrows-v" size={26} color="black" /><Text style={styles.filterText}>Price: lowest to high</Text>
+                        </TouchableOpacity>
+                    </View>
+
+
+                    <View style={{ width: '4%' }}>
+                        <TouchableOpacity>
+                            <FontAwesome name="th-list" size={26} color="black" />
+                        </TouchableOpacity>
+                    </View>
                 </View>
+
                 <View style={{ flex: 1 }} >
                     <FlatList
                         data={items}
                         renderItem={(props) => renderItem({ ...props, refRBSheet })}
                         keyExtractor={(item, index) => index.toString()}
+                        scrollEnabled={true}
                     />
-                    {/* <Button
-                    title="OPEN"
-                    onPress={() => refRBSheet.current[0].open()} // Example of opening the first item bottom sheet
-                /> */}
-                    {/* <RBSheet
-                        ref={refRBSheet.current[0]}
-                        useNativeDriver={true}
-                        customStyles={{
-                            wrapper: {
-                                backgroundColor: 'transparent',
-                            },
-                            draggableIcon: {
-                                backgroundColor: '#000',
-                            },
-                        }}
-                        customModalProps={{
-                            animationType: 'slide',
-                            statusBarTranslucent: true,
-                        }}
-                        customAvoidingViewProps={{
-                            enabled: false,
-                        }}
-                    >
-                        <YourOwnComponent />
-                    </RBSheet> */}
                 </View>
             </View>
 
@@ -339,7 +322,7 @@ export default function Shop({ route, navigation }) {
                 columnWrapperStyle={{ justifyContent: 'space-between', columnGap: 10, marginTop: 10 }}
                 renderItem={({ item }) => <TouchableOpacity><ProductData v={item} /></TouchableOpacity>}
                 keyExtractor={item => item.id}
-            // horizontal={true}
+                scrollEnabled={true}
             />
         </View>
     )
@@ -350,22 +333,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 15,
         backgroundColor: '#F9F9F9'
-    },
-    ArrowView: {
-        width: '100%',
-        // height: 60,
-        marginTop: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    ArrowText: {
-        color: 'black',
-        fontSize: 23,
-        marginTop: 22
-    },
-    KeyboardArrow: {
-        marginTop: 16,
-        marginLeft: -15
     },
     CategorisView: {
         paddingRight: horizontalScale(10),
@@ -378,15 +345,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10
-
     },
     OptionsText: {
         fontSize: moderateScale(14),
         fontFamily: 'Metropolis-Bold',
-        color: 'white',
-
+        color: '#FF0000',
+        // color:'red'
     },
     FilterOptions: {
+        width: '100%',
         marginTop: verticalScale(20),
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -696,7 +663,8 @@ const styles = StyleSheet.create({
     Optionhover: {
         width: horizontalScale(90),
         height: verticalScale(35),
-        backgroundColor: '#008CBA',
+        backgroundColor: 'white',
+        borderWidth: 0.6,
         borderRadius: horizontalScale(100),
         justifyContent: 'center',
         alignItems: 'center',

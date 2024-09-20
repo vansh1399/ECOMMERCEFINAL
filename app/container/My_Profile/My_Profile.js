@@ -200,7 +200,7 @@ const Styles = StyleSheet.create({
     color: '#222222',
   },
   matildabrowngmailText: {
-    fontFamily: 'Metropolis-Bold',
+    fontFamily: 'Metropolis-Medium',
     fontSize: moderateScale(14),
     color: '#9B9B9B',
   },

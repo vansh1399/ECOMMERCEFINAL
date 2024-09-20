@@ -163,7 +163,7 @@ export default function ShippingAddresses({ route, navigation }) {
 
             <View style={styles.btnView}>
                 <TouchableOpacity style={styles.btnplaceorder} onPress={() => navigation.navigate("success")}>
-                    <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontFamily: 'Metropolis-Medium', marginTop: 7 }}>Place Order</Text>
+                    <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontFamily: 'Metropolis-Medium' }}>Place Order</Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity style={{backgroundColor:'black',borderRadius:50}}>
                     <Animated.View style={[styles.square,
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     //     // backgroundColor: 'rgba(0,0,256,0.5)',
     //     backgroundColor:'#000000'
     // },
-    
+
     // done: {
     //     color: 'white',
     //     fontFamily: 'Metropolis-Medium',
@@ -293,28 +293,23 @@ const styles = StyleSheet.create({
         padding: 10,
         textAlign: 'center',
         borderRadius: 5,
-        // backgroundColor: 'black',
-        color: 'red',
+        color: '#059862',
         paddingTop: 4,
-    },
-    addButton: {
-        // paddingTop: 16
     },
     btnView: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         marginTop: 20,
         // columnGap:120,
-        columnGap:0,
+        columnGap: 0,
         marginLeft: 60
     },
     btnplaceorder: {
         width: "45%",
         height: 40,
-        borderWidth: 1,
-        backgroundColor: 'black',
+        backgroundColor: '#DB3022',
         borderRadius: 5,
-        // marginTop: 0,
+        justifyContent: 'center',
         marginRight: 140
     },
     flyingContainer: { color: 'white', fontSize: 18, fontWeight: 'bold' },

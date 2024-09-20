@@ -1,10 +1,9 @@
 import { View, Text, StatusBar, ImageBackground, StyleSheet, TouchableOpacity, Image, FlatList, VirtualizedList, ScrollView } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-
 import { fetchCategories } from '../../redux/slice/category.slice';
 import { moderateScale, verticalScale, horizontalScale } from '../../Metrics';
+import React, { useEffect } from 'react';
 
 
 
@@ -190,16 +189,16 @@ export default function Maainpage({ route, navigation }) {
 
 
             <View>
-            <TouchableOpacity onPress={() => navigation.navigate("Categories Two", { cat_id: v.id })}>
-              <Image style={style.img} source={require('../../assets/image/fashion_girl1.jpg')} />
-              <Text style={style.BlackTextt}>Women</Text>
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate("Categories Two", { cat_id: v.id })}>
+                <Image style={style.img} source={require('../../assets/image/fashion_girl1.jpg')} />
+                <Text style={style.BlackTextt}>Women</Text>
+              </TouchableOpacity>
             </View>
-           
+
             {/* <View style={style.textsale}>
             <Text style={style.newcoll}>{v.name}</Text>
             </View> */}
-{/* 
+            {/* 
             <View style={style.BlackVieww}>
                   <Image source={require('../../assets/image/fashion_girl2.jpg')} style={{ width: '100%', height:'50%' }} />
                   <Text style={style.BlackTextt}>Black</Text>
@@ -258,8 +257,8 @@ const style = StyleSheet.create({
     width: verticalScale(150),
     backgroundColor: '#DB3022',
     height: verticalScale(40),
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: 8,
     borderRadius: moderateScale(50),
     position: 'absolute',
     bottom: moderateScale(80),

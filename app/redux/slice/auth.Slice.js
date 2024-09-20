@@ -282,8 +282,8 @@ export const OtpNo = createAsyncThunk(
 export const uploadImage = createAsyncThunk(
     'auth/uploadImage',
     async (data) => {
-        console.log('dataPath',data.path);
-        
+        console.log('dataPath', data.path);
+
         const rNo = Math.floor(Math.random() * 10000)
         console.log('rNo', rNo);
 

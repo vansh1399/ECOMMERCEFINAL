@@ -200,8 +200,8 @@ export default function My_Bag({ route, navigation }) {
           <Text style={Styles.Text}>124₹</Text>
         </View>
 
-        <View style={Styles.checkoutBtn}>
-          <TouchableOpacity onPress={() => navigation.navigate("Shipping Address")}>
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity style={Styles.checkoutBtn} onPress={() => navigation.navigate("Shipping Address")}>
             <Text style={Styles.checkoutText}>Check out</Text>
           </TouchableOpacity>
         </View>
@@ -337,13 +337,11 @@ const Styles = StyleSheet.create({
     height: verticalScale(40),
     backgroundColor: '#DB3022',
     borderRadius: moderateScale(50),
-    marginHorizontal: horizontalScale(20),
-    marginTop: verticalScale(9),
-
+    justifyContent: 'center',
+    marginTop: 20
   },
   checkoutText: {
     textAlign: 'center',
-    marginTop: verticalScale(10),
     color: '#FFFFFF',
     fontFamily: 'Metropolis-Regular',
     justifyContent: 'center'
