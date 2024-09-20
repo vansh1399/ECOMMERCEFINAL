@@ -282,26 +282,25 @@ export const OtpNo = createAsyncThunk(
 export const uploadImage = createAsyncThunk(
     'auth/uploadImage',
     async (data) => {
-        console.log('dataPath', data.path);
+        // console.log('dataPath', data.path);
 
         const rNo = Math.floor(Math.random() * 10000)
-        console.log('rNo', rNo);
+        // console.log('rNo', rNo);
 
         const arr = data.split("/");
-        console.log('arr', arr[arr.length - 1]);
+        // console.log('arr', arr[arr.length - 1]);
 
         const fileName = rNo + arr[arr.length - 1]
-        console.log('fileName', fileName);
+        // console.log('fileName', fileName);
 
         const reference = await storage().ref('/users/' + fileName);
-        console.log('reference', reference);
+        // console.log('reference', reference);
 
         const task = await reference.putFile(data);
-        console.log('task', task);
+        // console.log('task', task);
 
         const url = await storage().ref('/users/' + fileName).getDownloadURL();
-        console.log('url', url);
-
+        // console.log('url', url);
     }
 )
 

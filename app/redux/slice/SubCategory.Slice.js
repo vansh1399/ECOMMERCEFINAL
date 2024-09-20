@@ -22,7 +22,7 @@ export const subBythunk = createAsyncThunk(
                     if (documentSnapshot.data().category_id === cat_id) {
                         sub_data.push({...documentSnapshot.data(), id: documentSnapshot.id})
                     }
-                    console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                    // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
                 });
             });
         console.log("mil gya", sub_data);

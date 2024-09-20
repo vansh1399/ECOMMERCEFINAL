@@ -28,6 +28,7 @@ export default function Phone_number({ route, navigation }) {
         }
     })
 
+
     let OtpSchema = object({
         otp: string().required()
     })
@@ -43,7 +44,7 @@ export default function Phone_number({ route, navigation }) {
         }
     })
 
-    console.log('gggg',auth.confirmation);
+    // console.log('gggg',auth.confirmation);
     
 
     if (!auth.confirmation) {
@@ -78,9 +79,8 @@ export default function Phone_number({ route, navigation }) {
         )
     }
 
-    console.log('eeeeeee',formik1.errors);
+    // console.log('eeeeeee',formik1.errors);
     
-
     return (
         <View style={Styles.container}>
             <StatusBar

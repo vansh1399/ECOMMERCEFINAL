@@ -11,7 +11,7 @@ export const googleFavourite = createAsyncThunk(
     'favourite/fetch',
     async (id) => {
         const favData = []
-        console.log('idokkkkkkkk', id);
+        // console.log('idokkkkkkkk', id);
         await firestore()
             .collection('fav')
             .get()

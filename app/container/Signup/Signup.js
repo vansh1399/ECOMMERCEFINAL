@@ -30,9 +30,6 @@ export default function Signup({ route, navigation }) {
     })
 
     const { handleChange, handleBlur, handleSubmit, values, errors, touched } = formik
-    // onSubmit: values => {
-    //     alert(JSON.stringify(values, null, 2));
-    //   },
 
     return (
         <View style={Styles.container}>
@@ -40,9 +37,7 @@ export default function Signup({ route, navigation }) {
                 backgroundColor="#fff"
                 barStyle="dark-content"
             />
-            {/* <View style={{ marginTop: 20 }}>
-                <EvilIcons name="chevron-left" size={45} color="black" />
-            </View> */}
+      
             <Text style={{ fontFamily: 'Metropolis-Bold', fontSize: 40, color: '#222222', margin: 20 }}>
                 Sign up
             </Text>

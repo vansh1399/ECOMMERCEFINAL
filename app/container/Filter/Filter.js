@@ -33,10 +33,10 @@ export default function Filter({ route, navigation }) {
         dispatch(getFilterBrand());
     }, [])
 
-    console.log("brandA.filterbrandbrandA.filterbrandbrandA.filterbrandbrandA.filterbrand", brandA.filterbrand);
+    // console.log("brandA.filterbrandbrandA.filterbrandbrandA.filterbrandbrandA.filterbrand", brandA.filterbrand);
 
     const [checkBoxes, setCheckBoxes] = useState(brandA.filterbrand);
-    console.log("FilterrrrrrrrrrrrrrrBranddddddd", route?.params?.brand);
+    // console.log("FilterrrrrrrrrrrrrrrBranddddddd", route?.params?.brand);
 
     const handleCheckboxPress = (checked, id) => {
         // if (id === 0) {
@@ -64,9 +64,9 @@ export default function Filter({ route, navigation }) {
         }
     })
 
-    console.log('checkBoxescheckBoxescheckBoxes', checkBoxes);
-    console.log('fbrandfbrandfbrandfbrandfbrand', fbrand);
-    console.log('route?.params?.brand', route?.params?.brand);
+    // console.log('checkBoxescheckBoxescheckBoxes', checkBoxes);
+    // console.log('fbrandfbrandfbrandfbrandfbrand', fbrand);
+    // console.log('route?.params?.brand', route?.params?.brand);
 
     const categories = ['All', 'Women', 'Men', 'Boys', 'Girls'];
 
@@ -74,7 +74,7 @@ export default function Filter({ route, navigation }) {
         setselectedCategory(category);
     };
 
-    console.log("color,brand,price", color);
+    // console.log("color,brand,price", color);
 
     return (
         <View style={style.mainContainer}>
@@ -84,11 +84,6 @@ export default function Filter({ route, navigation }) {
                         barStyle="dark-content"
                         translucent backgroundColor='white'
                     />
-
-                    {/* <View style={style.titlebar}>
-                        <MaterialIcons name='chevron-left' size={30} color='black'></MaterialIcons>
-                        <Text style={style.filtertext}>Filters</Text>
-                    </View> */}
 
                     <Text style={style.text}>Price range</Text>
                     <View style={style.viewstyle}>

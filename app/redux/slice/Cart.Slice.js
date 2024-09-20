@@ -38,7 +38,6 @@ export const addToCart = createAsyncThunk(
                             );
                             await useDoc.update(
                                 {
-
                                     cart: firebase.firestore.FieldValue.arrayUnion({
                                         pid: data.id,
                                         qty: cardData[0].cart[index].qty + 1
@@ -82,7 +81,7 @@ export const addToCart = createAsyncThunk(
 export const getCart = createAsyncThunk(
     'cart/getCart',
     async (id) => {
-        console.log('iddddddddd', id);
+        // console.log('iddddddddd', id);
 
         const getCartData = [];
 
@@ -120,16 +119,16 @@ export const getCart = createAsyncThunk(
 export const incrementbyCart = createAsyncThunk(
     'cart/incrementbyCart',
     async (data, { getState }) => {
-        console.log('datatatatata', data);
+        // console.log('datatatatata', data);
 
         const { carts } = getState();
-        console.log('ddddddd', carts);
+        // console.log('ddddddd', carts);
 
         const useDoc = await firestore().collection('Cart').doc(data.uid);
         const index = carts?.cart[0]?.cart.findIndex((v) => v.pid === data.id)
 
-        console.log('indexxxxxfffffxx', index);
-        console.log('userdoccccccc', useDoc);
+        // console.log('indexxxxxfffffxx', index);
+        // console.log('userdoccccccc', useDoc);
 
         try {
             await useDoc.update(

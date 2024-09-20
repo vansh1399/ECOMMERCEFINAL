@@ -124,6 +124,7 @@ export default function ProductCard({route,navigation}) {
         dispatch(addToCart({id,uid:'ankit'}))
         navigation.navigate("MyBag")
     }
+
     return (
         <View style = { styles.mainContainer } >
               <View style={styles.bodyContainer}>
@@ -132,13 +133,8 @@ export default function ProductCard({route,navigation}) {
                         translucent backgroundColor="transparent"
                         barStyle="dark-content"
                     />
-                <ScrollView style={styles.container}>
-                    <View style={styles.ArrowView}>
-                        {/* <Text style={styles.KeyboardArrow}><MaterialIcons name="keyboard-arrow-left" size={50} color="black" /></Text>
-                        <Text style={styles.ArrowText}>Short dress</Text>
-                        <TouchableOpacity><MaterialIcons name="share" size={30} color="black" style={{ marginTop: 27 }} /></TouchableOpacity> */}
-                    </View>
-
+                    
+                <View style={styles.container}>
 
                     <ScrollView horizontal>
                         {   
@@ -265,7 +261,7 @@ export default function ProductCard({route,navigation}) {
                     />
                 
                     
-                </ScrollView>
+                </View>
             </View>
             <TouchableOpacity style={styles.ButtonView} onPress={()=>handleCart(Product.id)}>
                 <View style={styles.ButtonUnderView}>
@@ -275,28 +271,12 @@ export default function ProductCard({route,navigation}) {
         </View>
 
 )}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: horizontalScale(17),
         backgroundColor: '#F9F9F9'
-    },
-    ArrowView: {
-        width: '100%',
-        // height: verticalScale(15),
-        marginTop: verticalScale(10),
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    ArrowText: {
-        color: 'black',
-        fontSize: moderateScale(23),
-        marginTop: verticalScale(28),
-        fontFamily: 'Metropolis-SemiBold'
-    },
-    KeyboardArrow: {
-        marginTop: verticalScale(16),
-        marginLeft: horizontalScale(-15)
     },
     SizeBlackView: {
         marginTop: verticalScale(20),
@@ -503,40 +483,3 @@ const styles = StyleSheet.create({
         marginBottom:verticalScale(10)
       }
 })
-
-//     import { View, Text, StyleSheet, ScrollView, Button } from 'react-native'
-//     import React from 'react'
-    
-//     export default function filter() {
-//       return (
-//     < View style = { styles.mainContainer } >
-//     <View style={styles.bodyContainer}>
-//       <ScrollView >
-//         <View style={{ height: 250, backgroundColor: 'red' }}>
-//         </View>
-//         <View style={{ height: 250, backgroundColor: 'blue' }}>
-//         </View>
-//         <View style={{ height: 250, backgroundColor: 'green' }}>
-//         </View>
-//       </ScrollView>
-//     </View>
-//     <View style={styles.headerContainer}>
-//       <Button style={{ backgroundColor: 'blue', alignSelf:'center' }}
-//         title="THIS IS A BUTTON" />
-//     </View>
-//   </View >
-//   )
-// }
-
-// const styles = StyleSheet.create({
-//     mainContainer: {
-//         flex: 1,
-//         flexDirection: 'column'
-//       },
-//        headerContainer: {
-//         flex: 1,
-//       },
-//       bodyContainer: {
-//         flex: 10
-//       }
-// })

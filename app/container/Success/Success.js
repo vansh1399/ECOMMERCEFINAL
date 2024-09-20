@@ -42,7 +42,6 @@ export default function Success({route,navigation}) {
 const Styles = StyleSheet.create({
   img: {
     flex: 1,
-    // width: horizontalScale(300),
     alignSelf: 'center',
     marginHorizontal: horizontalScale(35),
     marginTop: verticalScale(150),
@@ -70,6 +69,5 @@ const Styles = StyleSheet.create({
     borderRadius: moderateScale(50),
     textAlign: 'center',
     marginTop: verticalScale(150),
-    
   },
 });

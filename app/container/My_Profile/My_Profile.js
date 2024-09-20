@@ -30,16 +30,10 @@ export default function My_Profile({ route, navigation }) {
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
 
       <View style={Styles.container}>
-        <View style={Styles.search}>
-          {/* <TouchableOpacity>
-          <Fontisto name='search' size={20} color='black' />
-          </TouchableOpacity> */}
-        </View>
-
         <Text style={Styles.myProfile}>My Profile</Text>
 
         <View style={Styles.profileHead}>
-          <TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
             <Image
               style={Styles.Profileimg}
               source={require('../../assets/image/fashion_girl_img7.png')}
@@ -169,11 +163,6 @@ const Styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: horizontalScale(15),
 
-  },
-  search: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: verticalScale(10),
   },
   myProfile: {
     fontFamily: 'Metropolis-Bold',

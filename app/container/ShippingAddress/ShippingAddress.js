@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, ScrollView, StatusBar, StyleSheet, FlatLi
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { horizontalScale, moderateScale } from '../../Metrics';
-// import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch, useSelector } from 'react-redux';
 import { addshippingByget, deleteShipping, shippingAddByget } from '../../redux/slice/ShippingAddress.Slice';
 import RadioGroup, { RadioButton } from 'react-native-radio-buttons-group';
@@ -44,7 +43,7 @@ export default function ShippingAddresses({ route, navigation }) {
     // console.log('adshipdatatatataoo', addshipingDATA?.shippingAddress[0]?.address);
 
     const addData = addshipingDATA?.shippingAddress?.[0]?.address
-    console.log('addatata', addData);
+    // console.log('addatata', addData);
 
     const handleDelete = (data) => {
         console.log('data1', data);

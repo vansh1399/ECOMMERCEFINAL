@@ -23,8 +23,7 @@ export const getFilterBrand = createAsyncThunk(
                 querySnapshot.forEach(documentSnapshot => {
                     brand_data.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     // console.log('hhhhh', brand_data.push(documentSnapshot.data()));
-                    console.log("lllllllll", brand_data);
-                    
+                    // console.log("lllllllll", brand_data);
                 });
 
             });

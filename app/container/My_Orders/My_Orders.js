@@ -47,27 +47,27 @@ const Data = [
   },
 ];
 
-const DataStructure = ({v}) => (
+const DataStructure = ({ v }) => (
   <TouchableOpacity>
     <View style={Styles.orderDatamainBody}>
-      <View style={{marginTop: 6}}>
-        <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
+      <View style={{ marginTop: 6 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={Styles.orderData1}>{v.Order_no}</Text>
           <Text style={Styles.orderData2}>{v.Date}</Text>
         </View>
 
-        <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={Styles.orderData2}>Tracking number:</Text>
           <Text style={Styles.orderData1}>{v.tracking_number}</Text>
         </View>
 
-        <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-          <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={Styles.orderData2}>Quantity:</Text>
             <Text style={Styles.orderData1}>{v.quantity}</Text>
           </View>
 
-          <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={Styles.orderData2}>Total Amount:</Text>
             <Text style={Styles.orderData1}>{v.total_amount}$</Text>
           </View>
@@ -94,17 +94,8 @@ export default function My_Orders() {
   return (
     <ScrollView>
       <StatusBar backgroundColor="#F4F4F4" barStyle="dark-content" />
-      <View style={{width: '100%', height: 1000, backgroundColor: '#F4F4F4'}}>
-        {/* <View style={Styles.mainIcon}>
-          <TouchableOpacity>
-            <EvilIcons name="chevron-left" size={45} color="#222222" />
-          </TouchableOpacity>
 
-          <TouchableOpacity>
-            <EvilIcons name="search" size={35} color="#222222" />
-          </TouchableOpacity>
-        </View> */}
-
+      <View style={{ width: '100%', height: 1000, backgroundColor: '#F4F4F4' }}>
         <Text style={Styles.myOrderText}>My orders</Text>
 
         <View style={Styles.delievered}>
@@ -121,7 +112,7 @@ export default function My_Orders() {
 
         <FlatList
           data={Data}
-          renderItem={({item}) => <DataStructure v={item} />}
+          renderItem={({ item }) => <DataStructure v={item} />}
           keyExtractor={item => item.id}
         />
       </View>
@@ -176,7 +167,7 @@ const Styles = StyleSheet.create({
     padding: verticalScale(5),
   },
   orderDatamainBody: {
-   flex:1,
+    flex: 1,
     // borderWidth: 1,
     backgroundColor: '#FFFFFF',
     borderRadius: moderateScale(8),
@@ -211,7 +202,7 @@ const Styles = StyleSheet.create({
   },
   detailBtnHead: {
     flexDirection: 'row',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     columnGap: 128,
     marginTop: verticalScale(30),
   },

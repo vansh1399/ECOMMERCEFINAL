@@ -20,36 +20,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../../redux/slice/Product.Slice';
 import { addToCart, addtocart, decrementbyCart, decrementQty, getCart, incrementbyCart, incrementQty } from '../../redux/slice/Cart.Slice';
 
-
-// const data = [
-//   {
-//     id: 0,
-//     title: 'Pullover',
-//     color: 'Black',
-//     size: 'L',
-//     image: require('../../assets/image/fashion_girl_img4.png'),
-//     price: 51,
-//   },
-//   {
-//     id: 1,
-//     title: 'T-Shirt',
-//     color: 'Gray',
-//     image: require('../../assets/image/fashion_boy_img5.png'),
-//     size: 'L',
-//     price: 30,
-//   },
-//   {
-//     id: 2,
-//     title: 'Sport Dress',
-//     color: 'Black',
-//     image: require('../../assets/image/fashion_girl_img6.png'),
-//     size: 'M',
-//     price: 43,
-//   },
-// ];
-
-
-
 export default function My_Bag({ route, navigation }) {
 
   const dispatch = useDispatch();
@@ -63,7 +33,7 @@ export default function My_Bag({ route, navigation }) {
   const ProductA = useSelector(state => state.product);
   const mybag = useSelector(state => state.carts)
   // console.log('productttttttttttttttttt', ProductA.Shopping);
-  console.log('mybagggggggggggghhhkk', JSON.stringify(mybag?.cart[0]?.cart));
+  // console.log('mybagggggggggggghhhkk', JSON.stringify(mybag?.cart[0]?.cart));
   const cartD = mybag?.cart[0]?.cart || []
   const bagdata = cartD.map((v) => {
     const c = ProductA?.Shopping.find((v1) => v1.pid === v.id)

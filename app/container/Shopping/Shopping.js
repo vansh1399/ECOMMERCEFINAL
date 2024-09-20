@@ -80,14 +80,6 @@ export default function Shopping({ route, navigation }) {
 
         return (
             <View>
-                {/* <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => refRBSheet.current[index].open()}
-                >
-                    <Text style={styles.buttonText}>
-                     {item + 1}</Text>
-                </TouchableOpacity> */}
-
                 <RBSheet ref={ref => (refRBSheet.current[index] = ref)}>
                     <View style={styles.bottomSheetContainer}>
                         <View style={styles.bottommini}>

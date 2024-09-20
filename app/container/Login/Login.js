@@ -48,9 +48,7 @@ export default function Login({ route, navigation }) {
                 backgroundColor="#fff"
                 barStyle="dark-content"
             />
-            {/* <View style={{ marginTop: 20 }}>
-                <EvilIcons name="chevron-left" size={45} color="black" />
-            </View> */}
+            
             <Text style={{ fontFamily: 'Metropolis-Bold', fontSize: 40, color: '#222222', margin: 20 }}>
                 Login
             </Text>

@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { subBythunk } from '../../redux/slice/SubCategory.Slice';
 
 export default function CategoriesTwo({ route, navigation }) {
-    console.log("lllll", route);
+    // console.log("lllll", route);
     const dispatch = useDispatch();
     const subCat = useSelector(state => state.subcategories)
-    console.log('jjjjjjjjjj', subCat.subCategories);
+    // console.log('jjjjjjjjjj', subCat.subCategories);
     useEffect(() => {
         dispatch(subBythunk(route.params.cat_id))
     }, [])
@@ -21,12 +21,6 @@ export default function CategoriesTwo({ route, navigation }) {
                 backgroundColor="#fff"
                 barStyle="dark-content"
             />
-
-            {/* <View style={Styles.viewcategories}>
-                <EvilIcons name="chevron-left" size={45} color="black" />
-                <Text style={Styles.categories}>Categories</Text>
-                <FontAwesome name="search" size={22} color="black" />
-            </View> */}
 
             <View>
                 <TouchableOpacity><Text style={Styles.button}>VIEW ALL ITEMS</Text></TouchableOpacity>
@@ -46,29 +40,9 @@ export default function CategoriesTwo({ route, navigation }) {
                                     sub_id: v.id,
                                 })}
                             ><Text style={Styles.product}>{v.name}</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Shirts & Blouses</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Cardigans & Sweaters</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Knitwear</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Blazers</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Outerwear</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Pants</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Jeans</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Shorts</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Skirts</Text></TouchableOpacity>
-                            // <TouchableOpacity><Text style={Styles.product}>Dresses</Text></TouchableOpacity>
                         ))
-
                 }
-
             </View>
-
-            {/* <View>
-                <Tab.Navigator>
-                    <Tab.Screen name="Login" component={Login} />
-                    <Tab.Screen name="Signup" component={Signup} />
-                </Tab.Navigator>
-            </View> */}
-
         </ScrollView>
     )
 }

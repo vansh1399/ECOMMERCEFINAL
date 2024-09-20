@@ -11,7 +11,7 @@ const initialState = {
 export const shippingAddByget = createAsyncThunk(
     'shippingAddress/shippingAddByget',
     async (data) => {
-        console.log('databkkkkkk', data);
+        // console.log('databkkkkkk', data);
 
         try {
             const shipingData = [];
@@ -44,7 +44,7 @@ export const shippingAddByget = createAsyncThunk(
                     if (documentSnapshot.exists) {
                         addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     }
-                    console.log('getcartttttt', addshipData);
+                    // console.log('getcartttttt', addshipData);
 
                 });
             return addshipData
@@ -59,7 +59,7 @@ export const shippingAddByget = createAsyncThunk(
 export const addshippingByget = createAsyncThunk(
     'shippingAddress/getCart',
     async (id) => {
-        console.log('iddddddddd', id);
+        // console.log('iddddddddd', id);
 
         const addshipData = [];
 
@@ -73,7 +73,7 @@ export const addshippingByget = createAsyncThunk(
                     if (documentSnapshot.exists) {
                         addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     }
-                    console.log('getcartttttt', addshipData);
+                    // console.log('getcartttttt', addshipData);
 
 
                 });
@@ -112,7 +112,7 @@ export const deleteShipping = createAsyncThunk(
                     if (documentSnapshot.exists) {
                         addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     }
-                    console.log('getcartttttt', addshipData);
+                    // console.log('getcartttttt', addshipData);
 
                 });
             return addshipData
@@ -156,7 +156,7 @@ export const editShipping = createAsyncThunk(
                     if (documentSnapshot.exists) {
                         addshipData.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                     }
-                    console.log('getcartttttt', addshipData);
+                    // console.log('getcartttttt', addshipData);
 
 
                 });

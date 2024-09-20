@@ -65,7 +65,6 @@ const data = [
 //     }
 // ]
 
-
 export default function FavouritePage({ route, navigation }) {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -74,25 +73,25 @@ export default function FavouritePage({ route, navigation }) {
     }, [])
 
     const shoppingA = useSelector(state => state.product);
-    console.log('shoppppppppp', shoppingA.Shopping);
+    // console.log('shoppppppppp', shoppingA.Shopping);
 
     const favouriteA = useSelector(state => state.fav)
-    console.log('fffffffffav', favouriteA.favourite);
+    // console.log('fffffffffav', favouriteA.favourite);
 
     const favouritesData = shoppingA.Shopping.filter((v) => {
         if (favouriteA.favourite.some((v1) => v1.pid === v.id)) {
             return v;
         }
     })
-    console.log('fdddddddd', favouritesData);
+    // console.log('fdddddddd', favouritesData);
 
     const ProductCard = ({ v }) => (
 
         <View style={styles.CategorisView}>
             <View style={styles.Options}><Text style={styles.OptionsText}>{v.title}</Text></View>
-
         </View>
     )
+
     const ProductData = ({ v }) => (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
@@ -125,18 +124,16 @@ export default function FavouritePage({ route, navigation }) {
             </TouchableOpacity>
         </View>
     )
+
     return (
         <ScrollView style={styles.container}>
+
             <StatusBar
                 animated={true}
                 translucent backgroundColor="transparent"
                 barStyle="dark-content"
             />
-            <View style={styles.ArrowView}>
-                {/* 
-                <Text style={styles.ArrowText}>Favorites</Text>
-                <TouchableOpacity><MaterialIcons name="search" size={30} color="black" style={{ marginTop: 25 }} /></TouchableOpacity> */}
-            </View>
+
             <View style={{ backgroundColor: 'white', marginBottom: 25 }}>
                 <FlatList
                     data={data}
@@ -158,7 +155,6 @@ export default function FavouritePage({ route, navigation }) {
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 renderItem={({ item }) => <TouchableOpacity><ProductData v={item} /></TouchableOpacity>}
                 keyExtractor={item => item.id}
-            // horizontal={true}
             />
 
         </ScrollView>
@@ -170,20 +166,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: horizontalScale(15),
         backgroundColor: '#F9F9F9'
-    },
-    ArrowView: {
-        width: '100%',
-        // height: verticalScale(80),
-        marginTop: verticalScale(10),
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    ArrowText: {
-        color: 'black',
-        fontSize: moderateScale(23),
-        fontFamily: 'Metropolis-SemiBold',
-        marginTop: verticalScale(25),
-        marginLeft: horizontalScale(150)
     },
     KeyboardArrow: {
         marginTop: verticalScale(16),

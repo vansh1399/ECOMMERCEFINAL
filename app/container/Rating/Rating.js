@@ -135,7 +135,6 @@ export default function Rating() {
                     </View>
 
                     <View style={style.reviewview}>
-                        {/* <Image source={require('../../assets/image/reviewimage.png')} style={style.reviewerimage}></Image> */}
                         <View style={style.review}>
                             <Text style={style.reviewerName}>Helene Moore</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: verticalScale(7) }}>
@@ -294,17 +293,6 @@ const style = StyleSheet.create({
         color: '#aaa',
         marginRight: horizontalScale(10)
     },
-
-    reviewerimage: {
-        width: horizontalScale(32),
-        height: verticalScale(32),
-        position: 'absolute',
-        top: verticalScale(-20),
-        left: horizontalScale(-15),
-
-
-    },
-
     reviewbutton: {
         width: horizontalScale(150),
         paddingTop: 10,

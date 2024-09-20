@@ -38,11 +38,10 @@ function HeaderBarLeft({ navigation }) {
 
 const Tab = createBottomTabNavigator();
 
-
 export default function BottamTab() {
 
     const auth = useSelector(state => state.auth);
-    console.log('authhhhhhhhh', auth.auth);
+    // console.log('authhhhhhhhh', auth.auth);
 
     return (
 

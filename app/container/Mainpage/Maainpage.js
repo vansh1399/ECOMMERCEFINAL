@@ -88,10 +88,10 @@ export default function Maainpage({ route, navigation }) {
 
   const category = useSelector(state => state.categories);
 
-  console.log("sjdjdjdjjdjjd", category);
+  // console.log("sjdjdjdjjdjjd", category);
+
   const ProductCard = ({ v }) => (
     <TouchableOpacity style={{ marginHorizontal: 10 }} onPress={() => { navigation.navigate("ProductCard") }}>
-
       <Image source={v.img} style={{ width: 170, height: 250, borderRadius: 10 }}></Image>
 
       <View style={style.iconview}>
@@ -110,10 +110,9 @@ export default function Maainpage({ route, navigation }) {
         <Text style={style.price}>{v.price}$</Text>
 
       </View>
-
     </TouchableOpacity>
-
   )
+
   return (
     <ScrollView style={style.container}>
       <StatusBar
@@ -182,11 +181,10 @@ export default function Maainpage({ route, navigation }) {
         />
 
       </View>
+
       {category.categories.map((v, i) => {
         return (
           <View key={i}>
-
-
 
             <View>
               <TouchableOpacity onPress={() => navigation.navigate("Categories Two", { cat_id: v.id })}>
@@ -194,15 +192,6 @@ export default function Maainpage({ route, navigation }) {
                 <Text style={style.BlackTextt}>Women</Text>
               </TouchableOpacity>
             </View>
-
-            {/* <View style={style.textsale}>
-            <Text style={style.newcoll}>{v.name}</Text>
-            </View> */}
-            {/* 
-            <View style={style.BlackVieww}>
-                  <Image source={require('../../assets/image/fashion_girl2.jpg')} style={{ width: '100%', height:'50%' }} />
-                  <Text style={style.BlackTextt}>Black</Text>
-                </View> */}
 
             <View style={style.DirectView}>
               <View style={style.SecondView}>
@@ -225,7 +214,6 @@ export default function Maainpage({ route, navigation }) {
             </View>
           </View>
 
-          // </View>
         )
 
       })}
