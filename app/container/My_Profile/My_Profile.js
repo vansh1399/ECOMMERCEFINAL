@@ -15,14 +15,12 @@ import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 import { useDispatch, useSelector } from 'react-redux';
 import { authsignOut } from '../../redux/slice/auth.Slice';
 
-
 export default function My_Profile({ route, navigation }) {
 
   const dispatch = useDispatch();
 
   const auth = useSelector(state => state.auth);
   // console.log('ggggggg', auth.auth);
-
 
   const handleSignOut = () => {
     dispatch(authsignOut());
@@ -34,7 +32,10 @@ export default function My_Profile({ route, navigation }) {
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
 
       <View style={Styles.container}>
-        <Text style={Styles.myProfile}>My Profile</Text>
+        <View style={{marginTop:15}}>
+          <Text style={Styles.myProfile}>My Profile</Text>
+        </View>
+
 
         <View style={Styles.profileHead}>
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>

@@ -71,6 +71,11 @@ import Makemutable from './app/container/Animation/Advanced APIs/makeMutable/Mak
 import Orderstatus from './app/container/Animation/Order status/Orderstatus'
 import Phone_number from './app/container/Phone_number/Phone_number'
 import Profile_Edit from './app/container/Profile_Edit/Profile_Edit'
+import Button from './app/container/Animation/button/Buttton'
+import Buttton from './app/container/Animation/button/Buttton'
+import Button1 from './app/container/Animation/button/Button1'
+import Button2 from './app/container/Animation/button/Button2'
+import Button3 from './app/container/Animation/button/Button3'
 // import My_Profilee from './app/container/My_Profile/My_Profile'
 // import My_Profile from './app/container/My_Profile/My_Profile'
 
@@ -85,6 +90,10 @@ export default function App() {
         </NavigationContainer>
         {/* <Phone_number/> */}
         {/* <Profile_Edit/> */}
+        {/* <Buttton/> */}
+        {/* <Button1/> */}
+        {/* <Button2/> */}
+        {/* <Button3/> */}
         {/* <Forget/> */}
         {/* <BottomSheet/> */}
         {/* <Animation/> */}
