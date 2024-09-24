@@ -1,5 +1,5 @@
 import { View, StyleSheet, TouchableOpacity, Text, FlatList, TextInput, PermissionsAndroid, Image } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -9,7 +9,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImage } from '../../redux/slice/auth.Slice';
+import { getProfileData, uploadImage } from '../../redux/slice/auth.Slice';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 
@@ -27,6 +27,17 @@ export default function Profile_Edit() {
     const auth = useSelector(state => state.auth);
     // console.log('auth1', auth);
 
+    useEffect(() => {
+        dispatch(getProfileData())
+    }, [])
+
+    useEffect(() => {
+        if (auth.auth) {
+            setValues(auth.auth)
+        }
+        dispatch(getProfileData())
+    }, [auth.auth])
+
     let imageSchema = object({
         name: string().matches(/^[a-zA-Z ]{2,30}$/).required('please enter valid name'),
         email: string().matches(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).required('please enter email name'),
@@ -42,11 +53,19 @@ export default function Profile_Edit() {
         validationSchema: imageSchema,
         onSubmit: values => {
             console.log('valuesvalues', values);
-            dispatch(uploadImage({ ...values, path: image, uid: auth.auth.uid }))
+
+            let urlID = ''
+
+            if (image === '') {
+                if (auth.auth?.url) {
+                    urlID = auth.auth?.url
+                }
+            }
+            dispatch(uploadImage({ ...values, url: image, uid: auth.auth.uid }))
         },
     });
 
-    const { handleChange, handleBlur, handleSubmit, values, errors, touched } = formik
+    const { handleChange, handleBlur, handleSubmit, values, errors, touched, setValues } = formik
 
 
     const handleCamera = () => {
@@ -58,6 +77,8 @@ export default function Profile_Edit() {
             console.log('camera', image.path);
             setImage(image.path)
         });
+
+        refRBSheet.current[0]?.close()
     }
 
     const handleGallery = () => {
@@ -69,6 +90,8 @@ export default function Profile_Edit() {
             console.log('gallery', image.path);
             setImage(image.path)
         });
+
+        refRBSheet.current[0]?.close()
     }
 
     const renderItem = ({ item, index, refRBSheet }) => {
@@ -117,7 +140,6 @@ export default function Profile_Edit() {
         );
     };
 
-    // const ErenderItem = ({ item, index, refVBSheet }) => {
     //     return (
     //         <View>
     //             <RBSheet ref={ref => (refVBSheet.current[index] = ref)}>
@@ -275,14 +297,6 @@ export default function Profile_Edit() {
                         keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
-
-                {/* <View style={{ flex: 1 }} >
-                    <FlatList
-                        data={items}
-                        renderItem={(props) => ErenderItem({ ...props, refVBSheet })}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View> */}
 
             </View>
         </View >

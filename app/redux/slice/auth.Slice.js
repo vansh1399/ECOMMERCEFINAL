@@ -85,8 +85,6 @@ export const authloginupEmail = createAsyncThunk(
                         console.log('eeeee');
                     }
 
-
-
                     console.log('User account created & signed in!');
                 })
                 .catch(error => {
@@ -286,44 +284,107 @@ export const uploadImage = createAsyncThunk(
 
         const { auth } = getState();
 
-        const rNo = Math.floor(Math.random() * 10000)
-        // console.log('rNo', rNo);
+        if (data.url === '') {
+            await firestore()
+                .collection('Users')
+                .doc(auth.auth.uid)
+                .update({
+                    url: data.url,
+                    name: data.name,
+                    email: data.email,
+                    Phone: data.Phone
+                })
+                .then(() => {
+                    console.log('User updated!');
+                });
 
-        const arr = data.path.split("/");
-        // console.log('arr', arr[arr.length - 1]);
-
-        const fileName = rNo + arr[arr.length - 1]
-        // console.log('fileName', fileName);
-
-        const reference = await storage().ref('/users/' + fileName);
-        // console.log('reference', reference);
-
-        const task = await reference.putFile(data.path);
-        // console.log('task', task);
-
-        const url = await storage().ref('/users/' + fileName).getDownloadURL();
-        // console.log('url', url);
-
-        await firestore()
-            .collection('Users')
-            .doc(auth.auth.uid)
-            .update({
-                url: url,
+            return {
+                ...auth.auth,
+                url: data.url,
                 name: data.name,
                 email: data.email,
                 Phone: data.Phone
-            })
-            .then(() => {
-                console.log('User updated!');
-            });
+            }
+        } else {
+            const check = data.url.split("/")[0];
 
-        return {
-            ...auth.auth,
-            url: url,
-            name: data.name,
-            email: data.email,
-            Phone: data.Phone
+            if (check === 'https') {
+                await firestore()
+                    .collection('Users')
+                    .doc(auth.auth.uid)
+                    .update({
+                        url: data.url,
+                        name: data.name,
+                        email: data.email,
+                        Phone: data.Phone
+                    })
+                    .then(() => {
+                        console.log('User updated!');
+                    });
+
+                return {
+                    ...auth.auth,
+                    url: data.url,
+                    name: data.name,
+                    email: data.email,
+                    Phone: data.Phone
+                }
+            } else {
+                if (data?.imgName) {
+                    const reference = await storage().ref('/users/' + data?.imgName);
+                    reference.delete();
+                }
+
+                const rNo = Math.floor(Math.random() * 10000)
+                // console.log('rNo', rNo);
+
+                const arr = data.url.split("/");
+                // console.log('arr', arr[arr.length - 1]);
+
+                const fileName = rNo + arr[arr.length - 1]
+                // console.log('fileName', fileName);
+
+                const reference = await storage().ref('/users/' + fileName);
+                // console.log('reference', reference);
+
+                const task = await reference.putFile(data.url);
+                // console.log('task', task);
+
+                const url = await storage().ref('/users/' + fileName).getDownloadURL();
+                // console.log('url', url);
+
+                await firestore()
+                    .collection('Users')
+                    .doc(auth.auth.uid)
+                    .update({
+                        url: url,
+                        name: data.name,
+                        email: data.email,
+                        Phone: data.Phone,
+                        imgName: fileName
+                    })
+                    .then(() => {
+                        console.log('User updated!');
+                    });
+
+                return {
+                    ...auth.auth,
+                    url: url,
+                    name: data.name,
+                    email: data.email,
+                    Phone: data.Phone,
+                    imgName: fileName
+                }
+            }
         }
+    }
+)
+
+export const getProfileData = createAsyncThunk(
+    'auth/getProfileData',
+    async () => {
+        const user = await firestore().collection('Users').doc(auth.auth.uid).get();
+        return { ...user.data(), uid: auth.auth.uid }
     }
 )
 
@@ -361,6 +422,10 @@ export const authSlice = createSlice({
         })
         builder.addCase(uploadImage.fulfilled, (state, action) => {
             console.log('uploadImage', action.payload);
+            state.auth = action.payload
+        })
+        builder.addCase(getProfileData.fulfilled, (state, action) => {
+            console.log('getProfileData', action.payload);
             state.auth = action.payload
         })
     }
