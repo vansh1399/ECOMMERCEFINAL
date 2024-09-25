@@ -1,92 +1,92 @@
-//useAnimatedScrollHandler//
+// //useAnimatedScrollHandler//
 
-import React from 'react';
-import { View, StyleSheet, TextInput, SafeAreaView } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedProps,
-  useAnimatedScrollHandler,
-} from 'react-native-reanimated';
+// import React from 'react';
+// import { View, StyleSheet, TextInput, SafeAreaView } from 'react-native';
+// // import Animated, {
+// //   useSharedValue,
+// //   useAnimatedProps,
+// //   useAnimatedScrollHandler,
+// // } from 'react-native-reanimated';
 
-const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+// const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-const Content = () => {
+// const Content = () => {
    
-//   const BRAND_COLORS = ['#b58df1','#fa7f7c'];
-const BRAND_COLORS = ['',''];
+// //   const BRAND_COLORS = ['#b58df1','#fa7f7c'];
+// const BRAND_COLORS = ['',''];
 
 
-  const content = BRAND_COLORS.map((color, index) => (
-    <View
-      key={index}
-      style={[
-        styles.section,
-        {
-          backgroundColor: color,
-        },
-      ]}
-    />
-  ));
+//   const content = BRAND_COLORS.map((color, index) => (
+//     <View
+//       key={index}
+//       style={[
+//         styles.section,
+//         {
+//           backgroundColor: color,
+//         },
+//       ]}
+//     />
+//   ));
 
-  return <View style={styles.container}>{content}</View>;
-};
+//   return <View style={styles.container}>{content}</View>;
+// };
 
-export default function ScrollExample() {
-  const offsetX = useSharedValue(0);
+// export default function ScrollExample() {
+//   const offsetX = useSharedValue(0);
 
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: (event) => {
-      offsetX.value = event.contentOffset.y;
-    },
-    onMomentumBegin: (e) => {
-      console.log('The list is moving.');
-    },
-    onMomentumEnd: (e) => {
-      console.log('The list stopped moving.');
-    },
-  });
+//   const scrollHandler = useAnimatedScrollHandler({
+//     onScroll: (event) => {
+//       offsetX.value = event.contentOffset.y;
+//     },
+//     onMomentumBegin: (e) => {
+//       console.log('The list is moving.');
+//     },
+//     onMomentumEnd: (e) => {
+//       console.log('The list stopped moving.');
+//     },
+//   });
 
-  const offsetAnimatedProps = useAnimatedProps(() => {
-    return {
-      text: `Scroll offset: ${Math.round(offsetX.value)}px`,
-      defaultValue: `Scroll offset: ${offsetX.value}x`,
-    };
-  });
+//   const offsetAnimatedProps = useAnimatedProps(() => {
+//     return {
+//       text: `Scroll offset: ${Math.round(offsetX.value)}px`,
+//       defaultValue: `Scroll offset: ${offsetX.value}x`,
+//     };
+//   });
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <AnimatedTextInput
-        animatedProps={offsetAnimatedProps}
-        editable={false}
-        style={styles.header}
-      />
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <AnimatedTextInput
+//         animatedProps={offsetAnimatedProps}
+//         editable={false}
+//         style={styles.header}
+//       />
 
-      <Animated.ScrollView onScroll={scrollHandler}>
-        <Content />
-      </Animated.ScrollView>
-    </SafeAreaView>
-  );
-}
+//       <Animated.ScrollView onScroll={scrollHandler}>
+//         <Content />
+//       </Animated.ScrollView>
+//     </SafeAreaView>
+//   );
+// }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 10,
-    height: 350,
-  },
-  header: {
-    backgroundColor: '#f8f9ff',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    textAlign: 'center',
-    fontFamily: 'Aeonik',
-    color: '#001a72',
-    marginTop: '-1px',
-  },
-  section: {
-    borderWidth:2,
-    height: 150,
-    borderRadius: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     paddingHorizontal: 10,
+//     height: 350,
+//   },
+//   header: {
+//     backgroundColor: '#f8f9ff',
+//     paddingVertical: 16,
+//     paddingHorizontal: 16,
+//     textAlign: 'center',
+//     fontFamily: 'Aeonik',
+//     color: '#001a72',
+//     marginTop: '-1px',
+//   },
+//   section: {
+//     borderWidth:2,
+//     height: 150,
+//     borderRadius: 20,
+//     marginVertical: 10,
+//     marginHorizontal: 20,
+//   },
+// });

@@ -6,13 +6,13 @@ import {
     StyleSheet,
     Button,
 } from 'react-native';
-import Animated, {
-    interpolate,
-    interpolateColor,
-    useAnimatedStyle,
-    useSharedValue,
-    withTiming,
-} from 'react-native-reanimated';
+// import Animated, {
+//     interpolate,
+//     interpolateColor,
+//     useAnimatedStyle,
+//     useSharedValue,
+//     withTiming,
+// } from 'react-native-reanimated';
 
 const Switch = ({
     value,

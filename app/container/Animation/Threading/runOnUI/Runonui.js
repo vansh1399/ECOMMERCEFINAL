@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import Animated, {
-    runOnJS,
-    measure,
-    useAnimatedRef,
-    runOnUI,
-} from 'react-native-reanimated';
+// import Animated, {
+//     runOnJS,
+//     measure,
+//     useAnimatedRef,
+//     runOnUI,
+// } from 'react-native-reanimated';
 
 function MeasurableText(props) {
 
